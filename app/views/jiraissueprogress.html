@@ -1,0 +1,10 @@
+<div class="wallboard-unit container-fluid onecolor">
+    <div class="wallboard-info-jiraprogress row">
+        <div class="col-md-3">{{name}} <p>({{total}} Issues)</p></div>
+        <div class="col-md-9">
+            <uib-progressbar max="total" value="resolved" class="progress-striped active" type="success">
+                {{resolved}} / {{total}}
+            </uib-progressbar>
+        </div>
+    </div>
+</div>

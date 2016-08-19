@@ -1,0 +1,23 @@
+[
+    {
+        "id": "2",
+        "date": "2013-07-23",
+        "wholeWeek": true,
+        "description": "Ein Wochen-Termin",
+        "href": "termine/2"
+    },
+    {
+        "id": "2",
+        "date": "2013-07-24",
+        "wholeWeek": false,
+        "description": "Der übernächste Build",
+        "href": "termine/3"
+    },
+    {
+        "id": "1",
+        "date": "2013-07-23",
+        "wholeWeek": false,
+        "description": "Der nächste Build",
+        "href": "termine/1"
+    }
+]

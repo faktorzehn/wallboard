@@ -1,0 +1,47 @@
+<div class="wallboard-unit container-fluid sonar {{severities|goodBadIssue}}">
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="totalcount"><a href="{{totalLink}}" target="_blank">{{totalIssues}}</a></div>
+        </div>
+        <div class="col-md-9">
+            <span>Unassigned Issues (last {{createdbefore}} days)</span>
+            <h2 class="unit-title">{{projectName}}</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="new-issues-list">
+                <li ng-repeat="issue in issues">
+                <span class="">{{issue.severity}} - <a href="{{issueLink + issue.key}}"
+                                                       target="_blank">{{issue.component}}</a></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row issue-overview">
+        <div class="col-md-2 col-md-offset-1">
+            <div class="type">Blocker</div>
+            <div class="count"><a href="{{totalLink + 'BLOCKER'}}" target="_blank">{{severities.BLOCKER|zeroChar}}</a></div>
+        </div>
+        <div class="col-md-2">
+            <div class="type">Critical</div>
+            <div class="count"><a href="{{totalLink + 'CRITICAL'}}" target="_blank">{{severities.CRITICAL|zeroChar}}</a></div>
+        </div>
+        <div class="col-md-2">
+            <div class="type">Major</div>
+            <div class="count"><a href="{{totalLink + 'MAJOR'}}" target="_blank">{{severities.MAJOR|zeroChar}}</a></div>
+        </div>
+        <div class="col-md-2">
+            <div class="type">Minor</div>
+            <div class="count"><a href="{{totalLink + 'MINOR'}}" target="_blank">{{severities.MINOR|zeroChar}}</a></div>
+        </div>
+        <div class="col-md-2">
+            <div class="type">Info</div>
+            <div class="count"><a href="{{totalLink + 'INFO'}}" target="_blank">{{severities.INFO|zeroChar}}</a></div>
+        </div>
+    </div>
+
+</div>

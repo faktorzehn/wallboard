@@ -1,0 +1,13 @@
+<div class="wallboard-unit {{groupby | jiraissuecountColor}}">
+    <div class="wallboard-info-jira">{{name}}</div>
+    <div class="table-responsive">
+        <table class="table jiracount">
+            <tbody>
+            <tr ng-repeat="element in data | orderBy: '-value' | limitTo: maxrow | jiraissuecountSort:minvalue">
+                <td>{{element.name}}</td>
+                <td align="right"><a target="_blank" href="{{jiraLink + element.linkField}}">{{element.value}}</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

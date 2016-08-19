@@ -1,0 +1,29 @@
+<div class="wallboard-unit sonar container-fluid {{trend|goodBad}}">
+
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="unit-title">{{name}}</h2>
+
+            <div class="totalcount">{{metricResult.msr[0].val}}<span class="unit">{{unit}}</span></div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <div class="unit-trend">{{metricResult.msr[0].var2 - metricResult.msr[0].var1 | round:2}}{{unit}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="details">
+                <span>Analyse Build: </span>
+                <a href="{{analyseBuildUrl}}" target="_blank">#{{metricResult.date | date: 'dd.MM HH:mm' }}</a>
+                <span>{{metricResult.date|timeago}}</span>
+            </div>
+        </div>
+        <div class="wallboard-last-build col-md-12" ng-show="lastBuild.result=='FAILURE'">
+            <div class="warning"></div>
+            <span>LAST BUILD FAILD! ({{lastBuild.fullDisplayName}})</span>
+        </div>
+    </div>
+
+</div>

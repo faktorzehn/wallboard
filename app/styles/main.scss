@@ -1,0 +1,661 @@
+/**
+ * Wallboard - Tool to improve the productivity of developers.
+ * Copyright (C) 2016 ConVista Faktor Zehn GmbH
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+/******************************************************************************
+ IMPORTS
+ *****************************************************************************/
+@import "reset";
+
+/******************************************************************************
+ COLOR DEFINITIONS
+ *****************************************************************************/
+$l-f10-blue: #005596;
+$l-f10-blue-light: #66BBFC;
+
+$l-light-grey: #858585;
+
+$l-background-color: #2B2E36;
+$l-text-color: white;
+$l-wallboard-width: auto;
+
+$l-unit-border-bad: red;
+$l-unit-bg-bad: darkred;
+$l-unit-border-good: greenyellow;
+$l-unit-bg-good: green;
+$l-unit-border-neutral: green;
+$l-unit-bg-neutral: darkgreen;
+$l-unit-border-failure: yellow;
+$l-unit-bg-failure: #AEB404;
+$l-unit-border-onecolor: black;
+$l-unit-bg-onecolor: gray;
+$l-unit-border-termin: lightblue;
+$l-unit-bg-termin: darkblue;
+
+$l-wallboard-min-width-number: 35%;
+$l-wallboard-min-width-info: 30%;
+
+$l-termin-background-color: #001F00;
+$l-termin-inactive-color: #43A52E;
+$l-termin-active-color: lightgrey;
+
+@font-face {
+    font-family: "Helvetica Neue";
+    local: "Helvetica Neue";                // Erst nachsehen, ob die Schrift
+    // beim Besucher schon installiert ist
+    src: url(fonts/helveticaneue-webfont.ttf);  // Wenn nicht, wird die Schrift vom
+    // Webserver geladen
+}
+
+/******************************************************************************
+ BASE STYLES
+ *****************************************************************************/
+html, body {
+    font-family: "Helvetica Neue", sans-serif;
+    height: 100%;
+    background-color: $l-background-color;
+    color: $l-text-color;
+    overflow: hidden;
+}
+
+a {
+    color: #ffffff;
+    transition: all 0.2s linear;
+    &:hover {
+        color: $l-f10-blue-light;
+    }
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    background: url(../images/bg/px.png);
+    //border-top: 1px solid #4D5058;
+    color: $l-light-grey;
+    width: 100%;
+    text-align: center;
+    padding: 0.3em 0;
+    a {
+        color: $l-light-grey;
+        text-decoration: underline;
+    }
+}
+
+/******************************************************************************
+ WALLBOARD
+ *****************************************************************************/
+.wallboard {
+    background-color: $l-background-color;
+    background: url(../images/bg/px.png);
+    height: 100%;
+    overflow: auto;
+    padding: 20px 0 20px 0;
+    .container-fluid.showMenu {
+        padding-top: 50px;
+        padding-bottom: 20px;
+    }
+}
+
+.wallboard-title {
+    h1 {
+        font-size: 1.5rem;
+        font-weight: bolder;
+        color: $l-f10-blue-light;
+        margin: 0.25rem 0;
+    }
+    .version {
+        font-size: 1rem;
+        margin: 0.25rem 0;
+    }
+    .services {
+        font-size: 1rem;
+    }
+}
+
+.wallboard-row {
+    color: $l-text-color;
+    line-height: normal;
+    margin-bottom: 1rem;
+}
+
+/******************************************************************************
+ NAVBAR
+ *****************************************************************************/
+nav {
+    &.navbar-default {
+        color: $l-light-grey;
+    }
+    a {
+        cursor: pointer;
+    }
+    .navbar-header .navbar-brand,
+    .navbar-header .navbar-brand:hover,
+    .navbar-nav li a {
+        background-color: $l-f10-blue;
+        color: transparent;
+        text-shadow: 0px 2px 3px rgba(255,255,255,0.5);
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+        background-clip: text;
+    }
+    .navbar-header .navbar-brand {
+        font-size: 2em;
+        font-weight: bold;
+    }
+    .navbar-nav li.active {
+        font-weight: bold;
+    }
+}
+
+.switch {
+    width: 42px;
+    height: 20px;
+    margin-top: 8px;
+    small {
+        width: 20px;
+        height: 20px;
+    }
+    &.checked {
+        background-color: $l-unit-bg-good;
+        border-color: $l-unit-border-good;
+        small {
+        }
+    }
+}
+
+
+
+/******************************************************************************
+ JOB
+ *****************************************************************************/
+.wallboard-unit-job {
+    padding: 0.25rem;
+
+    .very-bad {
+        background: url(../images/weather-storm.png) no-repeat;
+        background-size: contain;
+    }
+    .bad {
+        background: url(../images/weather-showers-scattered.png) no-repeat;
+        background-size: contain;
+    }
+    .not-bad {
+        background: url(../images/weather-overcast.png) no-repeat;
+        background-size: contain;
+    }
+    .good {
+        background: url(../images/weather-few-clouds-128.png) no-repeat;
+        background-size: contain;
+    }
+    .very-good {
+        background: url(../images/weather-clear.png) no-repeat;
+        background-size: contain;
+    }
+    .fail {
+        background: url(../images/weather-severe-alert-128.png) no-repeat;
+        background-size: contain;
+    }
+
+    .wallboard-unit-job-status {
+        display: inline-block;
+        vertical-align: middle;
+        height: 1.5rem;
+        width: 1.5rem;
+        &.danger {
+            background: url(../images/big-exclamation-red.png) no-repeat;
+            background-size: contain;
+        }
+        &.warning, .info {
+            background: url(../images/medal_yellow.png) no-repeat;
+            background-size: contain;
+        }
+        &.success {
+            background: url(../images/medal_green.png) no-repeat;
+            background-size: contain;
+        }
+    }
+
+    .largeWeather {
+        height: 4rem;
+        width: 4rem;
+    }
+
+    .wallboard-unit-job-title {
+        display: inline-block;
+        vertical-align: middle;
+        width: 100%;
+        border-bottom: 1px solid $l-light-grey;
+        margin-bottom: 0.4rem;
+    }
+
+    .progress {
+        height: 0.5rem;
+        width: 100%;
+        margin-top: 0.5rem;
+    }
+
+    h3 {
+        font-size: 1.5rem;
+        display: inline-block;
+    }
+
+    &.small {
+        h3 {
+            font-size: 1rem;
+        }
+        .wallboard-unit-job-status {
+            width: 1rem;
+            height: 1rem;
+        }
+        .largeWeather {
+            height: 3rem;
+            width: 3rem;
+        }
+    }
+
+}
+
+/******************************************************************************
+ UNIT
+ *****************************************************************************/
+.wallboard-unit {
+    width: $l-wallboard-width;
+    padding: 0.5rem;
+    margin-bottom: 1em;
+    border: 2px solid $l-unit-border-neutral;
+    background-color: $l-unit-bg-neutral;
+
+    .unit-trend {
+        font-size: 1.2rem;
+        background-size: contain;
+        width: 100%;
+        height: 100%;
+        float: left;
+        background-repeat: no-repeat;
+        background-position: center;
+        text-align: center;
+        line-height: 4rem;
+    }
+
+    &.good {
+        border-color: $l-unit-border-good;
+        background-color: $l-unit-bg-good;
+        .details {
+            border-top: 1px solid $l-unit-border-good;
+            color: $l-unit-border-good;
+        }
+        .unit-trend {
+            background-image: url(../images/trend-good.png);
+        }
+    }
+
+    &.neutral {
+        border-color: $l-unit-border-neutral;
+        background-color: $l-unit-bg-neutral;
+        .details {
+            border-top: 1px solid $l-unit-border-good;
+            color: $l-unit-border-good;
+        }
+        .unit-trend {
+            background-image: url(../images/trend-neutral.png);
+        }
+    }
+
+    &.bad {
+        border-color: $l-unit-border-bad;
+        background-color: $l-unit-bg-bad;
+        .details {
+            border-top: 1px solid $l-unit-border-bad;
+            color: $l-unit-border-bad;
+        }
+        .unit-trend {
+            background-image: url(../images/trend-bad.png);
+        }
+    }
+
+    &.onecolor {
+        border-color: $l-unit-border-onecolor;
+        background-color: $l-unit-bg-onecolor;
+    }
+
+    &.failure {
+        border-color: $l-unit-border-failure;
+        background-color: $l-unit-bg-failure;
+    }
+
+    &.termin {
+        border-color: $l-unit-border-termin;
+        background-color: $l-unit-bg-termin;
+    }
+
+    .totalcount {
+        font-size: 2rem;
+        display: inline-block;
+        min-width: $l-wallboard-min-width-number;
+    }
+
+    .unit-title {
+        font-size: 1.3rem;
+    }
+
+    .details {
+        font-size: 0.7rem;
+        margin-top: 0.25rem;
+    }
+
+}
+.wallboard-unit-table {
+    margin-bottom: 1em;
+}
+
+.wallboard-unit ul.failed-test-list,
+.wallboard-unit ul.new-issues-list {
+    max-height: 10rem;
+    overflow: auto;
+    margin: 1rem 0;
+    font-size: 0.7rem;
+}
+
+.wallboard-unit.sonar {
+    .issue-overview {
+        .type,
+        .count {
+            width: 100%;
+            text-align: center;
+        }
+        .type {
+            font-size: 0.7rem;
+        }
+    }
+}
+
+.wallboard-unit.jira {
+    .totalcount {
+        font-size: 6rem;
+        text-align: center;
+        min-width: 35%;
+    }
+}
+
+.wallboard-unit.jenkins {
+    div.culprits {
+        display: inline;
+    }
+}
+
+/******************************************************************************
+ ISSUE TABLE
+ *****************************************************************************/
+table.issues {
+    font-size: 1.5em;
+    background-color: $l-unit-bg-good;
+    border: 2px solid $l-unit-border-good;
+    margin: 0;
+
+    &.bad {
+        background-color: $l-unit-bg-bad;
+        border-color: $l-unit-border-bad;
+    }
+
+    thead {
+        font-size: 0.8em;
+        th {
+            border: none;
+            &.severity {
+                text-align: center;
+            }
+        }
+    }
+
+    .zero {
+        color: white;
+    }
+
+    tr {
+        &.bad {
+            background-color: $l-unit-bg-bad;
+            td {
+                border-top: 1px solid $l-unit-border-bad;
+                border-bottom: 1px solid $l-unit-border-bad;
+            }
+        }
+        &.empty {
+            background-color: $l-unit-bg-good;
+            td {
+                border-top: 1px solid $l-unit-border-good;
+                border-bottom: 1px solid $l-unit-border-good;
+            }
+        }
+        &.tolerable {
+            background-color: $l-unit-bg-neutral;
+            td {
+                border-top: 1px solid $l-unit-border-neutral;
+                border-bottom: 1px solid $l-unit-border-neutral;
+            }
+        }
+    }
+
+    td {
+        &.severity {
+            text-align: center;
+        }
+        a {
+            width: 100%;
+            display: block;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+        &.user {
+            text-align: left;
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+
+/******************************************************************************
+ TODO UEBERARBEITEN
+ *****************************************************************************/
+
+div.wallboard-info-jira {
+    font-size: 1.8rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.wallboard-info-jiraprogress {
+    font-size: 1.5em;
+    height: 3em;
+    line-height: 1.5em;
+    .progress{
+        background: #e6e6e6;
+        border: 1px solid whitesmoke;
+        height: 3em;
+        line-height: 3em;
+        margin: 0;
+        .progress-bar {
+            font-size: 1em;
+            line-height: inherit;
+        }
+    }
+}
+
+div.jiraText {
+    text-align: right;
+    text-decoration: underline;
+}
+
+table.milestonetable,
+table.jiracount {
+    font-size: 1.6rem;
+    margin-top: 0.5em;
+    .danger {
+        color: black;
+    }
+    tr>td {
+        border: none;
+    }
+}
+
+.jiracount {
+
+    .key {
+        width: 85%;
+        display: inline-block;
+        font-size: 1.8rem;
+        padding-top: 0.8rem;
+    }
+
+    .value {
+        display: inline-block;
+        font-size: 1.8rem;
+    }
+
+    .value > a {
+        font-style: normal;
+    }
+}
+
+.wallboard-termine-title {
+    font-size: 4rem;
+    display: inline-block;
+    min-width: $l-wallboard-min-width-info;
+}
+
+.wallboard-termin-block {
+    display: inline-block;
+    border: 1px solid #43a52e;
+    padding: 1em;
+    margin-bottom: 1em;
+    background-color: $l-termin-background-color;
+    color: $l-termin-inactive-color;
+}
+
+.today {
+    color: $l-termin-active-color;
+}
+
+.margin {
+    > div {
+        margin-top: 20px;
+    }
+}
+
+.fail-count {
+    font-weight: bolder;
+
+}
+
+#branch-jobs {
+    > job {
+        margin: 0;
+    }
+}
+
+#analysises {
+    > analysissonar {
+        margin: 0;
+        padding-right: 1em;
+    }
+}
+
+#testreports {
+    > testreport {
+        margin: 0;
+        padding-right: 1em;
+    }
+}
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 0, 0, 0.8);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255, 0, 0, 0.4);
+}
+
+.column2 {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+
+    -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 40px; /* Firefox */
+    column-gap: 40px;
+
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid;
+}
+
+/* NewIssues component styles */
+.newissueTable > tbody > tr > td {
+    border: none;
+    padding-bottom: 0;
+    font-size: 1.5rem;
+}
+
+/* Very large desktop */
+@media (min-width: 1600px) {
+    html {
+        font-size: 150%;
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 980px) and (max-width: 1599px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+
+}
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+
+}
+
+/* Landscape phones and down */
+@media (max-width: 480px) {
+
+}

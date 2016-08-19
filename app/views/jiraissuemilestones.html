@@ -1,0 +1,12 @@
+<div class="wallboard-unit onecolor">
+    <div class="wallboard-info-jira">{{name}}</div>
+    <table class="table milestonetable">
+        <tbody>
+        <tr class="{{milestone.datum | milestoneAlert}}" ng-repeat="milestone in list | orderBy:'-datum':true | limitTo: maxrows">
+            <td>{{milestone.epicName}}</td>
+            <td>{{milestone.milestoneName}}</td>
+            <td>{{milestone.datum | amCalendar}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

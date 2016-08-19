@@ -1,0 +1,45 @@
+<div class="wallboard-unit jenkins container-fluid {{testReportLastSuccessfulBuild.failCount|goodBad}}">
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="totalcount">{{testReportLastSuccessfulBuild.failCount}}</div>
+        </div>
+        <div class="col-md-8">
+            <span>Failed Tests</span>
+            <h2 class="unit-title">{{name}}</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+                <ul class="failed-test-list">
+                    <li ng-repeat="childReport in testReportLastSuccessfulBuild.childReports|mavenArtifactOrder|orderBy:'-result.failCount'">
+                        <a href="{{childReport.child.url}}testReport/"
+                           target="_blank">{{childReport.child.url|mavenArtifactName}}</a>
+                        <span> - </span>
+                        <span class="fail-count">{{childReport.result.failCount}}</span>
+                    </li>
+                </ul>
+        </div>
+    </div>
+
+    <div ng-show="testReportLastSuccessfulBuild.failCount">
+            <div class="culprits" ng-repeat="culprit in lastSuccessfulBuild.culprits">{{culprit.fullName}}<span ng-show="!$last">, </span></div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="details">
+                <div>
+                    Build: <a href="{{lastSuccessfulBuild.url}}" target="_blank">#{{lastSuccessfulBuild.number}}</a>
+                    {{lastSuccessfulBuild.timestamp|timeago}}
+                </div>
+                <div class="wallboard-last-build" ng-show="lastBuild.result=='FAILURE'">
+                    <img>
+                    <span>LAST BUILD FAILED! ({{lastBuild.fullDisplayName}})</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

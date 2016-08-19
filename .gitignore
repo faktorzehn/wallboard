@@ -1,0 +1,15 @@
+.idea
+.sass-cache
+.tmp
+
+archive
+dist
+node_modules
+
+app/components
+app/styles/main.css
+
+# ignore all configuration files since they may contain sensitive data
+app/conf/*.json
+# but we will keep the example configuration
+!app/conf/config-example.json
