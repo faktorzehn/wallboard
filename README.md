@@ -15,8 +15,6 @@ Once you have built a release version or a patch you can copy it to your webserv
 
 ## Contributors
 
-The main purpose of this repository is to continue to evolve React core, making it faster and easier to use.
-
 ### Building Your Copy of Wallboard
 
 #### Prerequisites
@@ -33,6 +31,7 @@ Once you have the repository cloned, building a copy of the Wallboard is really 
 # grunt-cli is needed by grunt; you might have this installed already
 npm install -g grunt-cli
 npm install
+bower update
 grunt build
 ```
 
