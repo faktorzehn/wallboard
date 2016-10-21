@@ -1,0 +1,19 @@
+<div class="wallboard-unit sonar quality-gate container-fluid {{level|qualitygateLevel}}">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="unit-title">{{name}}</h2>
+        </div>
+    </div>
+    <div class="row" ng-show="level != 'OK'">
+        <div class="col-md-12" ng-repeat="condition in conditions" ng-show="condition.level != 'OK'">
+            <svg class="metric-level" width="14" height="14">
+                <circle cx="7" cy="7" r="6" stroke="white" fill="{{condition.level|levelColor}}" />
+                {{condition.level}}
+            </svg>
+            <div class="metric-name">{{condition.metric}}</div>
+            <!--<div class="metric-actual">{{condition.actual}}</div>-->
+        </div>
+    </div>
+
+</div>

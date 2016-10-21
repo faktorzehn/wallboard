@@ -40,6 +40,21 @@ angular.module('wallboardApp')
                 });
             },
 
+            getQualityGate = function(project) {
+                var url = uri + '/api/resources',
+                    params = {
+                        resource: project,
+                        metrics: 'quality_gate_details'
+                    };
+                return $resource(url, params, {
+                    get: {
+                        method: 'GET',
+                        isArray: true,
+                        headers: {Authorization: 'Basic ' + token}
+                    }
+                });
+            },
+
             getNewIssues = function (project, createdbefore) {
                 var url = uri + '/api/issues/search',
                     params = {
@@ -113,6 +128,7 @@ angular.module('wallboardApp')
             getNewIssues: getNewIssues,
             getIssues: getIssues,
             getUsers: getUsers,
+            getQualityGate: getQualityGate,
             uri: uri
         };
 

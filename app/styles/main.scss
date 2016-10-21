@@ -36,6 +36,8 @@ $l-wallboard-width: auto;
 
 $l-unit-border-bad: red;
 $l-unit-bg-bad: darkred;
+$l-unit-border-warn: yellow;
+$l-unit-bg-warn: #AEB404;
 $l-unit-border-good: greenyellow;
 $l-unit-bg-good: green;
 $l-unit-border-neutral: green;
@@ -328,6 +330,15 @@ nav {
         }
     }
 
+    &.warn {
+        border-color: $l-unit-border-warn;
+        background-color: $l-unit-bg-warn;
+        .details {
+            border-top: 1px solid $l-unit-border-warn;
+            color: $l-unit-border-warn;
+        }
+    }
+
     &.onecolor {
         border-color: $l-unit-border-onecolor;
         background-color: $l-unit-bg-onecolor;
@@ -351,6 +362,7 @@ nav {
 
     .unit-title {
         font-size: 1.3rem;
+        margin-bottom: 0.3rem;
     }
 
     .details {
@@ -395,6 +407,22 @@ nav {
 .wallboard-unit.jenkins {
     div.culprits {
         display: inline;
+    }
+}
+
+.quality-gate {
+    .metric-name {
+        //width: 60%;
+        display: inline-block;
+    }
+    .metric-level {
+        //width: 10%;
+        vertical-align: middle;
+    }
+    .metric-actual {
+        //width: 20%;
+        display: inline-block;
+        text-align: right;
     }
 }
 
