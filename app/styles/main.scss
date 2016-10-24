@@ -135,11 +135,13 @@ footer {
     margin-bottom: 1rem;
 }
 
-.wallboard-column {
-    .metadata {
-        margin-bottom: 1rem;
-        background-color: rgba(10,10,10,0.2);
-    }
+.wallboard-column .wrapper,
+.usertext {
+    margin-bottom: 1rem;
+    background-color: rgba(10,10,10,0.2);
+}
+.wallboard-column,
+.usertext {
     .title {
         font-size: 1.5rem;
         font-weight: bold;

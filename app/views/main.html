@@ -36,7 +36,7 @@
     <div ng-repeat="row in projects[selectedProject].rows" class="row wallboard-row">
         <!-- columns -->
         <div ng-repeat="column in row.columns" class="wallboard-column col-md-{{column.width}}">
-            <div class="metadata">
+            <div class="wrapper">
                 <h2 ng-if="column.title" class="title">{{column.title}}</h2>
                 <p ng-if="column.description" class="description">{{column.description}}</p>
             </div>

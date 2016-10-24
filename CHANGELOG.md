@@ -4,8 +4,13 @@ This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 
 ## [unreleased]
 ### Added
+- new widget for user specific text
 - column title and description
 - added example configuration config-example.json
+### Changed
+- changed project structure for widgets and directives for better 
+organization.
+- changed widget names for better organization
 
 ## [1.1.0] - 2016-10-24
 ### Added
