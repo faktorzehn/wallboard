@@ -135,6 +135,23 @@ footer {
     margin-bottom: 1rem;
 }
 
+.wallboard-column {
+    .metadata {
+        margin-bottom: 1rem;
+        background-color: rgba(10,10,10,0.2);
+    }
+    .title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 0.5rem 1rem;
+    }
+    .description {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+        border-top: 1px solid rgba(100,100,100,0.5);
+    }
+}
+
 /******************************************************************************
  NAVBAR
  *****************************************************************************/

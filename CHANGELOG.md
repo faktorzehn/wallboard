@@ -4,6 +4,7 @@ This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 
 ## [unreleased]
 ### Added
+- column title and description
 - added example configuration config-example.json
 
 ## [1.1.0] - 2016-10-24
