@@ -19,51 +19,43 @@
 'use strict';
 
 angular.module('wallboardApp')
-    .directive('qualitygatesonar', function ($interval, sonar, $log, wconfig) {
+    .directive('jira.issue', function ($interval, jira, wconfig, $log) {
 
         function link(scope, element, attrs) {
 
-            function loadResult() {
-                var Sonar = sonar.getQualityGate(scope.project);
+            scope.issueNumber = 0;
 
-                var metrics = Sonar.get(function () {
-                    if (metrics[0]) {
-                        var data = JSON.parse(metrics[0].msr[0].data);
-                        scope.level = data.level;
-                        scope.conditions = data.conditions;
-                    } else {
-                        $log.warn("Keine Ergebnisse fuer " + scope.metric + " bekommen!");
-                    }
+            function loadData() {
+                jira.getIssues(scope.filter, 0, 'total').get(function (issueResponse) {
+                    scope.issueNumber = issueResponse.total;
+                    scope.jiraLink = wconfig.getServices().jira.uri + '/issues/?jql=filter=' + scope.filter;
                 }, function (error) {
                     if (error) {
-                        $log.error("Fehler beim Anmelden an SonarQube!\n" + JSON.stringify(error));
+                        $log.error("Fehler beim Anmelden an Jira!\n" + JSON.stringify(error));
                     }
                 });
             }
 
-            loadResult();
+            loadData();
 
-            // set default refresh value to 1 hour
+            // set default refresh value to 20 minutes
             if(angular.isUndefined(scope.refresh)) {
-                scope.refresh = 3600;
+                scope.refresh = 1200;
             }
 
-            var stopTime = $interval(loadResult, scope.refresh * 1000);
+            var stopTime = $interval(loadData, scope.refresh * 1000);
 
             // listen on DOM destroy (removal) event, and cancel the next UI update
             // to prevent updating time ofter the DOM element was removed.
             element.on('$destroy', function () {
                 $interval.cancel(stopTime);
             });
-
-
-            scope.analyseBuildUrl = wconfig.getServices().sonar.uri + '/dashboard/index/' + escape(scope.project);
         }
 
         return {
             restrict: 'E',
-            templateUrl: 'views/qualitygateSonar.html',
-            scope: {name: '@', metric: '@', project: '@', details: '@', refresh: '@'},
+            templateUrl: 'views/widgets/jira/issue.html',
+            scope: {name: '@', filter: '@', onecolor: '@', colorthreshold: '@', refresh: '@'},
             link: link
         };
     });

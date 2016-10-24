@@ -19,16 +19,23 @@
 'use strict';
 
 angular.module('wallboardApp')
-    .directive('jiraissue', function ($interval, jira, wconfig, $log) {
+    .directive('jira.issueprogress', function ($interval, jira, $log) {
 
         function link(scope, element, attrs) {
 
-            scope.issueNumber = 0;
+            scope.resolved = 0;
 
             function loadData() {
-                jira.getIssues(scope.filter, 0, 'total').get(function (issueResponse) {
-                    scope.issueNumber = issueResponse.total;
-                    scope.jiraLink = wconfig.getServices().jira.uri + '/issues/?jql=filter=' + scope.filter;
+                jira.getResolvedIssues(scope.filter, 'total').get(function (response) {
+                    scope.resolved = response.total;
+                }, function (error) {
+                    if (error) {
+                        $log.error("Fehler beim Anmelden an Jira!\n" + JSON.stringify(error));
+                    }
+                });
+
+                jira.getIssues(scope.filter, 0, 'total').get(function (response) {
+                    scope.total = response.total;
                 }, function (error) {
                     if (error) {
                         $log.error("Fehler beim Anmelden an Jira!\n" + JSON.stringify(error));
@@ -50,12 +57,13 @@ angular.module('wallboardApp')
             element.on('$destroy', function () {
                 $interval.cancel(stopTime);
             });
+
         }
 
         return {
             restrict: 'E',
-            templateUrl: 'views/jiraissue.html',
-            scope: {name: '@', filter: '@', onecolor: '@', colorthreshold: '@', refresh: '@'},
+            templateUrl: 'views/widgets/jira/issueprogress.html',
+            scope: {name: '@', filter: '@', refresh: '@'},
             link: link
         };
     });

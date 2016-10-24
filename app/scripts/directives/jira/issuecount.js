@@ -19,7 +19,7 @@
 'use strict';
 
 angular.module('wallboardApp')
-    .directive('jiraissuecount', function ($interval, jira, $log, wconfig) {
+    .directive('jira.issuecount', function ($interval, jira, $log, wconfig) {
 
         function link(scope, element, attrs) {
 
@@ -139,7 +139,7 @@ angular.module('wallboardApp')
 
         return {
             restrict: 'E',
-            templateUrl: 'views/jiraissuecount.html',
+            templateUrl: 'views/widgets/jira/issuecount.html',
             scope: {name: '@', filter: '@', groupby: '@', maxrow: '@', minvalue: '@', refresh: '@'},
             link: link
         };

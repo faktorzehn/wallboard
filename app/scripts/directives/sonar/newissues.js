@@ -19,7 +19,7 @@
 'use strict';
 
 angular.module('wallboardApp')
-    .directive('newissues', function ($interval, sonar, $log, moment) {
+    .directive('sonar.newissues', function ($interval, sonar, $log, moment) {
 
         function link(scope, element, attrs) {
 
@@ -93,7 +93,7 @@ angular.module('wallboardApp')
 
         return {
             restrict: 'E',
-            templateUrl: 'views/newissues.html',
+            templateUrl: 'views/widgets/sonar/newissues.html',
             scope: {project: '@', name: '@', createdbefore: '@', refresh: '@'},
             link: link
         };

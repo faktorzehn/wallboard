@@ -19,34 +19,23 @@
 'use strict';
 
 angular.module('wallboardApp')
-    .directive('analysissonar', function ($interval, sonar, $log, wconfig) {
+    .directive('sonar.qualitygate', function ($interval, sonar, $log, wconfig) {
 
         function link(scope, element, attrs) {
 
             function loadResult() {
-                var Sonar = sonar.getMetrics(scope.metric, scope.project);
+                var Sonar = sonar.getQualityGate(scope.project);
 
                 var metrics = Sonar.get(function () {
                     if (metrics[0]) {
-                        scope.metricResult = metrics[0];
-
-                        if (metrics[0].msr[0].var1 != undefined && metrics[0].msr[0].var2 != undefined) {
-                            scope.trend = metrics[0].msr[0].var2 - metrics[0].msr[0].var1;
-                        } else {
-                            scope.trend = metrics[0].msr[0].val * -1;
-                        }
-
-                        if (scope.reverse == "true") {
-                            scope.trend *= -1;
-                        }
-
+                        var data = JSON.parse(metrics[0].msr[0].data);
+                        scope.level = data.level;
+                        scope.conditions = data.conditions;
                     } else {
                         $log.warn("Keine Ergebnisse fuer " + scope.metric + " bekommen!");
                     }
                 }, function (error) {
                     if (error) {
-                        //alert("Fehler beim anmelden an SonarQube!");
-                        //var errormesg = error;
                         $log.error("Fehler beim Anmelden an SonarQube!\n" + JSON.stringify(error));
                     }
                 });
@@ -73,8 +62,8 @@ angular.module('wallboardApp')
 
         return {
             restrict: 'E',
-            templateUrl: 'views/analysisSonar.html',
-            scope: {name: '@', metric: '@', reverse: '@', unit: '@', project: '@', refresh: '@'},
+            templateUrl: 'views/widgets/sonar/qualitygate.html',
+            scope: {name: '@', metric: '@', project: '@', details: '@', refresh: '@'},
             link: link
         };
     });

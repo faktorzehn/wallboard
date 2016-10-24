@@ -19,7 +19,7 @@
 'use strict';
 
 angular.module('wallboardApp')
-    .directive('testreport', function ($interval, jenkins, $log) {
+    .directive('jenkins.testreport', function ($interval, jenkins, $log) {
 
         function link(scope, element) {
 
@@ -74,7 +74,7 @@ angular.module('wallboardApp')
 
         return {
             restrict: 'E',
-            templateUrl: 'views/testreport.html',
+            templateUrl: 'views/widgets/jenkins/testreport.html',
             scope: {job: '@', name: '@', refresh: '@'},
             link: link
         };
