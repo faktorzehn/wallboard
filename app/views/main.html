@@ -33,9 +33,9 @@
 
 <div class="container-fluid" ng-class="showMenu? 'showMenu' : ''" ng-mousemove="userActivity()">
     <!-- rows -->
-    <div ng-repeat="row in projects[selectedProject].rows" class="row wallboard-row">
+    <div ng-repeat="row in projects[selectedProject].rows" class="row wallboard-row row-{{$index}}">
         <!-- columns -->
-        <div ng-repeat="column in row.columns" class="wallboard-column col-md-{{column.width}}">
+        <div ng-repeat="column in row.columns" class="wallboard-column col-md-{{column.width}} column-{{$index}}">
             <div class="wrapper">
                 <h2 ng-if="column.title" class="title">{{column.title}}</h2>
                 <p ng-if="column.description" class="description">{{column.description}}</p>
