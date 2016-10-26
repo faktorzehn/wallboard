@@ -7,7 +7,7 @@
             <td ng-show="summary=='true'">{{issue.summary}}</td>
             <td ng-show="accountitem!='' && accountitem != undefined">{{issue.accountItem}}</td>
             <td>{{issue.type}}</td>
-            <td>{{issue.due}}</td>
+            <td>{{issue.due | amDateFormat: 'DD.MM.YYYY'}}</td>
         </tr>
         </tbody>
     </table>

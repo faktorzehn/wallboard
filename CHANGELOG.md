@@ -4,6 +4,7 @@ This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 
 ## [unreleased]
 ### Added
+- new widget for jira issues due dates
 - new widget for user specific text
 - column title and description
 - added example configuration config-example.json

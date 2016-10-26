@@ -21,9 +21,9 @@
 angular.module('wallboardApp')
     .filter('duedateAlert', function () {
         return function (input) {
-            var today = new Date();
+            var today = moment();
             var inputDate = moment(input, 'YYYY-MM-DD');
-            if (inputDate < today) {
+            if (inputDate.isBefore(today)) {
                 return 'danger'
             }
         };

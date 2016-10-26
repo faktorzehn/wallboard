@@ -28,7 +28,7 @@ angular.module('wallboardAppDev')
                     "issues": [
                         {
                             "id": "",
-                            "key": "",
+                            "key": "key-1",
                             "fields": {
                                 "assignee": {
                                     "displayName": "John Doe"
@@ -37,12 +37,17 @@ angular.module('wallboardAppDev')
                                     {
                                         "name": "17.01"
                                     }
-                                ]
+                                ],
+                                "duedate": "2016-02-10",
+                                "issuetype": {
+                                    "name": "Bug"
+                                },
+                                "customfield_123": "12345"
                             }
                         },
                         {
                             "id": "",
-                            "key": "",
+                            "key": "key-2",
                             "fields": {
                                 "assignee": {
                                     "displayName": "John Doe"
@@ -51,12 +56,17 @@ angular.module('wallboardAppDev')
                                     {
                                         "name": "18.01"
                                     }
-                                ]
+                                ],
+                                "duedate": "2016-05-10",
+                                "issuetype": {
+                                    "name": "Task"
+                                },
+                                "customfield_123": "532255"
                             }
                         },
                         {
                             "id": "",
-                            "key": "",
+                            "key": "key-3",
                             "fields": {
                                 "assignee": {
                                     "displayName": "Jane Doe"
@@ -65,7 +75,12 @@ angular.module('wallboardAppDev')
                                     {
                                         "name": "18.01"
                                     }
-                                ]
+                                ],
+                                "duedate": "2100-01-01",
+                                "issuetype": {
+                                    "name": "Bug"
+                                },
+                                "customfield_123": "12345, 432543"
                             }
                         }
                     ]
