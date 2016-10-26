@@ -46,15 +46,9 @@ $l-unit-border-failure: yellow;
 $l-unit-bg-failure: #AEB404;
 $l-unit-border-onecolor: black;
 $l-unit-bg-onecolor: gray;
-$l-unit-border-termin: lightblue;
-$l-unit-bg-termin: darkblue;
 
 $l-wallboard-min-width-number: 35%;
 $l-wallboard-min-width-info: 30%;
-
-$l-termin-background-color: #001F00;
-$l-termin-inactive-color: #43A52E;
-$l-termin-active-color: lightgrey;
 
 @font-face {
     font-family: "Helvetica Neue";
@@ -368,11 +362,6 @@ nav {
         background-color: $l-unit-bg-failure;
     }
 
-    &.termin {
-        border-color: $l-unit-border-termin;
-        background-color: $l-unit-bg-termin;
-    }
-
     .totalcount {
         font-size: 2rem;
         display: inline-block;
@@ -588,25 +577,6 @@ table.duedatetable {
     .value > a {
         font-style: normal;
     }
-}
-
-.wallboard-termine-title {
-    font-size: 4rem;
-    display: inline-block;
-    min-width: $l-wallboard-min-width-info;
-}
-
-.wallboard-termin-block {
-    display: inline-block;
-    border: 1px solid #43a52e;
-    padding: 1em;
-    margin-bottom: 1em;
-    background-color: $l-termin-background-color;
-    color: $l-termin-inactive-color;
-}
-
-.today {
-    color: $l-termin-active-color;
 }
 
 .margin {

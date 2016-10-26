@@ -39,10 +39,6 @@ angular.module('wallboardApp', ["ngRoute", "ngResource", "ui.bootstrap", "uiSwit
                     }
                 }
             })
-            .when('/termine', {
-                templateUrl: 'views/termine.html',
-                controller: 'TermineCtrl'
-            })
             .otherwise({
                 redirectTo: '/'
             });
