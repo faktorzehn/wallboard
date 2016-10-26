@@ -18,9 +18,13 @@
 
 'use strict';
 
-angular.module('wallboardApp')
-    .filter('mavenArtifactName', function () {
-        return function (input) {
-            return input.split('$')[1].split('/')[0];
-        };
+angular.module('wallboardAppDev')
+    .run(function($httpBackend) {
+
+        // call real service to read config.json
+        $httpBackend.whenGET('conf/config.json').passThrough();
+
+        // call real views
+        $httpBackend.whenGET(/views\/.*/).passThrough();
+
     });

@@ -8,6 +8,8 @@ This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 - column title and description
 - added example configuration config-example.json
 ### Changed
+- removed params onecolor for jira.issue widget
+- renamed param colorthreshold for jira.issue widget to threshold
 - changed project structure for widgets and directives for better 
 organization.
 - changed widget names for better organization

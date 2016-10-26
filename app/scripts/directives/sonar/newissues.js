@@ -24,13 +24,28 @@ angular.module('wallboardApp')
         function link(scope, element, attrs) {
 
             scope.issues = {};
-            scope.severities = [];
+            //TODO: make configurable
+            scope.severities = {
+                "BLOCKER": 0,
+                "CRITICAL": 0,
+                "MAJOR": 0,
+                "MINOR": 0,
+                "INFO": 0
+            };
             scope.totalLink = '';
             scope.issueLink = '';
 
+            // calculate before date with the help of MomentJs
+            var before = moment().subtract(parseInt(scope.createdbefore), 'days').format('YYYY-MM-DD');
+
+            scope.totalLink = function(severity) {
+                return sonar.uri + '/issues/search#resolved=false|createdAfter=' + before +
+                    '|projectKeys=' + escape(scope.project) + '|assigned=false|severities='
+                    + severity;
+            };
+
             /* setzt den projektnamen auf scope */
             function setProjectName() {
-
                 sonar.getProject(scope.project).get(function (projectResponse) {
                     scope.projectName = projectResponse[0].nm;
                 }, function (error) {
@@ -38,24 +53,13 @@ angular.module('wallboardApp')
                         $log.error("Fehler beim Anmelden an SonarQube!\n" + JSON.stringify(error));
                     }
                 });
-
             }
 
             function getIssuesForAll() {
 
-                // calculate before date with the help of MomentJs
-                var before = moment().subtract(parseInt(scope.createdbefore), 'days').format('YYYY-MM-DD');
-
                 sonar.getNewIssues(scope.project, before).get(function (newIssueResponse) {
 
                     scope.totalIssues = newIssueResponse.total;
-
-                    // TODO was macht das?
-                    angular.forEach(newIssueResponse.issues, function (element) {
-                        var helper = element.component;
-                        element.component = helper.substr(0, helper.indexOf(':')) + '/...' + helper.substr(helper.lastIndexOf('/'));
-                    });
-
                     scope.issues = newIssueResponse.issues;
 
                     angular.forEach(newIssueResponse.facets[0].values, function(value) {
@@ -68,7 +72,6 @@ angular.module('wallboardApp')
                     }
                 });
 
-                scope.totalLink = sonar.uri + '/issues/search#resolved=false|createdAfter=' + before + '|projectKeys=' + escape(scope.project) + '|assigned=false|severities=';
                 scope.issueLink = sonar.uri + '/issues/search#issues=';
 
             }

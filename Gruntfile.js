@@ -170,7 +170,7 @@ module.exports = function (grunt) {
             }
         },
         useminPrepare: {
-            html: '<%= yeoman.app %>/index.html',
+            html: '<%= yeoman.dist %>/index.html',
             options: {
                 dest: '<%= yeoman.dist %>'
             }
@@ -354,6 +354,16 @@ module.exports = function (grunt) {
                     ]
                 }
             }
+        },
+        processhtml: {
+            options: {
+                process: true
+            },
+            dist: {
+                files: {
+                    '<%= yeoman.dist %>/index.html': ['<%= yeoman.dist %>/index.html']
+                }
+            }
         }
     });
 
@@ -387,6 +397,7 @@ module.exports = function (grunt) {
         'imagemin',
         'cssmin',
         'htmlmin',
+        'processhtml',
         'concat',
         'copy',
         'ngmin',

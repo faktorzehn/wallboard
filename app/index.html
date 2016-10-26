@@ -31,7 +31,7 @@
 
 </head>
 
-<body ng-app="wallboardApp">
+<body>
 
     <!--[if lt IE 7]>
 <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser
@@ -58,8 +58,11 @@
     <script src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="components/angular-ui-switch/angular-ui-switch.min.js"></script>
 
-    <!-- build:js scripts/scripts.js -->
+    <!-- build:remove -->
+    <script src="components/angular-mocks/angular-mocks.js"></script>
+    <!-- /build -->
 
+    <!-- build:js scripts/scripts.js -->
     <script src="scripts/app.js"></script>
     <script src="scripts/filters/timeago.js"></script>
     <script src="scripts/filters/sign.js"></script>
@@ -86,6 +89,8 @@
     <script src="scripts/filters/round.js"></script>
     <script src="scripts/filters/qualitygateLevel.js"></script>
     <script src="scripts/filters/levelColor.js"></script>
+    <script src="scripts/filters/duedateAlert.js"></script>
+    <script src="scripts/filters/trendUpDown.js"></script>
     <script src="scripts/directives/sonar/metric.js"></script>
     <script src="scripts/directives/sonar/qualitygate.js"></script>
     <script src="scripts/directives/jenkins/testreport.js"></script>
@@ -97,12 +102,23 @@
     <script src="scripts/directives/jira/issuecount.js"></script>
     <script src="scripts/directives/jira/issueprogress.js"></script>
     <script src="scripts/directives/jira/issuemilestones.js"></script>
+    <script src="scripts/directives/jira/issueduedate.js"></script>
     <script src="scripts/directives/usertext.js"></script>
     <script src="scripts/controllers/termine.js"></script>
     <script src="scripts/services/terminService.js"></script>
     <script src="scripts/services/dateService.js"></script>
     <script src="scripts/services/configService.js"></script>
-    <!-- endbuild -->
+
+    <!-- build:remove -->
+    <script src="scripts/app-mock.js"></script>
+    <!-- service mocks -->
+    <script src="scripts/services/mocks/sonarServiceMock.js"></script>
+    <script src="scripts/services/mocks/otherServiceMock.js"></script>
+    <script src="scripts/services/mocks/jenkinsServiceMock.js"></script>
+    <script src="scripts/services/mocks/jiraServiceMock.js"></script>
+    <!-- /build -->
+
+    <!-- /build -->
 
 
 </body>

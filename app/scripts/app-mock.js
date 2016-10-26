@@ -18,9 +18,11 @@
 
 'use strict';
 
-angular.module('wallboardApp')
-    .filter('mavenArtifactName', function () {
-        return function (input) {
-            return input.split('$')[1].split('/')[0];
-        };
+angular.module('wallboardAppDev', ['wallboardApp', 'ngMockE2E']);
+
+if (angular.mock) {
+    angular.element(document).ready(function () {
+        'use strict';
+        angular.bootstrap(document, ['wallboardAppDev']);
     });
+}

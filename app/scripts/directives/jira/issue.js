@@ -23,8 +23,6 @@ angular.module('wallboardApp')
 
         function link(scope, element, attrs) {
 
-            scope.issueNumber = 0;
-
             function loadData() {
                 jira.getIssues(scope.filter, 0, 'total').get(function (issueResponse) {
                     scope.issueNumber = issueResponse.total;
@@ -55,7 +53,7 @@ angular.module('wallboardApp')
         return {
             restrict: 'E',
             templateUrl: 'views/widgets/jira/issue.html',
-            scope: {name: '@', filter: '@', onecolor: '@', colorthreshold: '@', refresh: '@'},
+            scope: {name: '@', filter: '@', threshold: '@', refresh: '@'},
             link: link
         };
     });

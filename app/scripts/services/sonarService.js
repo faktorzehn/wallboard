@@ -95,9 +95,12 @@ angular.module('wallboardApp')
             },
 
             getUsers = function () {
-                var url = uri + '/api/users/search';
+                var url = uri + '/api/users/search',
+                    params = {
+                        format: "json"
+                    };
 
-                return $resource(url, {}, {
+                return $resource(url, params, {
                     get: {
                         method: 'GET',
                         isArray: false,
@@ -109,7 +112,8 @@ angular.module('wallboardApp')
             getProject = function (project) {
                 var url = uri + '/api/projects/index',
                     params = {
-                        key: project
+                        key: project,
+                        format: "json"
                     };
 
                 return $resource(url, params, {

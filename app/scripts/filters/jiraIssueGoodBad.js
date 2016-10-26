@@ -20,26 +20,18 @@
 
 angular.module('wallboardApp')
     .filter('jiraIssueGoodBad', function () {
-        return function (input, onecolor, colorthreshold) {
+        return function (input, threshold) {
 
-            if (!angular.isNumber(input) || onecolor == undefined) {
-                return 'failure';
+            if (!angular.isNumber(input)) {
+                return "failure";
             }
 
-            if (onecolor == 'true') {
-                return 'onecolor'
-            } else if (onecolor == 'false') {
-                if (colorthreshold == undefined) {
-                    return 'failure';
-                }
-
-                if (input > colorthreshold) {
-                    return 'bad';
-                } else {
-                    return 'good';
-                }
+            if(threshold) {
+                return (input > threshold) ? "bad": "good";
             } else {
-                return 'failure';
+                return "onecolor";
             }
+
+            return "failure";
         };
     });

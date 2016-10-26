@@ -26,9 +26,26 @@ angular.module('wallboardApp')
             scope.map = {};
             scope.total = 0;
 
-            var severities = ['BLOCKER', 'CRITICAL', 'MAJOR', 'MINOR', 'INFO'],
-                /* gewichte fuer die bestimmten severities */
-                severityRate = {'BLOCKER': 100, 'CRITICAL': 20, 'MAJOR': 10, 'MINOR': 2, 'INFO': 1};
+            //TODO make configurable
+            scope.severities = {
+                "BLOCKER": 100,
+                "CRITICAL": 20,
+                "MAJOR": 10,
+                "MINOR": 2,
+                "INFO": 1
+            };
+
+            scope.issues = function (user, severity) {
+                return scope.map[user.name].issues[severity];
+            };
+
+            scope.userLink = function(user) {
+                return sonar.uri + '/issues/search#resolved=false|assignees=' + user.login + '|projectKeys=' + escape(scope.project);
+            };
+
+            scope.issuesLink = function (user, severity) {
+                return scope.userLink(user) + '|severities=' + severity;
+            };
 
             function getIssuesByUser(user) {
 
@@ -38,12 +55,11 @@ angular.module('wallboardApp')
                         scope.total += issueResponse.total;
 
                         scope.map[user.name].total = issueResponse.total;
-                        scope.map[user.name].link = sonar.uri + '/issues/search#resolved=false|assignees=' + user.login + '|projectKeys=' + escape(scope.project) + '|severities=';
 
                         /* map severities facet */
                         angular.forEach(issueResponse.facets[0].values, function(value) {
                             scope.map[user.name].issues[value.val] = value.count;
-                            scope.map[user.name].issueRate += severityRate[value.val] * value.count;
+                            scope.map[user.name].issueRate += scope.severities[value.val] * value.count;
                         });
 
                     }
@@ -61,9 +77,14 @@ angular.module('wallboardApp')
                     /* alle users durchitarieren */
                     angular.forEach(userResponse.users, function (user) {
 
+                        //skip inactive users
+                        if(!user.active) {
+                            return;
+                        }
+
                         // skip excluded users
                         if(angular.isDefined(scope.exclude) &&
-                            scope.exclude.indexOf(user.login) > 0) {
+                            scope.exclude.indexOf(user.login) >= 0) {
                             return;
                         }
 
@@ -114,11 +135,10 @@ angular.module('wallboardApp')
 
         }
 
-
         return {
             restrict: 'E',
             templateUrl: 'views/widgets/sonar/issues.html',
-            scope: {project: '@', name: '@', refresh: '@', exclude: '@'},
+            scope: {project: '@', name: '@', refresh: '@', exclude: '@', severities: '@'},
             link: link
         };
     });

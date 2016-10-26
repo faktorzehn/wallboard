@@ -3,12 +3,10 @@
     <div class="row">
         <div class="col-md-8">
             <h2 class="unit-title">{{name}}</h2>
-            <div class="totalcount">{{metricResult.msr[0].val}}<span class="unit">{{unit}}</span></div>
+            <div class="totalcount">{{metric.val}}<span class="unit">{{unit}}</span></div>
         </div>
         <div class="col-md-4">
-            <div>
-                <div class="unit-trend">{{metricResult.msr[0].var2 - metricResult.msr[0].var1 | round:2}}{{unit}}</div>
-            </div>
+            <div class="unit-trend {{metric.var2|trendUpDown}}">{{metric.var2 | round:2}}{{unit}}</div>
         </div>
     </div>
     <div class="row">

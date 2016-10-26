@@ -19,8 +19,12 @@
 'use strict';
 
 angular.module('wallboardApp')
-    .filter('mavenArtifactName', function () {
+    .filter('duedateAlert', function () {
         return function (input) {
-            return input.split('$')[1].split('/')[0];
+            var today = new Date();
+            var inputDate = moment(input, 'YYYY-MM-DD');
+            if (inputDate < today) {
+                return 'danger'
+            }
         };
     });

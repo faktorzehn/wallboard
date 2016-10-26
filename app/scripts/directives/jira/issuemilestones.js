@@ -27,19 +27,21 @@ angular.module('wallboardApp')
 
                 scope.list = [];
 
-                var datum = moment().add(parseInt(scope.interval), 'days');
+                var maxPlannedDate = moment().add(parseInt(scope.interval), 'days');
 
-                jira.getIssuesForMilestones(scope.filter, datum.format('YYYY/MM/DD')).get(function (issueResponse) {
-
+                // load milestone issues
+                jira.getIssuesForMilestones(scope.filter, maxPlannedDate.format('YYYY/MM/DD')).get(function (issueResponse) {
                     angular.forEach(issueResponse.issues, function (issue) {
 
+                        // load milestones for milestone issues
                         jira.getMilestone(issue.id, scope.customfieldid, scope.confschemeid).get(function (milestoneResponse) {
-
                             angular.forEach(milestoneResponse.rows, function (milestone) {
 
                                 var planned = moment(milestone.cell[scope.plannedindex], 'DD/MM/YYYY');
 
-                                if(milestone.cell[scope.actualindex].length == 0 && planned.calendar() <= datum.calendar()) {
+                                // we show only milestones that are not yet finished (have no actual date) and
+                                // where the planned date is lower than a future date (i.e. 60 days from today)
+                                if(milestone.cell[scope.actualindex].length == 0 && planned.isBefore(maxPlannedDate)) {
                                     scope.list.push({
                                         epicName: issue.fields.summary,
                                         milestoneName: milestone.cell[scope.epickeycolumnindex],

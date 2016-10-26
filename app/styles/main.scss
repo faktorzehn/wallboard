@@ -311,6 +311,15 @@ nav {
         background-position: center;
         text-align: center;
         line-height: 4rem;
+        &.up {
+            background-image: url(../images/trend-bad.png);
+        }
+        &.down {
+            background-image: url(../images/trend-good.png);
+        }
+        &.neutral {
+            background-image: url(../images/trend-neutral.png);
+        }
     }
 
     &.good {
@@ -319,9 +328,6 @@ nav {
         .details {
             border-top: 1px solid $l-unit-border-good;
             color: $l-unit-border-good;
-        }
-        .unit-trend {
-            background-image: url(../images/trend-good.png);
         }
     }
 
@@ -332,9 +338,6 @@ nav {
             border-top: 1px solid $l-unit-border-good;
             color: $l-unit-border-good;
         }
-        .unit-trend {
-            background-image: url(../images/trend-neutral.png);
-        }
     }
 
     &.bad {
@@ -343,9 +346,6 @@ nav {
         .details {
             border-top: 1px solid $l-unit-border-bad;
             color: $l-unit-border-bad;
-        }
-        .unit-trend {
-            background-image: url(../images/trend-bad.png);
         }
     }
 
@@ -398,8 +398,10 @@ nav {
 .wallboard-unit ul.new-issues-list {
     max-height: 10rem;
     overflow: auto;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
     font-size: 0.7rem;
+    list-style-type: circle;
+    padding-left: 20px;
 }
 
 .wallboard-unit.sonar {
@@ -557,7 +559,8 @@ div.jiraText {
 }
 
 table.milestonetable,
-table.jiracount {
+table.jiracount,
+table.duedatetable {
     font-size: 1.6rem;
     margin-top: 0.5em;
     .danger {

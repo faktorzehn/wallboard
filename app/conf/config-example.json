@@ -1,0 +1,225 @@
+{
+    "title": "Test Wallboard",
+    "autorefresh": 30,
+
+    "services": {
+        "jenkins": {
+            "name": "Jenkins",
+            "uri": "/jenkins",
+            "token": "mytoken"
+        },
+        "sonar": {
+            "name": "SonarQube",
+            "uri": "/sonar",
+            "token": "mytoken"
+        },
+        "jira": {
+            "name": "JIRA",
+            "uri": "/jira",
+            "token": "mytoken"
+        }
+    },
+
+    "projects": [
+        {
+            "name": "TEST",
+            "rows": [
+                {
+                    "columns": [
+                        {
+                            "title": "Test Column",
+                            "description": "This is a test column with a lot of usefull informations.",
+                            "width": 3,
+                            "widgets": [
+                                {
+                                    "widget": "sonar.qualitygate",
+                                    "name": "Quality Gate Project 1",
+                                    "project": "com:project1",
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "sonar.qualitygate",
+                                    "name": "Quality Gate Project 2",
+                                    "project": "com:project2",
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "sonar.qualitygate",
+                                    "name": "Quality Gate Project 3",
+                                    "project": "com:project3",
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "jenkins.job",
+                                    "name": "Trunk",
+                                    "job": "Compile_Trunk",
+                                    "size": "large",
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "jenkins.job",
+                                    "name": "Trunk",
+                                    "job": "Compile_Trunk",
+                                    "size": "small",
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "jenkins.job",
+                                    "name": "Branch",
+                                    "job": "Compile_Branch",
+                                    "size": "large",
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "jenkins.job",
+                                    "name": "Branch",
+                                    "job": "Compile_Branch",
+                                    "size": "small",
+                                    "refresh": 10000
+                                }
+                            ]
+                        },
+                        {
+                            "width": 2,
+                            "widgets": [
+                                {
+                                    "widget": "usertext",
+                                    "title": "Usertext",
+                                    "text": "This is a user specific text."
+                                },
+                                {
+                                    "widget": "sonar.metric",
+                                    "name": "Blocker",
+                                    "metric": "blocker_violations",
+                                    "project": "com:project1",
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "sonar.metric",
+                                    "name": "Minor",
+                                    "metric": "minor_violations",
+                                    "project": "com:project1",
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "sonar.metric",
+                                    "name": "Cov.",
+                                    "metric": "coverage",
+                                    "unit": "%",
+                                    "reverse": true,
+                                    "project": "com:project1",
+                                    "refresh": 10000
+                                }
+                            ]
+                        },
+                        {
+                            "width": 4,
+                            "widgets": [
+                                {
+                                    "widget": "jenkins.testreport",
+                                    "name": "Trunk",
+                                    "job": "Compile_Trunk",
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "jenkins.testreport",
+                                    "name": "Branch",
+                                    "job": "Compile_Branch",
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "sonar.issues",
+                                    "name": "Issues",
+                                    "project": "com:project1",
+                                    "exclude": "admin",
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "sonar.newissues",
+                                    "name": "NewIssues",
+                                    "project": "com:project1",
+                                    "createdbefore": 7,
+                                    "refresh": 10000
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "TEST JIRA",
+            "rows": [
+                {
+                    "columns": [
+                        {
+                            "width": 2,
+                            "widgets": [
+                                {
+                                    "widget": "jira.issue",
+                                    "name": "NEW unassigned",
+                                    "filter": "15781",
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "jira.issue",
+                                    "name": "NEW unassigned",
+                                    "filter": "15781",
+                                    "threshold": 10,
+                                    "refresh": 10000
+                                }
+                            ]
+                        },
+                        {
+                            "width": 3,
+                            "widgets": [
+                                {
+                                    "widget": "jira.issuecount",
+                                    "name": "Issues of current Release",
+                                    "filter": "15781",
+                                    "groupby": "name",
+                                    "maxrow": 7,
+                                    "minvalue": 1,
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "jira.issuecount",
+                                    "name": "Issues of current Release",
+                                    "filter": "15781",
+                                    "groupby": "fixversion",
+                                    "maxrow": 3,
+                                    "minvalue": 2,
+                                    "refresh": 10000
+                                }
+                            ]
+                        },
+                        {
+                            "width": 4,
+                            "widgets": [
+                                {
+                                    "widget": "jira.issueprogress",
+                                    "name": "Release 15.08",
+                                    "filter": "15781",
+                                    "refresh": 10000
+                                },
+                                {
+                                    "widget": "jira.issuemilestones",
+                                    "name": "Termine",
+                                    "filter": "15781",
+                                    "interval": 60,
+                                    "maxrows": 7,
+                                    "epickeycolumnindex": 0,
+                                    "plannedindex": 1,
+                                    "actualindex": 2,
+                                    "confschemeid": 12470,
+                                    "customfieldid": "customfield_12360",
+                                    "refresh": 10000
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

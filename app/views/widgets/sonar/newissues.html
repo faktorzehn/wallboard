@@ -14,33 +14,17 @@
         <div class="col-md-12">
             <ul class="new-issues-list">
                 <li ng-repeat="issue in issues">
-                <span class="">{{issue.severity}} - <a href="{{issueLink + issue.key}}"
-                                                       target="_blank">{{issue.component}}</a></span>
+                    <span>{{issue.severity | limitTo:2}}&nbsp;-&nbsp;</span><a href="{{issueLink + issue.key}}" target="_blank">{{issue.component}}</a>
                 </li>
             </ul>
         </div>
     </div>
 
     <div class="row issue-overview">
-        <div class="col-md-2 col-md-offset-1">
-            <div class="type">Blocker</div>
-            <div class="count"><a href="{{totalLink + 'BLOCKER'}}" target="_blank">{{severities.BLOCKER|zeroChar}}</a></div>
-        </div>
-        <div class="col-md-2">
-            <div class="type">Critical</div>
-            <div class="count"><a href="{{totalLink + 'CRITICAL'}}" target="_blank">{{severities.CRITICAL|zeroChar}}</a></div>
-        </div>
-        <div class="col-md-2">
-            <div class="type">Major</div>
-            <div class="count"><a href="{{totalLink + 'MAJOR'}}" target="_blank">{{severities.MAJOR|zeroChar}}</a></div>
-        </div>
-        <div class="col-md-2">
-            <div class="type">Minor</div>
-            <div class="count"><a href="{{totalLink + 'MINOR'}}" target="_blank">{{severities.MINOR|zeroChar}}</a></div>
-        </div>
-        <div class="col-md-2">
-            <div class="type">Info</div>
-            <div class="count"><a href="{{totalLink + 'INFO'}}" target="_blank">{{severities.INFO|zeroChar}}</a></div>
+        <div class="col-md-2"></div>
+        <div class="col-md-2" ng-repeat="(key,data) in severities">
+            <div class="type">{{key | limitTo:2}}</div>
+            <div class="count"><a href="{{totalLink(key)}}" target="_blank">{{data|zeroChar}}</a></div>
         </div>
     </div>
 

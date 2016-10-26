@@ -27,26 +27,25 @@ angular.module('wallboardApp')
                 var Sonar = sonar.getMetrics(scope.metric, scope.project);
 
                 var metrics = Sonar.get(function () {
-                    if (metrics[0]) {
+                    if (metrics[0].msr[0]) {
                         scope.metricResult = metrics[0];
+                        scope.metric = metrics[0].msr[0];
 
-                        if (metrics[0].msr[0].var1 != undefined && metrics[0].msr[0].var2 != undefined) {
-                            scope.trend = metrics[0].msr[0].var2 - metrics[0].msr[0].var1;
-                        } else {
-                            scope.trend = metrics[0].msr[0].val * -1;
-                        }
-
-                        if (scope.reverse == "true") {
+                        scope.trend = scope.metric.var2;
+                        if(scope.reverse === 'true') {
                             scope.trend *= -1;
                         }
+
+                        // TODO farbe und trend trennen
+                        // normal: rot/up, green/down
+                        // reverse: rot/down, green/up
+
 
                     } else {
                         $log.warn("Keine Ergebnisse fuer " + scope.metric + " bekommen!");
                     }
                 }, function (error) {
                     if (error) {
-                        //alert("Fehler beim anmelden an SonarQube!");
-                        //var errormesg = error;
                         $log.error("Fehler beim Anmelden an SonarQube!\n" + JSON.stringify(error));
                     }
                 });

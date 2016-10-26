@@ -18,6 +18,14 @@
 
 'use strict';
 
+(function () {
+    if (!angular.mock) {
+        angular.element(document).ready(function () {
+            angular.bootstrap(document, ['wallboardApp']);
+        });
+    }
+})();
+
 angular.module('wallboardApp', ["ngRoute", "ngResource", "ui.bootstrap", "uiSwitch", "angularMoment"])
     .config(['$routeProvider', function ($routeProvider) {
 

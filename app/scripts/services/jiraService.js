@@ -42,34 +42,8 @@ angular.module('wallboardApp')
             },
 
             getResolvedIssues = function (filter, fields) {
-                var url = uri + '/rest/api/latest/search',
-                    params = {
-                        jql: 'filter=' + filter + ' AND resolution!=Unresolved',
-                        fields: fields
-                    };
-
-                return $resource(url, params, {
-                    get: {
-                        method: 'GET',
-                        isArray: false,
-                        headers: {Authorization: 'Basic ' + token}
-                    }
-                });
-            },
-
-            getUser = function (name) {
-                var url = uri + '/rest/api/latest/user',
-                    params = {
-                        username: name
-                    };
-
-                return $resource(url, params, {
-                    get: {
-                        method: 'GET',
-                        isArray: false,
-                        headers: {Authorization: 'Basic ' + token}
-                    }
-                });
+                var query = filter + ' AND resolution!=Unresolved';
+                return this.getIssues(query, 0, fields);
             },
 
             getMilestone = function (issueID, customFieldID, confSchemeId) {
@@ -100,7 +74,6 @@ angular.module('wallboardApp')
         return {
             getIssues: getIssues,
             getResolvedIssues: getResolvedIssues,
-            getUser: getUser,
             getMilestone: getMilestone,
             getIssuesForMilestones: getIssuesForMilestones,
             uri: uri

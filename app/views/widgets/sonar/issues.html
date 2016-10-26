@@ -5,37 +5,27 @@
             <thead>
             <tr>
                 <th width="40%">{{projectName}}</th>
-                <th width="12%" class="severity">B</th>
-                <th width="12%" class="severity">C</th>
-                <th width="12%" class="severity">Ma</th>
-                <th width="12%" class="severity">Mi</th>
-                <th width="12%" class="severity">I</th>
+                <th width="12%" ng-repeat="(key,data) in severities">{{key | limitTo:2}}</th>
             </tr>
             </thead>
 
             <tbody>
 
-            <tr class="issueTableRow {{user.issues | issueRate}}"
-                ng-repeat="user in users = (map | withIssue | orderBy: '-issueRate')">
-                <td class="user"><a href="{{user.link}}" target="_blank">{{user.name | shortName}}</a></td>
-                <td class="severity"><a class="{{user.BLOCKER | isZero}}" href="{{user.link + 'BLOCKER'}}"
-                       target="_blank">{{user.issues.BLOCKER | zeroChar}}</a></td>
-                <td class="severity"><a class="{{user.CRITICAL | isZero}}" href="{{user.link + 'CRITICAL'}}"
-                       target="_blank">{{user.issues.CRITICAL | zeroChar}}</a></td>
-                <td class="severity"><a class="{{user.MAJOR | isZero}}" href="{{user.link + 'MAJOR'}}"
-                       target="_blank">{{user.issues.MAJOR | zeroChar}}</a></td>
-                <td class="severity"><a class="{{user.MINOR | isZero}}" href="{{user.link + 'MINOR'}}"
-                       target="_blank">{{user.issues.MINOR | zeroChar}}</a></td>
-                <td class="severity"><a class="{{user.INFO | isZero}}" href="{{user.link + 'INFO'}}"
-                       target="_blank">{{user.issues.INFO | zeroChar}}</a></td>
+            <tr class="issueTableRow {{user.issues | issueRate}}" ng-repeat="user in users = (map | withIssue | orderBy: '-issueRate')">
+                <td class="user">
+                    <a href="{{userLink(user)}}" target="_blank">{{user.name | shortName}}</a>
+                </td>
+                <td ng-repeat="(key, data) in severities">
+                    <a href="{{issuesLink(user,key)}}" target="_blank">{{issues(user,key)}}</a>
+                </td>
             </tr>
 
             <tr class="empty" ng-show="users.length == 0">
                 <td colspan="6" class="severity">Keine zugewiesenen Issues vorhanden</td>
             </tr>
 
-
             </tbody>
+
         </table>
     </div>
 </div>

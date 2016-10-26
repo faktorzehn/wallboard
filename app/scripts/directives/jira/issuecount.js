@@ -25,31 +25,27 @@ angular.module('wallboardApp')
 
             scope.data = [];
 
+            // TODO refactor extraction and make it more generic
+
             function extractAssignee(issues) {
                 angular.forEach(issues, function (issue) {
 
                     if (issue.fields.assignee != null) {
 
-                        jira.getUser(issue.fields.assignee.name).get(function (user) {
-                            var set = false;
-                            for (var i = 0; i < scope.data.length; i++) {
-                                if (scope.data[i].name == user.displayName) {
-                                    scope.data[i].value++;
-                                    set = true;
-                                    break;
-                                }
+                        var set = false;
+                        for (var i = 0; i < scope.data.length; i++) {
+                            if (scope.data[i].name === issue.fields.assignee.displayName) {
+                                scope.data[i].value++;
+                                set = true;
+                                break;
                             }
+                        }
 
-                            if (!set) {
-                                scope.data.push({'name': user.displayName, 'value': 1, 'linkField': user.name});
-                            }
+                        if (!set) {
+                            scope.data.push({'name': issue.fields.assignee.displayName, 'value': 1, 'linkField': issue.fields.assignee.name});
+                        }
 
-                            scope.jiraLink = wconfig.getServices().jira.uri + '/issues/?jql=filter=' + scope.filter + ' AND assignee=';
-                        }, function (error) {
-                            if (error) {
-                                $log.error("Fehler beim Anmelden an Jira!\n" + JSON.stringify(error));
-                            }
-                        });
+                        scope.jiraLink = wconfig.getServices().jira.uri + '/issues/?jql=filter=' + scope.filter + ' AND assignee=';
 
                     }
 
@@ -61,9 +57,10 @@ angular.module('wallboardApp')
                     if (issue.fields.fixVersions != null) {
 
                         angular.forEach(issue.fields.fixVersions, function (version) {
+
                             var set = false;
                             for (var i = 0; i < scope.data.length; i++) {
-                                if (scope.data[i].name == version.name) {
+                                if (scope.data[i].name === version.name) {
                                     scope.data[i].value++;
                                     set = true;
                                     break;
@@ -75,6 +72,7 @@ angular.module('wallboardApp')
                             }
 
                             scope.jiraLink = wconfig.getServices().jira.uri + '/issues/?jql=filter=' + scope.filter + ' AND fixVersion=';
+
                         });
 
                     }
@@ -83,23 +81,23 @@ angular.module('wallboardApp')
 
             function loadData() {
 
-                var index = 0,
-                    max = undefined;
+                var index = 0;
 
                 // reset data
                 scope.data = [];
 
+                // first get the total amount of issues
                 jira.getIssues(scope.filter, index, 'total').get(function (issueResponse) {
 
-                    max = issueResponse.total;
-
-                    for (; index < max; index += issueResponse.maxResults) { // pagination
+                    // pagination: iterate over all pages
+                    for (; index < issueResponse.total; index += issueResponse.maxResults) {
 
                         jira.getIssues(scope.filter, index, 'assignee,fixVersions').get(function (issueResponse) {
 
-                            if (scope.groupby == 'name') {
+                            // TODO: rename from name to asignee
+                            if (scope.groupby === 'name') {
                                 extractAssignee(issueResponse.issues);
-                            } else if (scope.groupby == 'fixversion') {
+                            } else if (scope.groupby === 'fixversion') {
                                 extractFixversion(issueResponse.issues);
                             }
 

@@ -1,0 +1,14 @@
+<div class="wallboard-unit onecolor">
+    <div class="wallboard-info-jira">{{name}}</div>
+    <table class="table duedatetable">
+        <tbody>
+        <tr class="{{issue.due | duedateAlert}}" ng-repeat="issue in list | orderBy:'-due':sortascending  | limitTo: maxrows">
+            <td ng-show="displayname=='true'"><a class="{{issue.due | duedateAlert}}" href="{{issue.link}}" target="_blank">{{issue.name}}</a></td>
+            <td ng-show="summary=='true'">{{issue.summary}}</td>
+            <td ng-show="accountitem!='' && accountitem != undefined">{{issue.accountItem}}</td>
+            <td>{{issue.type}}</td>
+            <td>{{issue.due}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
