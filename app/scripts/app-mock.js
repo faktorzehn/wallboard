@@ -20,9 +20,8 @@
 
 angular.module('wallboardAppDev', ['wallboardApp', 'ngMockE2E']);
 
-if (angular.mock) {
-    angular.element(document).ready(function () {
-        'use strict';
-        angular.bootstrap(document, ['wallboardAppDev']);
-    });
-}
+//if (angular.mock) {
+//    angular.element(document).ready(function () {
+//        angular.bootstrap(document, ['wallboardAppDev']);
+//    });
+//}
