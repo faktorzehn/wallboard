@@ -72,7 +72,15 @@ angular.module('wallboardAppDev')
                     "estimatedDuration" : 1960652,
                     "building" : false,
                     "number": 432,
-                    "url": ""
+                    "url": "",
+                    "culprits": [
+                        {
+                            "fullName": "John Doe"
+                        },
+                        {
+                            "fullName": "Jane Doe"
+                        }
+                    ]
                 };
                 return [200, build, {}];
             });

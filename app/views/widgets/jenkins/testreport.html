@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    <div class="row" ng-if="lastSuccessfulBuild.culprits">
+    <div class="row" ng-if="testReportLastSuccessfulBuild.failCount > 0 && lastSuccessfulBuild.culprits">
         <div class="col-md-12">
             <div class="culprits" ng-repeat="culprit in lastSuccessfulBuild.culprits">{{culprit.fullName}}<span ng-show="!$last">, </span></div>
         </div>
