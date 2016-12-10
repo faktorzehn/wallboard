@@ -305,11 +305,17 @@ nav {
         background-position: center;
         text-align: center;
         line-height: 4rem;
-        &.up {
-            background-image: url(../images/trend-bad.png);
+        &.good-up {
+            background-image: url(../images/trend-good-up.png);
         }
-        &.down {
-            background-image: url(../images/trend-good.png);
+        &.good-down {
+            background-image: url(../images/trend-good-down.png);
+        }
+        &.bad-up {
+            background-image: url(../images/trend-bad-up.png);
+        }
+        &.bad-down {
+            background-image: url(../images/trend-bad-down.png);
         }
         &.neutral {
             background-image: url(../images/trend-neutral.png);

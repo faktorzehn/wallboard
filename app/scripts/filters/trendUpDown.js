@@ -2,15 +2,23 @@
 
 angular.module('wallboardApp')
     .filter('trendUpDown', function () {
-        return function (input) {
+        return function (trend, reverse) {
 
-            if (!angular.isNumber(input)) {
+            if (!angular.isNumber(trend)) {
                 return 'failure';
             }
-            if (input > 0) {
-                return 'up';
-            } else if (input < 0) {
-                return 'down';
+            if (trend > 0) {
+                if(reverse) {
+                    return 'bad-down';
+                } else {
+                    return 'bad-up';
+                }
+            } else if (trend < 0) {
+                if(reverse) {
+                    return 'good-up';
+                } else {
+                    return 'good-down';
+                }
             } else
                 return 'neutral';
         };

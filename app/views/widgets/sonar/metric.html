@@ -6,7 +6,7 @@
             <div class="totalcount">{{metric.val}}<span class="unit">{{unit}}</span></div>
         </div>
         <div class="col-md-4">
-            <div class="unit-trend {{metric.var2|trendUpDown}}">{{metric.var2 | round:2}}{{unit}}</div>
+            <div class="unit-trend {{trend|trendUpDown:reverse}}">{{metric.var2 | round:2}}{{unit}}</div>
         </div>
     </div>
     <div class="row">
