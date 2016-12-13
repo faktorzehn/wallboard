@@ -4,6 +4,13 @@ This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 
 ## [unreleased]
 ### Added
+- added navigation to specific project via url
+  i.e. /0 is the first project, /1 is the second project, ...
+### Fixed
+- trend calculationd and icon colors for sonar metrics
+
+## [1.1.1] - 2016-12-10
+### Added
 - new widget for jira issues due dates
 - new widget for user specific text
 - column title and description

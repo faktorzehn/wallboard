@@ -19,7 +19,7 @@
 'use strict';
 
 angular.module('wallboardApp')
-    .controller('MainCtrl', function ($scope, wconfig, $interval) {
+    .controller('MainCtrl', function ($scope, wconfig, $interval, $routeParams) {
 
         $scope.config = wconfig.getConfig();
         $scope.services = wconfig.getServices();
@@ -86,6 +86,11 @@ angular.module('wallboardApp')
                 $scope.autorefresh = !$scope.autorefresh;
             }
         };
+
+        // switch to specific project
+        if($routeParams.project != null) {
+            $scope.selectProject($routeParams.project);
+        }
 
         // interval for user inactivity
         var interval = 1;

@@ -28,7 +28,7 @@ angular.module('wallboardApp', ["ngRoute", "ngResource", "ui.bootstrap", "uiSwit
     .config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider
-            .when('/', {
+            .when('/:project?', {
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl',
                 resolve: {
