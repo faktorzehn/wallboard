@@ -90,6 +90,7 @@ angular.module('wallboardApp')
 
                         scope.map[user.name] = {
                             name: user.name,
+                            login: user.login,
                             total: 0,
                             link: '#',
                             issueRate: 0,
