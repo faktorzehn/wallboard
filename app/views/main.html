@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li ng-repeat="project in projects" ng-class="selectedProject == $index ? 'active' : ''">
-                    <a ng-click="selectProject($index)">{{project.name}}</a>
+                    <a ng-href="#/project/{{$index}}">{{project.name}}</a>
                 </li>
             </ul>
             <form class="navbar-form navbar-left">

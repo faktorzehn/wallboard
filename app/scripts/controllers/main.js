@@ -19,7 +19,7 @@
 'use strict';
 
 angular.module('wallboardApp')
-    .controller('MainCtrl', function ($scope, wconfig, $interval, $routeParams) {
+    .controller('MainCtrl', function ($scope, wconfig, $interval, $routeParams, $location) {
 
         $scope.config = wconfig.getConfig();
         $scope.services = wconfig.getServices();
@@ -34,25 +34,20 @@ angular.module('wallboardApp')
             $scope.branding = $scope.config.branding;
         }
 
-        $scope.selectProject = function(index) {
-            $scope.selectedProject = index;
-            $scope.autorefresh = false;
-        };
-
         function selectNextProject() {
-            if($scope.selectedProject == $scope.projects.length - 1) {
-                $scope.selectedProject = 0;
-            } else {
-                $scope.selectedProject++;
+            var index = 0;
+            if($scope.selectedProject != $scope.projects.length - 1) {
+                index = $scope.selectedProject + 1;
             }
+            $location.path('/project/' + index);
         }
 
         function selectPreviousProject() {
-            if($scope.selectedProject == 0) {
-                $scope.selectedProject = $scope.projects.length - 1;
-            } else {
-                $scope.selectedProject--;
+            var index = $scope.projects.length - 1;
+            if($scope.selectedProject != 0) {
+                index = $scope.selectedProject - 1;
             }
+            $location.path('/project/' + index);
         }
 
         var stop = undefined;
@@ -88,8 +83,11 @@ angular.module('wallboardApp')
         };
 
         // switch to specific project
-        if($routeParams.project != null) {
-            $scope.selectProject($routeParams.project);
+        if($routeParams.projectId != null) {
+            $scope.selectedProject = Number($routeParams.projectId);
+            $scope.autorefresh = false;
+        } else {
+            $location.path('/project/0');
         }
 
         // interval for user inactivity

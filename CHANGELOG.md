@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 
+## [unreleased]
+### Fixed
+- fixed link to sonar user issues
+
 ## [1.1.2] - 2016-12-13
 ### Added
 - added navigation to specific project via url

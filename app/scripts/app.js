@@ -18,17 +18,20 @@
 
 'use strict';
 
-//if (!angular.mock) {
-//    angular.element(document).ready(function () {
-//        angular.bootstrap(document, ['wallboardApp']);
-//    });
-//}
-
 angular.module('wallboardApp', ["ngRoute", "ngResource", "ui.bootstrap", "uiSwitch", "angularMoment"])
-    .config(['$routeProvider', function ($routeProvider) {
+    .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
         $routeProvider
-            .when('/:project?', {
+            .when('/', {
+                templateUrl: 'views/main.html',
+                controller: 'MainCtrl',
+                resolve: {
+                    'configData': function (wconfig) {
+                        return wconfig.promise;
+                    }
+                }
+            })
+            .when('/project/:projectId', {
                 templateUrl: 'views/main.html',
                 controller: 'MainCtrl',
                 resolve: {
