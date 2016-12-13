@@ -32,7 +32,7 @@ angular.module('wallboardAppDev')
                                 "val": 121,     // actual
                                 "var1": 0,      // since previous analysis
                                 "var2": 21,     // since 30 days
-                                "var3": 16      // since previous version
+                                "var3": -16      // since previous version
                             }
                         ]
                     }
@@ -51,7 +51,7 @@ angular.module('wallboardAppDev')
                                 "val": 10,      // actual
                                 "var1": 0,      // since previous analysis
                                 "var2": -2,     // since 30 days
-                                "var3": -4      // since previous version
+                                "var3": 4      // since previous version
                             }
                         ]
                     }
@@ -70,7 +70,7 @@ angular.module('wallboardAppDev')
                                 "val": 22.9,    // actual
                                 "var1": 0.0,    // since previous analysis
                                 "var2": -0.4,   // since 30 days
-                                "var3": -0.3    // since previous version
+                                "var3": +1.3    // since previous version
                             }
                         ]
                     }

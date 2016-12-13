@@ -26,20 +26,29 @@ angular.module('wallboardApp')
             function loadResult() {
                 var Sonar = sonar.getMetrics(scope.metric, scope.project);
 
+                // msr.val  ... actual value
+                // msr.var1 ... period1
+                // msr.var2 ... period2
+                // msr.var3 ... period3
+                // msr.var4 ... period4
+                // msr.var5 ... period5
+
                 var metrics = Sonar.get(function () {
                     if (metrics[0].msr[0]) {
                         scope.metricResult = metrics[0];
                         scope.metric = metrics[0].msr[0];
+                        scope.trendVal = scope.metric.var2;
 
-                        scope.trend = scope.metric.var2;
-                        if(scope.reverse === 'true') {
-                            scope.trend *= -1;
+                        // load field for trend from config
+                        var trendIndex = wconfig.getServices().sonar.trend;
+                        if(trendIndex != null) {
+                            scope.trendVal = scope.metric[trendIndex];
                         }
 
-                        // TODO farbe und trend trennen
-                        // normal: rot/up, green/down
-                        // reverse: rot/down, green/up
-
+                        scope.trendDir = scope.trendVal;
+                        if (scope.reverse === 'true') {
+                            scope.trendDir *= -1;
+                        }
 
                     } else {
                         $log.warn("Keine Ergebnisse fuer " + scope.metric + " bekommen!");
@@ -54,7 +63,7 @@ angular.module('wallboardApp')
             loadResult();
 
             // set default refresh value to 1 hour
-            if(angular.isUndefined(scope.refresh)) {
+            if (angular.isUndefined(scope.refresh)) {
                 scope.refresh = 3600;
             }
 

@@ -6,6 +6,7 @@ This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 ### Added
 - added navigation to specific project via url
   i.e. /0 is the first project, /1 is the second project, ...
+- Added configuration for sonar metric trend calculation
 ### Fixed
 - trend calculationd and icon colors for sonar metrics
 

@@ -1,4 +1,4 @@
-<div class="wallboard-unit sonar container-fluid {{trend|goodBad}}">
+<div class="wallboard-unit sonar container-fluid {{trendDir|goodBad}}">
 
     <div class="row">
         <div class="col-md-8">
@@ -6,14 +6,14 @@
             <div class="totalcount">{{metric.val}}<span class="unit">{{unit}}</span></div>
         </div>
         <div class="col-md-4">
-            <div class="unit-trend {{trend|trendUpDown:reverse}}">{{metric.var2 | round:2}}{{unit}}</div>
+            <div class="unit-trend {{trendDir|trendUpDown:reverse}}">{{trendVal|round:2}}{{unit}}</div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="details">
                 <span>Analyse Build: </span>
-                <a href="{{analyseBuildUrl}}" target="_blank">#{{metricResult.date | date: 'dd.MM HH:mm' }}</a>
+                <a href="{{analyseBuildUrl}}" target="_blank">#{{metricResult.date|date: 'dd.MM HH:mm' }}</a>
                 <span>{{metricResult.date|timeago}}</span>
             </div>
         </div>
