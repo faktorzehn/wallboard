@@ -19,7 +19,7 @@
 'use strict';
 
 angular.module('wallboardApp', ["ngRoute", "ngResource", "ui.bootstrap", "uiSwitch", "angularMoment"])
-    .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+    .config(['$routeProvider', '$locationProvider', function ($routeProvider) {
 
         $routeProvider
             .when('/', {

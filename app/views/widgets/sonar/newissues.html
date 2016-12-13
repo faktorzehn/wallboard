@@ -14,7 +14,7 @@
         <div class="col-md-12">
             <ul class="new-issues-list">
                 <li ng-repeat="issue in issues">
-                    <span>{{issue.severity | limitTo:2}}&nbsp;-&nbsp;</span><a href="{{issueLink + issue.key}}" target="_blank">{{issue.component}}</a>
+                    <span>{{issue.severity | limitTo:2}}&nbsp;-&nbsp;</span><a href="{{issueLink + issue.key}}" target="_blank">{{issue.component|shortArtifactName}}</a>
                 </li>
             </ul>
         </div>
