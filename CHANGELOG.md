@@ -7,6 +7,7 @@ This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 - fixed link to sonar user issues
 ### Added
 - added new filter for maven artifact names
+- added tooltip for sonar new issues artifact names
 
 ## [1.1.2] - 2016-12-13
 ### Added
