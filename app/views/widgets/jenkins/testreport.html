@@ -36,8 +36,7 @@
                     {{lastSuccessfulBuild.timestamp|timeago}}
                 </div>
                 <div class="last-build-failed" ng-show="lastBuild.result=='FAILURE'">
-                    <img src="../../../images/warning.png" width="20" height="20"/>
-                    <a href="{{lastBuild.url}}">LAST BUILD FAILED!</a>
+                    <a href="{{lastBuild.url}}" target="_blank">LAST BUILD FAILED!</a>
                 </div>
             </div>
         </div>
