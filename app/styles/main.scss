@@ -425,7 +425,8 @@ nav {
         display: inline;
     }
     .last-build-failed {
-        color: red;
+        color: white;
+        background-color: $l-unit-bg-bad;
     }
 }
 
