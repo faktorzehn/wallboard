@@ -424,6 +424,9 @@ nav {
     div.culprits {
         display: inline;
     }
+    .last-build-failed {
+        color: red;
+    }
 }
 
 .quality-gate {

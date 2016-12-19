@@ -85,4 +85,29 @@ angular.module('wallboardAppDev')
                 return [200, build, {}];
             });
 
+        // jenkins job branch-2 failed
+        $httpBackend.whenGET(/jenkins\/job\/Compile_Branch-2\/(.*)\/api\/json.*/, undefined, ['job','build'])
+            .respond(function(method, url, data) {
+                var build = {
+                    "failCount": 0,
+                    "totalCount": 100,
+                    "timestamp": 1477349332089,
+                    "estimatedDuration" : 1960652,
+                    "building" : false,
+                    "number": 51,
+                    "result": "FAILURE",
+                    "fullDisplayName" : "test.project #51",
+                    "url" : "https://build.project.com/jenkins/job/test.project/51/",
+                    "culprits": [
+                        {
+                            "fullName": "John Doe"
+                        },
+                        {
+                            "fullName": "Jane Doe"
+                        }
+                    ]
+                };
+                return [200, build, {}];
+            });
+
     });
