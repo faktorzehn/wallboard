@@ -2,12 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 
-## [unreleased]
+## [1.1.3] - 2017-03-24
 ### Fixed
 - fixed link to sonar user issues
+- changes in web api with SonarQube 6.3
 ### Added
 - added new filter for maven artifact names
 - added tooltip for sonar new issues artifact names
+### Removed
+- removed metricIndex configuration for sonar.metric widget
 
 ## [1.1.2] - 2016-12-13
 ### Added

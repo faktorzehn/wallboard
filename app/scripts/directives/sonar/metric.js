@@ -26,24 +26,11 @@ angular.module('wallboardApp')
             function loadResult() {
                 var Sonar = sonar.getMetrics(scope.metric, scope.project);
 
-                // msr.val  ... actual value
-                // msr.var1 ... period1
-                // msr.var2 ... period2
-                // msr.var3 ... period3
-                // msr.var4 ... period4
-                // msr.var5 ... period5
-
-                var metrics = Sonar.get(function () {
-                    if (metrics[0].msr[0]) {
-                        scope.metricResult = metrics[0];
-                        scope.metric = metrics[0].msr[0];
-                        scope.trendVal = scope.metric.var2;
-
-                        // load field for trend from config
-                        var trendIndex = wconfig.getServices().sonar.trend;
-                        if(trendIndex != null) {
-                            scope.trendVal = scope.metric[trendIndex];
-                        }
+                var component = Sonar.get(function () {
+                    var measure = component.measures[0];
+                    if (measure) {
+                        scope.metricResult = Number(measure.value);
+                        scope.trendVal = Number(measure.periods[0].value);
 
                         scope.trendDir = scope.trendVal;
                         if (scope.reverse === 'true') {

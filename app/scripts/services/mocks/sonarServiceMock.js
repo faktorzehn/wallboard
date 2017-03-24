@@ -19,135 +19,165 @@
 'use strict';
 
 angular.module('wallboardAppDev')
-    .run(function($httpBackend) {
+    .run(function ($httpBackend) {
 
         // sonar blocker
-        $httpBackend.whenGET(/sonar\/api\/resources\?includetrends=true&metrics=blocker_violations&resource=(.*)/, undefined, ['project'])
-            .respond(function(method, url, data) {
-                var resources = [
-                    {
-                        "date": (new Date()).getTime() - 1000000,
-                        "msr": [
-                            {
-                                "val": 121,     // actual
-                                "var1": 0,      // since previous analysis
-                                "var2": 21,     // since 30 days
-                                "var3": -16      // since previous version
-                            }
-                        ]
-                    }
-                ];
-                return [200, resources, {}];
+        $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=(.*)&metricKeys=blocker_violations/, undefined, ['project'])
+            .respond(function (method, url, data) {
+                var component = {
+                    "measures": [{
+                        "metric": "blocker_violations",
+                        "value": "76",
+                        "periods": [{
+                            "index": 1,
+                            "value": "68"
+                        }]
+                    }]
+                };
+                return [200, component, {}];
             });
 
         // sonar minor
-        $httpBackend.whenGET(/sonar\/api\/resources\?includetrends=true&metrics=minor_violations&resource=(.*)/, undefined, ['project'])
-            .respond(function(method, url, data) {
-                var resources = [
-                    {
-                        "date": (new Date()).getTime() - 1000000,
-                        "msr": [
-                            {
-                                "val": 10,      // actual
-                                "var1": 0,      // since previous analysis
-                                "var2": -2,     // since 30 days
-                                "var3": 4      // since previous version
-                            }
-                        ]
-                    }
-                ];
-                return [200, resources, {}];
+        $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=(.*)&metricKeys=minor_violations/, undefined, ['project'])
+            .respond(function (method, url, data) {
+                var component = {
+                    "measures": [{
+                        "metric": "minor_violations",
+                        "value": "5",
+                        "periods": [{
+                            "index": 1,
+                            "value": "-1"
+                        }]
+                    }]
+                };
+                return [200, component, {}];
             });
 
         // sonar coverage
-        $httpBackend.whenGET(/sonar\/api\/resources\?includetrends=true&metrics=coverage&resource=(.*)/, undefined, ['project'])
-            .respond(function(method, url, data) {
-                var resources = [
-                    {
-                        "date": (new Date()).getTime() - 100000000,
-                        "msr": [
-                            {
-                                "val": 22.9,    // actual
-                                "var1": 0.0,    // since previous analysis
-                                "var2": -0.4,   // since 30 days
-                                "var3": +1.3    // since previous version
-                            }
-                        ]
-                    }
-                ];
-                return [200, resources, {}];
+        $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=(.*)&metricKeys=coverage/, undefined, ['project'])
+            .respond(function (method, url, data) {
+                var component = {
+                    "measures": [{
+                        "metric": "coverage",
+                        "value": "66.0",
+                        "periods": [{
+                            "index": 1,
+                            "value": "17.0"
+                        }]
+                    }]
+                };
+                return [200, component, {}];
             });
 
         // sonar quality gate details project1
-        $httpBackend.whenGET(/sonar\/api\/resources\?metrics=quality_gate_details&resource=com:project1/)
-            .respond(function(method, url, data) {
-                var resources = [
-                    {
-                        "msr": [
-                            {
-                                "data": JSON.stringify({
-                                    "level": "OK",
-                                    "conditions": ""
-                                })
-                            }
-                        ]
-                    }
-                ];
-                return [200, resources, {}];
-        });
+        $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=com:project1&metricKeys=quality_gate_details/)
+            .respond(function (method, url, data) {
+                var component = {
+                    "measures": [{
+                        "metric": "quality_gate_details",
+                        "value": JSON.stringify({
+                            "level": "OK",
+                            "conditions": ""
+                        })
+                    }]
+                };
+                return [200, component, {}];
+            });
 
         // sonar quality gate details project2
-        $httpBackend.whenGET(/sonar\/api\/resources\?metrics=quality_gate_details&resource=com:project2/)
-            .respond(function(method, url, data) {
-                var resources = [
-                    {
-                        "msr": [
-                            {
-                                "data": JSON.stringify({
-                                    "level": "WARN",
-                                    "conditions": ""
-                                })
-                            }
-                        ]
-                    }
-                ];
-                return [200, resources, {}];
+        $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=com:project2&metricKeys=quality_gate_details/)
+            .respond(function (method, url, data) {
+                var component = {
+                    "measures": [{
+                        "metric": "quality_gate_details",
+                        "value": JSON.stringify({
+                            "level": "WARN",
+                            "conditions": [{
+                                "metric": "test_errors",
+                                "op": "GT",
+                                "warning": "",
+                                "error": "0",
+                                "actual": "1",
+                                "level": "WARN"
+                            }]
+                        })
+                    }]
+                };
+                return [200, component, {}];
             });
 
         // sonar quality gate details project3
-        $httpBackend.whenGET(/sonar\/api\/resources\?metrics=quality_gate_details&resource=com:project3/)
-            .respond(function(method, url, data) {
-                var resources = [
-                    {
-                        "msr": [
-                            {
-                                "data": JSON.stringify({
-                                    "level": "ERROR",
-                                    "conditions": [
-                                        {
-                                            "metric": "coverage",
-                                            "level": "ERROR"
-                                        },
-                                        {
-                                            "metric": "class_complexity",
-                                            "level": "WARN"
-                                        },
-                                        {
-                                            "metric": "duplicated_lines_density",
-                                            "level": "ERROR"
-                                        }
-                                    ]
-                                })
-                            }
-                        ]
+        $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=com:project3&metricKeys=quality_gate_details/)
+            .respond(function (method, url, data) {
+                var component = {
+                        "measures": [{
+                            "metric": "quality_gate_details",
+                            "value": JSON.stringify({
+                                "level": "ERROR",
+                                "conditions": [{
+                                    "metric": "test_errors",
+                                    "op": "GT",
+                                    "warning": "",
+                                    "error": "0",
+                                    "actual": "0",
+                                    "level": "OK"
+                                }, {
+                                    "metric": "test_failures",
+                                    "op": "GT",
+                                    "warning": "",
+                                    "error": "0",
+                                    "actual": "0",
+                                    "level": "OK"
+                                }, {
+                                    "metric": "skipped_tests",
+                                    "op": "GT",
+                                    "period": 1,
+                                    "warning": "0",
+                                    "error": "",
+                                    "actual": "0",
+                                    "level": "OK"
+                                }, {
+                                    "metric": "coverage",
+                                    "op": "LT",
+                                    "period": 1,
+                                    "warning": "",
+                                    "error": "0",
+                                    "actual": "17.0",
+                                    "level": "OK"
+                                }, {
+                                    "metric": "violations",
+                                    "op": "GT",
+                                    "warning": "",
+                                    "error": "0",
+                                    "actual": "125",
+                                    "level": "ERROR"
+                                }, {
+                                    "metric": "new_coverage",
+                                    "op": "LT",
+                                    "period": 1,
+                                    "warning": "",
+                                    "error": "50",
+                                    "actual": "61.801016702977485",
+                                    "level": "OK"
+                                }, {
+                                    "metric": "package-dependency-cycles",
+                                    "op": "GT",
+                                    "period": 1,
+                                    "warning": "",
+                                    "error": "0",
+                                    "actual": "0",
+                                    "level": "OK"
+                                }]
+                            })
+                        }]
                     }
-                ];
-                return [200, resources, {}];
+                ;
+                return [200, component, {}];
             });
 
         // sonar project
         $httpBackend.whenGET(/sonar\/api\/projects\/index\?format=json&key=com:project1/)
-            .respond(function(method, url, data) {
+            .respond(function (method, url, data) {
                 var response = [
                     {
                         "nm": "Project-1"
@@ -158,7 +188,7 @@ angular.module('wallboardAppDev')
 
         // sonar users
         $httpBackend.whenGET(/sonar\/api\/users\/search/)
-            .respond(function(method, url, data) {
+            .respond(function (method, url, data) {
                 var response = {
                     "users": [
                         {
@@ -187,8 +217,8 @@ angular.module('wallboardAppDev')
             });
 
         // sonar issues for user john doe
-        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assignees=doe&facets=severities&hideRules=true&projectKeys=(.*)&resolved=false/, undefined, ['user','project'])
-            .respond(function(method, url, data) {
+        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assignees=doe&facets=severities&hideRules=true&projectKeys=(.*)&resolved=false/, undefined, ['user', 'project'])
+            .respond(function (method, url, data) {
                 var response = {
                     "total": 100,
                     "facets": [
@@ -215,8 +245,8 @@ angular.module('wallboardAppDev')
             });
 
         // sonar issues for other users
-        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assignees=(.*)&facets=severities&hideRules=true&projectKeys=(.*)&resolved=false/, undefined, ['user','project'])
-            .respond(function(method, url, data) {
+        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assignees=(.*)&facets=severities&hideRules=true&projectKeys=(.*)&resolved=false/, undefined, ['user', 'project'])
+            .respond(function (method, url, data) {
                 var response = {
                     "total": 100,
                     "facets": [
@@ -243,8 +273,8 @@ angular.module('wallboardAppDev')
             });
 
         //sonar new issues last 7 days
-        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assigned=false&createdAfter=(.*)&facets=severities&hideRules=true&projectKeys=(.*)/, undefined, ['date','project'])
-            .respond(function(method, url, data) {
+        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assigned=false&createdAfter=(.*)&facets=severities&hideRules=true&projectKeys=(.*)/, undefined, ['date', 'project'])
+            .respond(function (method, url, data) {
                 var response = {
                     "total": 1000,
                     "facets": [

@@ -26,9 +26,9 @@ angular.module('wallboardApp')
             function loadResult() {
                 var Sonar = sonar.getQualityGate(scope.project);
 
-                var resources = Sonar.get(function () {
-                    if (resources[0]) {
-                        var data = JSON.parse(resources[0].msr[0].data);
+                var component = Sonar.get(function () {
+                    if (component) {
+                        var data = JSON.parse(component.measures[0].value);
                         scope.level = data.level;
                         scope.conditions = data.conditions;
                     } else {

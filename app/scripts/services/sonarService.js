@@ -25,31 +25,30 @@ angular.module('wallboardApp')
             token = wconfig.getServices().sonar.token,
 
             getMetrics = function (metrics, project) {
-                var url = uri + '/api/resources',
+                var url = uri + '/api/measures/component',
                     params = {
-                        resource: project,
-                        metrics: metrics,
-                        includetrends: true
+                        componentKey: project,
+                        metricKeys: metrics
                     };
                 return $resource(url, params, {
                     get: {
                         method: 'GET',
-                        isArray: true,
+                        isArray: false,
                         headers: {Authorization: 'Basic ' + token}
                     }
                 });
             },
 
             getQualityGate = function(project) {
-                var url = uri + '/api/resources',
+                var url = uri + '/api/measures/component',
                     params = {
-                        resource: project,
-                        metrics: 'quality_gate_details'
+                        componentKey: project,
+                        metricKeys: 'quality_gate_details'
                     };
                 return $resource(url, params, {
                     get: {
                         method: 'GET',
-                        isArray: true,
+                        isArray: false,
                         headers: {Authorization: 'Basic ' + token}
                     }
                 });
