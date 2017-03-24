@@ -39,6 +39,9 @@ At this point, you should now have a `archive/` directory containing a zip file 
 
 #### Release / Patch
 
+* Update the README.ME
+* Build the release/patch
+
 ```sh
 # patch (3.5.2 -> 3.5.3)
 grunt patch
@@ -47,6 +50,7 @@ grunt release-minor
 # major release (3.5.2 -> 4.0.0)
 grunt release-major
 ```
+* Update the Wiki on Github
 
 ## License
 
