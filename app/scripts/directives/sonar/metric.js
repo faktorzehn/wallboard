@@ -26,8 +26,8 @@ angular.module('wallboardApp')
             function loadResult() {
                 var Sonar = sonar.getMetrics(scope.metric, scope.project);
 
-                var component = Sonar.get(function () {
-                    var measure = component.measures[0];
+                var response = Sonar.get(function () {
+                    var measure = response.component.measures[0];
                     if (measure) {
                         scope.metricResult = Number(measure.value);
                         scope.trendVal = Number(measure.periods[0].value);

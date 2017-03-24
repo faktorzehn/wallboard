@@ -2,15 +2,25 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 
-## [1.1.3] - 2017-03-24
+## [1.1.5] - 2017-03-24
+### Fixed
+- bug in sonar widgets after api changes
+
+## [1.1.4] - 2017-03-24
+### Fixed
+- changes in web api with SonarQube 6.3
+### Removed
+- removed metricIndex configuration for sonar.metric widget
+
+## [1.1.3]
 ### Fixed
 - fixed link to sonar user issues
-- changes in web api with SonarQube 6.3
+### Changed
+- project navigation i.e. /project/2 to switch to the second project
 ### Added
 - added new filter for maven artifact names
 - added tooltip for sonar new issues artifact names
-### Removed
-- removed metricIndex configuration for sonar.metric widget
+- more visible information on failed build in jeknins.testreport widget
 
 ## [1.1.2] - 2016-12-13
 ### Added

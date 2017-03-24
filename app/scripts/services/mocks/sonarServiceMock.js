@@ -24,155 +24,163 @@ angular.module('wallboardAppDev')
         // sonar blocker
         $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=(.*)&metricKeys=blocker_violations/, undefined, ['project'])
             .respond(function (method, url, data) {
-                var component = {
-                    "measures": [{
-                        "metric": "blocker_violations",
-                        "value": "76",
-                        "periods": [{
-                            "index": 1,
-                            "value": "68"
+                var response = {
+                    "component": {
+                        "id": "AVrMDmx1JB_TCvy6K-vn",
+                        "key": "at.wrwks.pipe.pbarchiv:parent:continuous",
+                        "name": "pipe.pbarchiv continuous",
+                        "description": "parent pom for all new pipe projects (java 8, spring-boot)",
+                        "qualifier": "TRK",
+                        "measures": [{
+                            "metric": "blocker_violations",
+                            "value": "5",
+                            "periods": [{"index": 1, "value": "5"}]
                         }]
-                    }]
+                    }
                 };
-                return [200, component, {}];
+                return [200, response, {}];
             });
 
         // sonar minor
         $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=(.*)&metricKeys=minor_violations/, undefined, ['project'])
             .respond(function (method, url, data) {
-                var component = {
-                    "measures": [{
-                        "metric": "minor_violations",
-                        "value": "5",
-                        "periods": [{
-                            "index": 1,
-                            "value": "-1"
+                var response = {
+                    "component": {
+                        "measures": [{
+                            "metric": "minor_violations",
+                            "value": "5",
+                            "periods": [{"index": 1, "value": "-1"}]
                         }]
-                    }]
+                    }
                 };
-                return [200, component, {}];
+                return [200, response, {}];
             });
 
         // sonar coverage
         $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=(.*)&metricKeys=coverage/, undefined, ['project'])
             .respond(function (method, url, data) {
-                var component = {
-                    "measures": [{
-                        "metric": "coverage",
-                        "value": "66.0",
-                        "periods": [{
-                            "index": 1,
-                            "value": "17.0"
+                var response = {
+                    "component": {
+                        "measures": [{
+                            "metric": "coverage",
+                            "value": "66.0",
+                            "periods": [{"index": 1, "value": "17.0"}]
                         }]
-                    }]
+                    }
                 };
-                return [200, component, {}];
+                return [200, response, {}];
             });
 
         // sonar quality gate details project1
         $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=com:project1&metricKeys=quality_gate_details/)
             .respond(function (method, url, data) {
-                var component = {
-                    "measures": [{
-                        "metric": "quality_gate_details",
-                        "value": JSON.stringify({
-                            "level": "OK",
-                            "conditions": ""
-                        })
-                    }]
+                var response = {
+                    "component": {
+                        "measures": [{
+                            "metric": "quality_gate_details",
+                            "value": JSON.stringify({
+                                "level": "OK",
+                                "conditions": ""
+                            })
+                        }]
+                    }
                 };
-                return [200, component, {}];
+                return [200, response, {}];
             });
 
         // sonar quality gate details project2
         $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=com:project2&metricKeys=quality_gate_details/)
             .respond(function (method, url, data) {
-                var component = {
-                    "measures": [{
-                        "metric": "quality_gate_details",
-                        "value": JSON.stringify({
-                            "level": "WARN",
-                            "conditions": [{
-                                "metric": "test_errors",
-                                "op": "GT",
-                                "warning": "",
-                                "error": "0",
-                                "actual": "1",
-                                "level": "WARN"
-                            }]
-                        })
-                    }]
-                };
-                return [200, component, {}];
-            });
-
-        // sonar quality gate details project3
-        $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=com:project3&metricKeys=quality_gate_details/)
-            .respond(function (method, url, data) {
-                var component = {
+                var response = {
+                    "component": {
                         "measures": [{
                             "metric": "quality_gate_details",
                             "value": JSON.stringify({
-                                "level": "ERROR",
+                                "level": "WARN",
                                 "conditions": [{
                                     "metric": "test_errors",
                                     "op": "GT",
                                     "warning": "",
                                     "error": "0",
-                                    "actual": "0",
-                                    "level": "OK"
-                                }, {
-                                    "metric": "test_failures",
-                                    "op": "GT",
-                                    "warning": "",
-                                    "error": "0",
-                                    "actual": "0",
-                                    "level": "OK"
-                                }, {
-                                    "metric": "skipped_tests",
-                                    "op": "GT",
-                                    "period": 1,
-                                    "warning": "0",
-                                    "error": "",
-                                    "actual": "0",
-                                    "level": "OK"
-                                }, {
-                                    "metric": "coverage",
-                                    "op": "LT",
-                                    "period": 1,
-                                    "warning": "",
-                                    "error": "0",
-                                    "actual": "17.0",
-                                    "level": "OK"
-                                }, {
-                                    "metric": "violations",
-                                    "op": "GT",
-                                    "warning": "",
-                                    "error": "0",
-                                    "actual": "125",
-                                    "level": "ERROR"
-                                }, {
-                                    "metric": "new_coverage",
-                                    "op": "LT",
-                                    "period": 1,
-                                    "warning": "",
-                                    "error": "50",
-                                    "actual": "61.801016702977485",
-                                    "level": "OK"
-                                }, {
-                                    "metric": "package-dependency-cycles",
-                                    "op": "GT",
-                                    "period": 1,
-                                    "warning": "",
-                                    "error": "0",
-                                    "actual": "0",
-                                    "level": "OK"
+                                    "actual": "1",
+                                    "level": "WARN"
                                 }]
                             })
                         }]
                     }
+                };
+                return [200, response, {}];
+            });
+
+        // sonar quality gate details project3
+        $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=com:project3&metricKeys=quality_gate_details/)
+            .respond(function (method, url, data) {
+                var response = {
+                        "component": {
+                            "measures": [{
+                                "metric": "quality_gate_details",
+                                "value": JSON.stringify({
+                                    "level": "ERROR",
+                                    "conditions": [{
+                                        "metric": "test_errors",
+                                        "op": "GT",
+                                        "warning": "",
+                                        "error": "0",
+                                        "actual": "0",
+                                        "level": "OK"
+                                    }, {
+                                        "metric": "test_failures",
+                                        "op": "GT",
+                                        "warning": "",
+                                        "error": "0",
+                                        "actual": "0",
+                                        "level": "OK"
+                                    }, {
+                                        "metric": "skipped_tests",
+                                        "op": "GT",
+                                        "period": 1,
+                                        "warning": "0",
+                                        "error": "",
+                                        "actual": "0",
+                                        "level": "OK"
+                                    }, {
+                                        "metric": "coverage",
+                                        "op": "LT",
+                                        "period": 1,
+                                        "warning": "",
+                                        "error": "0",
+                                        "actual": "17.0",
+                                        "level": "OK"
+                                    }, {
+                                        "metric": "violations",
+                                        "op": "GT",
+                                        "warning": "",
+                                        "error": "0",
+                                        "actual": "125",
+                                        "level": "ERROR"
+                                    }, {
+                                        "metric": "new_coverage",
+                                        "op": "LT",
+                                        "period": 1,
+                                        "warning": "",
+                                        "error": "50",
+                                        "actual": "61.801016702977485",
+                                        "level": "OK"
+                                    }, {
+                                        "metric": "package-dependency-cycles",
+                                        "op": "GT",
+                                        "period": 1,
+                                        "warning": "",
+                                        "error": "0",
+                                        "actual": "0",
+                                        "level": "OK"
+                                    }]
+                                })
+                            }]
+                        }
+                    }
                 ;
-                return [200, component, {}];
+                return [200, response, {}];
             });
 
         // sonar project
