@@ -51,10 +51,10 @@ $l-wallboard-min-width-number: 35%;
 $l-wallboard-min-width-info: 30%;
 
 @font-face {
-    font-family: "Helvetica Neue";
-    local: "Helvetica Neue";                // Erst nachsehen, ob die Schrift
+    font-family: "Roboto";
+    local: "Roboto";                // Erst nachsehen, ob die Schrift
     // beim Besucher schon installiert ist
-    src: url(fonts/helveticaneue-webfont.ttf);  // Wenn nicht, wird die Schrift vom
+    src: url(https://fonts.googleapis.com/css?family=Roboto);  // Wenn nicht, wird die Schrift vom
     // Webserver geladen
 }
 
@@ -62,7 +62,7 @@ $l-wallboard-min-width-info: 30%;
  BASE STYLES
  *****************************************************************************/
 html, body {
-    font-family: "Helvetica Neue", sans-serif;
+    font-family: "Roboto", sans-serif;
     height: 100%;
     background-color: $l-background-color;
     color: $l-text-color;
@@ -199,7 +199,9 @@ nav {
  JOB
  *****************************************************************************/
 .wallboard-unit-job {
-    padding: 0.25rem;
+    background-color: rgba(100,100,100,0.5);
+    padding: 1rem;
+    margin: 1rem 0;
 
     .very-bad {
         background: url(../images/weather-storm.png) no-repeat;
@@ -261,7 +263,7 @@ nav {
     .progress {
         height: 0.5rem;
         width: 100%;
-        margin-top: 0.5rem;
+        margin: 1rem 0 0 0;
     }
 
     h3 {
