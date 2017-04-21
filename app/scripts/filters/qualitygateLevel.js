@@ -4,7 +4,7 @@ angular.module('wallboardApp')
     .filter('qualitygateLevel', function () {
         return function (input) {
             if (input === 'OK') {
-                return 'good';
+                return 'neutral';
             } else if (input === 'WARN') {
                 return 'warn';
             } else if(input === 'ERROR') {
