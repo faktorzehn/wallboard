@@ -31,24 +31,32 @@ angular.module('wallboardApp')
             var fieldsReport = 'failCount,totalCount,childReports[child[url],result[failCount]]',
                 fieldsBuild = 'number,url,timestamp,duration,estimatedDuration,fullDisplayName,building,builtOn,result';
 
+            /**
+             * Calculates the current build health.
+             *
+             * The build health is the minimum of the percent of successful tests of the last successful
+             * build and the amount of successful builds within the last 5 builds.
+             */
             function refreshHealth() {
 
-                if (!scope.lastSuccessfulBuild) {
-                    return;
-                }
-
-                if (!scope.testReportLastSuccessfulBuild) {
+                if (!scope.lastSuccessfulBuild || !scope.testReportLastSuccessfulBuild) {
                     return;
                 }
 
                 var testHealth = 100;
-                if (scope.testReportLastSuccessfulBuild.totalCount != 0) {
-                    testHealth = 100 - (scope.testReportLastSuccessfulBuild.failCount / scope.testReportLastSuccessfulBuild.totalCount * 100);
+                var buildHealth = 100;
+
+                /* calculate the percent of successful tests of the last successful build */
+                if (scope.testReportLastSuccessfulBuild.totalCount > 0) {
+                    testHealth -= (scope.testReportLastSuccessfulBuild.failCount / scope.testReportLastSuccessfulBuild.totalCount * 100);
                 }
 
-                var buildHealth = 100 - (scope.numberOfFaildBuilds * (1 / 5) * 100);
+                /* calculate the percent of successful builds within the last 5 builds */
+                if(scope.numberOfFaildBuilds > 0) {
+                    buildHealth -= (scope.numberOfFaildBuilds * (1 / 5) * 100);
+                }
 
-                scope.healthBuild = Math.min(testHealth, buildHealth);
+                scope.buildHealth = Math.min(testHealth, buildHealth);
             }
 
             function refreshNumberOfFaildBuilds(currentBuild) {

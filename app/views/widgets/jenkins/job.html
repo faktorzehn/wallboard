@@ -1,25 +1,22 @@
-<div class="wallboard-unit-job {{size}}">
+<div class="wallboard-unit job {{size}} {{lastBuild.result|buildStable}}">
 
     <div class="row">
 
         <div class="col-md-3 job-status">
-            <div class="{{healthBuild|buildHealth}} largeWeather" ng-show="lastSuccessfulBuild"></div>
+            <div class="{{buildHealth|buildHealth}} largeWeather" ng-show="lastSuccessfulBuild"></div>
             <div class="fail largeWeather" ng-hide="lastSuccessfulBuild"></div>
         </div>
 
         <div class="col-md-9 job-info">
             <div class="wallboard-unit-job-title">
-                <h3>{{name}}</h3>
-
-                <div class="wallboard-unit-job-status {{lastBuild.result|buildStable}}"
-                     ng-hide="lastBuild.building || !lastBuild"></div>
+                <span>Job:</span> <h3>{{name}}</h3>
             </div>
+            <div ng-show="testReportLastBuild.failCount > 0" class="wallboard-unit-job-tests">Failed
+                tests: {{testReportLastBuild.failCount}}</div>
             <div>
-                <a ng-show="lastBuild" href="{{lastBuild.url}}" target="_blank">#{{lastBuild.number}}</a>
+                <a ng-show="lastBuild" href="{{lastBuild.url}}" target="_blank">Build: #{{lastBuild.number}}</a>
                 <span ng-show="lastBuild"> {{lastBuild.timestamp|timeago}}</span>
             </div>
-            <div ng-show="lastBuild" class="wallboard-unit-job-tests">Failed
-                tests: {{testReportLastBuild.failCount}}</div>
         </div>
 
     </div>

@@ -4,17 +4,17 @@ angular.module('wallboardApp')
     .filter('buildStable', function () {
         return function (input) {
             if (input === 'UNSTABLE') {
-                return 'warning';
+                return 'warn';
             }
 
             if (input === 'FAILURE') {
-                return 'danger';
+                return 'bad';
             }
 
             if (input === 'SUCCESS') {
-                return 'success';
+                return 'neutral';
             }
 
-            return 'info';
+            return 'failure';
         };
     });

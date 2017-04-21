@@ -34,16 +34,26 @@ $l-background-color: #2B2E36;
 $l-text-color: white;
 $l-wallboard-width: auto;
 
-$l-unit-border-bad: red;
-$l-unit-bg-bad: darkred;
-$l-unit-border-warn: yellow;
-$l-unit-bg-warn: #AEB404;
-$l-unit-border-good: greenyellow;
-$l-unit-bg-good: green;
-$l-unit-border-neutral: green;
-$l-unit-bg-neutral: darkgreen;
-$l-unit-border-failure: yellow;
-$l-unit-bg-failure: #AEB404;
+$l-unit-border-failure: rgb(255, 255, 0);
+$l-unit-bg-failure: rgba(0, 0, 0, 0);
+$l-unit-failure: rgba(255, 0, 0, 1);
+
+$l-unit-border-bad: rgb(255, 0, 0);
+$l-unit-bg-bad: rgba(140, 0, 0, 0.7);
+$l-unit-bad: rgba(255, 0, 0, 1);
+
+$l-unit-border-warn: rgb(255, 255, 0);
+$l-unit-bg-warn: rgba(140, 140, 0, 0.7);
+$l-unit-warn: rgba(255, 255, 0, 1);
+
+$l-unit-border-neutral: rgb(0, 140, 0);
+$l-unit-bg-neutral: rgba(0, 120, 0, 0.7);
+$l-unit-neutral: rgba(0, 180, 0, 1);
+
+$l-unit-border-good: rgb(0, 255, 0);
+$l-unit-bg-good: rgba(0, 180, 0, 0.7);
+$l-unit-good: rgba(0, 255, 0, 1);
+
 $l-unit-border-onecolor: black;
 $l-unit-bg-onecolor: gray;
 
@@ -198,7 +208,7 @@ nav {
 /******************************************************************************
  JOB
  *****************************************************************************/
-.wallboard-unit-job {
+.wallboard-unit.job {
     background-color: rgba(100,100,100,0.5);
     padding: 1rem;
     margin: 1rem 0;
@@ -226,25 +236,6 @@ nav {
     .fail {
         background: url(../images/weather-severe-alert-128.png) no-repeat;
         background-size: contain;
-    }
-
-    .wallboard-unit-job-status {
-        display: inline-block;
-        vertical-align: middle;
-        height: 1.5rem;
-        width: 1.5rem;
-        &.danger {
-            background: url(../images/big-exclamation-red.png) no-repeat;
-            background-size: contain;
-        }
-        &.warning, .info {
-            background: url(../images/medal_yellow.png) no-repeat;
-            background-size: contain;
-        }
-        &.success {
-            background: url(../images/medal_green.png) no-repeat;
-            background-size: contain;
-        }
     }
 
     .largeWeather {
@@ -329,7 +320,7 @@ nav {
         background-color: $l-unit-bg-good;
         .details {
             border-top: 1px solid $l-unit-border-good;
-            color: $l-unit-border-good;
+            color: $l-unit-good;
         }
     }
 
@@ -337,8 +328,8 @@ nav {
         border-color: $l-unit-border-neutral;
         background-color: $l-unit-bg-neutral;
         .details {
-            border-top: 1px solid $l-unit-border-good;
-            color: $l-unit-border-good;
+            border-top: 1px solid $l-unit-border-neutral;
+            color: $l-unit-neutral;
         }
     }
 
@@ -347,7 +338,7 @@ nav {
         background-color: $l-unit-bg-bad;
         .details {
             border-top: 1px solid $l-unit-border-bad;
-            color: $l-unit-border-bad;
+            color: $l-unit-bad;
         }
     }
 
@@ -356,7 +347,13 @@ nav {
         background-color: $l-unit-bg-warn;
         .details {
             border-top: 1px solid $l-unit-border-warn;
-            color: $l-unit-border-warn;
+            color: $l-unit-warn;
+        }
+    }
+
+    &.failure {
+        .details {
+            display: none;
         }
     }
 
@@ -384,6 +381,9 @@ nav {
     .details {
         font-size: 0.7rem;
         margin-top: 0.25rem;
+        a {
+            color: inherit;
+        }
     }
 
 }
@@ -428,7 +428,7 @@ nav {
     }
     .last-build-failed {
         color: white;
-        background-color: $l-unit-bg-bad;
+        background-color: $l-unit-failure;
     }
 }
 
@@ -453,13 +453,18 @@ nav {
  *****************************************************************************/
 table.issues {
     font-size: 1.5em;
-    background-color: $l-unit-bg-good;
     border: 2px solid $l-unit-border-good;
     margin: 0;
 
+    > thead {
+        background-color: $l-unit-bg-good;
+    }
+
     &.bad {
-        background-color: $l-unit-bg-bad;
         border-color: $l-unit-border-bad;
+        > thead {
+            background-color: $l-unit-bg-bad;
+        }
     }
 
     thead {

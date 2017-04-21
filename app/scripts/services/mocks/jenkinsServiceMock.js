@@ -32,6 +32,7 @@ angular.module('wallboardAppDev')
                     "building" : true,
                     "number": 156778,
                     "url": "",
+                    "result": "UNSTABLE",
                     "childReports": [
                         {
                             "child": {
@@ -73,6 +74,7 @@ angular.module('wallboardAppDev')
                     "building" : false,
                     "number": 432,
                     "url": "",
+                    "result": "SUCCESS",
                     "culprits": [
                         {
                             "fullName": "John Doe"
