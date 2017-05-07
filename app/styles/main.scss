@@ -82,6 +82,9 @@ html, body {
 a {
     color: #ffffff;
     transition: all 0.2s linear;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: inherit;
     &:hover {
         color: $l-f10-blue-light;
     }
@@ -177,6 +180,7 @@ nav {
         -webkit-background-clip: text;
         -moz-background-clip: text;
         background-clip: text;
+        text-decoration: none;
     }
     .navbar-header .navbar-brand {
         font-size: 2em;
