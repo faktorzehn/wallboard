@@ -21,79 +21,37 @@
 angular.module('wallboardApp')
     .directive('jenkins.job', function ($interval, jenkins) {
 
+        const buildHistory = 5;
+        const fieldsReport = 'failCount,totalCount,childReports[child[url],result[failCount]]';
+        const fieldsBuild = 'number,url,timestamp,duration,estimatedDuration,fullDisplayName,building,builtOn,result';
+
         function link(scope, element, attrs) {
 
-            scope.nowTime = (new Date()).getTime();
-            scope.lastBuildProgress = 0;
-            scope.healthBuild = 100;
-            scope.numberOfFaildBuilds = 0;
+            scope.lastBuild = null;
+            scope.lastBuildProgress = -1;
+            scope.lastBuildTestReport = null;
 
-            var fieldsReport = 'failCount,totalCount,childReports[child[url],result[failCount]]',
-                fieldsBuild = 'number,url,timestamp,duration,estimatedDuration,fullDisplayName,building,builtOn,result';
+            scope.lastSuccessfulBuild = null;
+            scope.lastSuccessfulBuildTestReport = null;
 
-            /**
-             * Calculates the current build health.
-             *
-             * The build health is the minimum of the percent of successful tests of the last successful
-             * build and the amount of successful builds within the last 5 builds.
-             */
-            function refreshHealth() {
-
-                if (!scope.lastSuccessfulBuild || !scope.testReportLastSuccessfulBuild) {
-                    return;
-                }
-
-                var testHealth = 100;
-                var buildHealth = 100;
-
-                /* calculate the percent of successful tests of the last successful build */
-                if (scope.testReportLastSuccessfulBuild.totalCount > 0) {
-                    testHealth -= (scope.testReportLastSuccessfulBuild.failCount / scope.testReportLastSuccessfulBuild.totalCount * 100);
-                }
-
-                /* calculate the percent of successful builds within the last 5 builds */
-                if(scope.numberOfFaildBuilds > 0) {
-                    buildHealth -= (scope.numberOfFaildBuilds * (1 / 5) * 100);
-                }
-
-                scope.buildHealth = Math.min(testHealth, buildHealth);
-            }
-
-            function refreshNumberOfFaildBuilds(currentBuild) {
-
-                if (currentBuild.result === 'FAILURE') {
-                    scope.numberOfFaildBuilds++;
-                    refreshHealth();
-                }
-
-                if (currentBuild.number > scope.lastSuccessfulBuild.number - 5) {
-                    jenkins.getBuild(scope.job, currentBuild.number - 1, fieldsBuild).get(function (lastCheckBuild) {
-                        refreshNumberOfFaildBuilds(lastCheckBuild);
-                    });
-                }
-
-            }
-
-            function loadTestReportLastSuccessfulBuild() {
-                jenkins.getTestReport(scope.job, jenkins.lastSuccessfulBuild, fieldsReport).get(function (report) {
-                    scope.testReportLastSuccessfulBuild = report;
-                    refreshHealth();
-                });
-            }
-
-            function loadTestReportLastBuild() {
-                jenkins.getTestReport(scope.job, jenkins.lastBuild, fieldsReport).get(function (testReport) {
-                    scope.testReportLastBuild = testReport;
-                });
-            }
+            scope.now = (new Date()).getTime();
+            scope.jobHealth = 100;
+            scope.failedBuilds = 0;
 
             function loadLastBuild() {
                 jenkins.getBuild(scope.job, jenkins.lastBuild, fieldsBuild).get(function (build) {
                     scope.lastBuild = build;
 
-                    scope.nowTime = (new Date()).getTime();
-                    var t = (scope.nowTime - scope.lastBuild.timestamp) / scope.lastBuild.estimatedDuration * 100;
+                    /* calculate progress */
+                    scope.now = (new Date()).getTime();
+                    var t = (scope.now - scope.lastBuild.timestamp) / scope.lastBuild.estimatedDuration * 100;
                     scope.lastBuildProgress = t > 100 ? 100 : t;
+                });
+            }
+
+            function loadLastBuildTestReport() {
+                jenkins.getTestReport(scope.job, jenkins.lastBuild, fieldsReport).get(function (testReport) {
+                    scope.lastBuildTestReport = testReport;
                 });
             }
 
@@ -104,20 +62,72 @@ angular.module('wallboardApp')
                     scope.lastSuccessfulBuild = build;
 
                     if (!oldlastSuccessfulBuild || !scope.lastSuccessfulBuild || scope.lastSuccessfulBuild.number !== oldlastSuccessfulBuild.number) {
-                        scope.numberOfFaildBuilds = 0;
+                        scope.failedBuilds = 0;
                         refreshNumberOfFaildBuilds(scope.lastSuccessfulBuild);
 
                     }
-                    refreshHealth();
+                    calculateBuildHealth();
 
                 });
             }
 
+            function refreshNumberOfFaildBuilds(currentBuild) {
+                if (currentBuild.result === 'FAILURE') {
+                    scope.failedBuilds++;
+                    calculateBuildHealth();
+                }
+                if (currentBuild.number > scope.lastSuccessfulBuild.number - buildHistory) {
+                    jenkins.getBuild(scope.job, currentBuild.number - 1, fieldsBuild).get(function (lastCheckBuild) {
+                        refreshNumberOfFaildBuilds(lastCheckBuild);
+                    });
+                }
+            }
+
+            function loadLastSuccessfulBuildTestReport() {
+                jenkins.getTestReport(scope.job, jenkins.lastSuccessfulBuild, fieldsReport).get(function (testReport) {
+                    scope.lastSuccessfulBuildTestReport = testReport;
+                    calculateBuildHealth();
+                });
+            }
+
+            /**
+             * Calculates the current build health.
+             *
+             * The build health is the minimum of the percent of successful tests of the last successful
+             * build and the amount of successful builds within the last x builds.
+             */
+            function calculateBuildHealth() {
+
+                var testHealth = 100;
+                var buildHealth = 100;
+
+                /* job has no successful build so far */
+                if(!scope.lastSuccessfulBuild) {
+                    scope.jobHealth = 0;
+                    return;
+                }
+
+                /* calculate the percent of successful builds within the last x builds */
+                if(scope.failedBuilds > 0) {
+                    buildHealth -= (scope.failedBuilds * (1 / buildHistory) * 100);
+                }
+
+                /* only for jobs with testreport */
+                if(scope.lastSuccessfulBuildTestReport) {
+                    /* calculate the percent of successful tests of the last successful build */
+                    if (scope.lastSuccessfulBuildTestReport.totalCount > 0) {
+                        testHealth -= (scope.lastSuccessfulBuildTestReport.failCount / scope.lastSuccessfulBuildTestReport.totalCount * 100);
+                    }
+                }
+
+                scope.jobHealth = Math.min(testHealth, buildHealth);
+            }
+
             function updateAll() {
                 loadLastBuild();
+                loadLastBuildTestReport();
                 loadLastSuccessfulBuild();
-                loadTestReportLastSuccessfulBuild();
-                loadTestReportLastBuild();
+                loadLastSuccessfulBuildTestReport();
             }
 
             updateAll();

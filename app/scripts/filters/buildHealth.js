@@ -23,7 +23,7 @@ angular.module('wallboardApp')
                 return 'very-good';
             }
 
-            return '';
+            return 'fail';
 
         };
     });
