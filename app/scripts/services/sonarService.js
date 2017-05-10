@@ -28,7 +28,8 @@ angular.module('wallboardApp')
                 var url = uri + '/api/measures/component',
                     params = {
                         componentKey: project,
-                        metricKeys: metrics
+                        metricKeys: metrics,
+                        additionalFields: 'metrics,periods'
                     };
                 return $resource(url, params, {
                     get: {

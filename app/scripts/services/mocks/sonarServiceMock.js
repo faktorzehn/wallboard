@@ -22,7 +22,7 @@ angular.module('wallboardAppDev')
     .run(function ($httpBackend) {
 
         // sonar blocker
-        $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=(.*)&metricKeys=blocker_violations/, undefined, ['project'])
+        $httpBackend.whenGET(/sonar\/api\/measures\/component\?additionalFields=metrics,periods&componentKey=(.*)&metricKeys=blocker_violations/, undefined, ['project'])
             .respond(function (method, url, data) {
                 var response = {
                     "component": {
@@ -35,6 +35,18 @@ angular.module('wallboardAppDev')
                             "metric": "blocker_violations",
                             "value": "5",
                             "periods": [{"index": 1, "value": "5"}]
+                        }],
+                        "metrics": [{
+                            "key": "open_issues",
+                            "name": "Open Issues",
+                            "description": "Open issues",
+                            "domain": "Issues",
+                            "type": "INT",
+                            "higherValuesAreBetter": false,
+                            "qualitative": false,
+                            "hidden": false,
+                            "custom": false,
+                            "bestValue": "0"
                         }]
                     }
                 };
@@ -42,22 +54,35 @@ angular.module('wallboardAppDev')
             });
 
         // sonar minor
-        $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=(.*)&metricKeys=minor_violations/, undefined, ['project'])
+        $httpBackend.whenGET(/sonar\/api\/measures\/component\?additionalFields=metrics,periods&componentKey=(.*)&metricKeys=minor_violations/, undefined, ['project'])
             .respond(function (method, url, data) {
                 var response = {
-                    "component": {
-                        "measures": [{
-                            "metric": "minor_violations",
-                            "value": "5",
-                            "periods": [{"index": 1, "value": "-1"}]
-                        }]
+                        "component": {
+                            "measures": [{
+                                "metric": "minor_violations",
+                                "value": "5",
+                                "periods": [{"index": 1, "value": "-1"}]
+                            }],
+                            "metrics": [{
+                                "key": "minor_issues",
+                                "name": "Minor Issues",
+                                "description": "Minor issues",
+                                "domain": "Issues",
+                                "type": "INT",
+                                "higherValuesAreBetter": false,
+                                "qualitative": false,
+                                "hidden": false,
+                                "custom": false,
+                                "bestValue": "0"
+                            }]
+                        }
                     }
-                };
+                ;
                 return [200, response, {}];
             });
 
         // sonar coverage
-        $httpBackend.whenGET(/sonar\/api\/measures\/component\?componentKey=(.*)&metricKeys=coverage/, undefined, ['project'])
+        $httpBackend.whenGET(/sonar\/api\/measures\/component\?additionalFields=metrics,periods&componentKey=(.*)&metricKeys=coverage/, undefined, ['project'])
             .respond(function (method, url, data) {
                 var response = {
                     "component": {
@@ -65,6 +90,20 @@ angular.module('wallboardAppDev')
                             "metric": "coverage",
                             "value": "66.0",
                             "periods": [{"index": 1, "value": "17.0"}]
+                        }],
+                        "metrics": [{
+                            "key": "coverage",
+                            "name": "Coverage",
+                            "description": "Coverage by tests",
+                            "domain": "Coverage",
+                            "type": "PERCENT",
+                            "higherValuesAreBetter": true,
+                            "qualitative": true,
+                            "hidden": false,
+                            "custom": false,
+                            "decimalScale": 1,
+                            "bestValue": "100.0",
+                            "worstValue": "0.0"
                         }]
                     }
                 };

@@ -28,14 +28,22 @@ angular.module('wallboardApp')
 
                 var response = Sonar.get(function () {
                     var measure = response.component.measures[0];
+                    var metric = response.component.metrics[0];
+
                     if (measure) {
                         scope.metricResult = Number(measure.value);
                         scope.trendVal = Number(measure.periods[0].value);
 
+                        scope.domain = metric.domain;
+                        scope.unit = metric.type;
+                        scope.reverse = metric.higherValuesAreBetter;
+
                         scope.trendDir = scope.trendVal;
-                        if (scope.reverse === 'true') {
+                        if (metric.higherValuesAreBetter) {
                             scope.trendDir *= -1;
                         }
+
+                        buildAnalyseUrl();
 
                     } else {
                         $log.warn("Keine Ergebnisse fuer " + scope.metric + " bekommen!");
@@ -45,6 +53,14 @@ angular.module('wallboardApp')
                         $log.error("Fehler beim Anmelden an SonarQube!\n" + JSON.stringify(error));
                     }
                 });
+            }
+
+            function buildAnalyseUrl() {
+                scope.analyseBuildUrl = wconfig.getServices().sonar.uri + '/component_measures';
+                if(scope.domain) {
+                    scope.analyseBuildUrl += '/domain/' + scope.domain;
+                }
+                scope.analyseBuildUrl += '?id=' + escape(scope.project);
             }
 
             loadResult();
@@ -62,14 +78,13 @@ angular.module('wallboardApp')
                 $interval.cancel(stopTime);
             });
 
-
-            scope.analyseBuildUrl = wconfig.getServices().sonar.uri + '/dashboard/index/' + escape(scope.project);
+            buildAnalyseUrl();
         }
 
         return {
             restrict: 'E',
             templateUrl: 'views/widgets/sonar/metric.html',
-            scope: {name: '@', metric: '@', reverse: '@', unit: '@', project: '@', refresh: '@'},
+            scope: {name: '@', metric: '@', unit: '@', project: '@', refresh: '@'},
             link: link
         };
     });

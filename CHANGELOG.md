@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 
+## [unreleased] 
+### Removed
+- sonar.metric: unit and reverse properties are removed because they are now loaded from Sonar directly
+- sonar.metric: Analyse Build Url was removed and replaced by a direct link to the appropriate domain
+
 ## [1.1.5] - 2017-03-24
 ### Fixed
 - bug in sonar widgets after api changes
