@@ -83,7 +83,6 @@ a {
     color: #ffffff;
     transition: all 0.2s linear;
     text-decoration: underline;
-    text-decoration-style: dotted;
     text-decoration-color: inherit;
     &:hover {
         color: $l-f10-blue-light;
@@ -101,7 +100,6 @@ footer {
     padding: 0.3em 0;
     a {
         color: $l-light-grey;
-        text-decoration: underline;
     }
 }
 
@@ -516,9 +514,6 @@ table.issues {
         a {
             width: 100%;
             display: block;
-            &:hover {
-                text-decoration: none;
-            }
         }
         &.user {
             text-align: left;
