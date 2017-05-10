@@ -21,25 +21,7 @@
 angular.module('wallboardApp').
 filter('timeago', function () {
     return function (date) {
-        var dateString = moment(date).fromNow();
-        var dateArray = dateString.split(' ');
-
-        if (dateArray[1] == 'few') {
-            dateArray[2] = dateArray[2].substring(0, 1);
-        } else {
-            dateArray[1] = dateArray[1].substring(0, 1);
-        }
-
-        var output = '';
-        for (var i = 0; i < dateArray.length; i++) {
-            if (i == dateArray.length - 1) {
-                output += dateArray[i];
-            } else {
-                output += dateArray[i] + ' ';
-            }
-
-        }
-        return output;
+        return moment(date).fromNow();
     }
 });
 

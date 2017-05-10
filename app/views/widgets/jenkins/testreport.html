@@ -33,8 +33,8 @@
         <div class="col-md-12">
             <div class="details">
                 <div>
-                    Build: <a href="{{lastSuccessfulBuild.url}}" target="_blank">#{{lastSuccessfulBuild.number}}</a>
-                    {{lastSuccessfulBuild.timestamp|timeago}}
+                    Build: <a href="{{lastSuccessfulBuild.url}}" target="_blank">#{{lastSuccessfulBuild.number}}</a> -
+                    <span class="timeago">{{lastSuccessfulBuild.timestamp|timeago}}</span>
                 </div>
                 <div class="last-build-failed" ng-show="lastBuild.result=='FAILURE'">
                     <a href="{{lastBuild.url}}" target="_blank">LAST BUILD FAILED!</a>
