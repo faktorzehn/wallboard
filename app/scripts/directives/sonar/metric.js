@@ -28,7 +28,7 @@ angular.module('wallboardApp')
 
                 var response = Sonar.get(function () {
                     var measure = response.component.measures[0];
-                    var metric = response.component.metrics[0];
+                    var metric = response.metrics[0];
 
                     if (measure) {
                         scope.metricResult = Number(measure.value);
