@@ -1,0 +1,33 @@
+<div class="project">
+
+    <h3 class="title">Project: {{name}}</h3>
+
+    <div ng-if="builds" class="builds">
+        <h4>Builds & Tests</h4>
+        <div ng-repeat="build in buildsArray" class="build {{build.result.result|buildStable}}">
+            <div style="width: 80%; float: left;"><a href="{{build.url}}" target="_blank">{{build.name}}</a></div>
+            <div ng-if="build.failedTests" style="width: 20%; float: right; text-align: center;">{{build.failedTests}}</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div ng-if="metrics" class="metrics">
+        <h4>Metrics</h4>
+        <div ng-repeat="metric in metrics" class="metric {{metric.trendDir|goodBad}}">
+            <div style="width: 80%; float: left;"><a href="{{metric.url}}" target="_blank">{{metric.name}}</a></div>
+            <div style="width: 20%; float: right; text-align: center;">{{metric.value|round:2}}{{metric.unit|metricUnit}}</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+    <div ng-if="qualitygate" class="qualitygate">
+        <h4>Quality Gate</h4>
+        <div class="condition passed" ng-if="qualitygate.level === 'OK'">Passed</div>
+        <div ng-repeat="condition in qualitygate.conditions" class="condition {{condition.level|levelColor}}">
+            <div style="width: 80%; float: left;">{{condition.metric}}</div>
+            <div style="width: 20%; float: right; text-align: center;">{{condition.actual|round:2}}</div>
+            <div class="clear"></div>
+        </div>
+    </div>
+
+</div>

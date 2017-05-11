@@ -29,7 +29,7 @@ angular.module('wallboardApp')
         return function (input, fraction) {
 
             if (!angular.isNumber(input)) {
-                return 'failure';
+                input = Number(input);
             }
 
             var frac = fraction;

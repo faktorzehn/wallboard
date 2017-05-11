@@ -31,7 +31,7 @@ angular.module('wallboardAppDev')
                     "estimatedDuration" : 50,
                     "building" : true,
                     "number": 156778,
-                    "url": "",
+                    "url" : "https://build.project.com/jenkins/job/test.project/51/",
                     "result": "UNSTABLE",
                     "childReports": [
                         {
@@ -73,7 +73,7 @@ angular.module('wallboardAppDev')
                     "estimatedDuration" : 1960652,
                     "building" : false,
                     "number": 432,
-                    "url": "",
+                    "url" : "https://build.project.com/jenkins/job/test.project/51/",
                     "result": "SUCCESS",
                     "culprits": [
                         {

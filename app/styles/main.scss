@@ -89,6 +89,10 @@ a {
     }
 }
 
+.clear {
+    clear: both;
+}
+
 footer {
     position: absolute;
     bottom: 0;
@@ -451,6 +455,52 @@ nav {
         //width: 20%;
         display: inline-block;
         text-align: right;
+    }
+}
+
+.project {
+    border: 2px solid grey;
+    background-color: rgba(100,100,100,0.5);
+    padding: 10px;
+    h3.title {
+        margin: 0;
+        padding: 0;
+    }
+    h4 {
+        margin: 20px 0 10px 0;
+    }
+    .build,
+    .metric,
+    .qualitygate .condition {
+        padding: 5px 20px;
+        &.good,
+        &.passed {
+            border-color: $l-unit-border-good;
+            background-color: $l-unit-bg-good;
+        }
+        &.neutral,
+        &.green {
+            border-color: $l-unit-border-neutral;
+            background-color: $l-unit-bg-neutral;
+        }
+        &.bad,
+        &.red {
+            border-color: $l-unit-border-bad;
+            background-color: $l-unit-bg-bad;
+        }
+        &.warn,
+        &.yellow {
+            border-color: $l-unit-border-warn;
+            background-color: $l-unit-bg-warn;
+        }
+        &.failure {
+            border-color: $l-unit-border-failure;
+            background-color: $l-unit-bg-failure;
+        }
+    }
+    // hide good qualitygates
+    .qualitygate .condition.green {
+        display: none;
     }
 }
 
