@@ -473,13 +473,13 @@ nav {
     .metric,
     .qualitygate .condition {
         padding: 5px 20px;
-        &.good,
-        &.passed {
+        &.good {
             border-color: $l-unit-border-good;
             background-color: $l-unit-bg-good;
         }
         &.neutral,
-        &.green {
+        &.green,
+        &.passed {
             border-color: $l-unit-border-neutral;
             background-color: $l-unit-bg-neutral;
         }
@@ -496,6 +496,14 @@ nav {
         &.failure {
             border-color: $l-unit-border-failure;
             background-color: $l-unit-bg-failure;
+        }
+    }
+    .build,
+    .metric,
+    .qualitygate {
+        &.failure {
+            border-style: solid;
+            border-width: 2px;
         }
     }
     // hide good qualitygates

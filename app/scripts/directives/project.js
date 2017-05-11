@@ -21,7 +21,8 @@
 angular.module('wallboardApp')
     .directive('project', function ($interval, jenkins, sonar, wconfig, $log) {
 
-        const fieldsBuild = 'number,url,timestamp,duration,estimatedDuration,fullDisplayName,building,builtOn,result';
+        const fieldsReport = 'failCount';
+        const fieldsBuild = 'url,result';
 
         function link(scope, element, attrs) {
 
@@ -30,16 +31,21 @@ angular.module('wallboardApp')
 
             function updateBuilds() {
                 angular.forEach(scope.buildsArray, function(build) {
-                    var Jenkins = jenkins.getBuild(build.job, jenkins.lastBuild, fieldsBuild);
-                    Jenkins.get(function (response) {
+                    jenkins.getBuild(build.job, jenkins.lastBuild, fieldsBuild).get(function (response) {
                         build.result = response;
-                        build.failedTests = response.failCount;
                         build.url = response.url;
 
                         if(!build.name) {
                             build.name = build.job;
                         }
 
+                    }, function(error) {
+                        if(error) {
+                            $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
+                        }
+                    });
+                    jenkins.getTestReport(build.job, jenkins.lastBuild, fieldsReport).get(function (response) {
+                        build.failedTests = response.failCount;
                     }, function(error) {
                         if(error) {
                             $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
