@@ -19,7 +19,7 @@
 'use strict';
 
 angular.module('wallboardApp')
-    .directive('project', function ($interval, jenkins, sonar, wconfig, $log) {
+    .directive('project', function ($interval, jenkins, sonar, $log) {
 
         const fieldsReport = 'failCount';
         const fieldsBuild = 'url,result';
@@ -72,7 +72,7 @@ angular.module('wallboardApp')
                             metric.trendDir *= -1;
                         }
 
-                        metric.url = wconfig.getServices().sonar.uri + '/component_measures';
+                        metric.url = sonar.uri + '/component_measures';
                         if(response.metrics[0].domain) {
                             metric.url += '/domain/' + response.metrics[0].domain;
                         }
@@ -89,7 +89,6 @@ angular.module('wallboardApp')
                 var Sonar = sonar.getQualityGate(scope.qualitygate.project);
 
                 Sonar.get(function (response) {
-                    console.log(response);
                     if (response.component) {
                         var data = JSON.parse(response.component.measures[0].value);
                         scope.qualitygate.level = data.level;
