@@ -1,4 +1,4 @@
-<div class="wallboard-unit job {{size}} {{lastBuild.result|buildStable}}">
+<div class="wallboard-unit job {{size}} {{lastCompletedBuild.result|buildStable}}">
 
     <div class="row">
 
@@ -11,10 +11,10 @@
             <div class="wallboard-unit-job-title">
                 <h3>{{name}}</h3>
             </div>
-            <div ng-show="lastBuildTestReport.failCount > 0" class="wallboard-unit-job-tests">Failed
-                tests: {{lastBuildTestReport.failCount}}</div>
-            <div ng-show="lastBuild">
-                Build: <a href="{{lastBuild.url}}" target="_blank">#{{lastBuild.number}}</a> - <span class="timeago" ng-show="lastBuild"> {{lastBuild.timestamp|timeago}}</span>
+            <div ng-show="lastCompletedBuildTestReport.failCount > 0" class="wallboard-unit-job-tests">Failed
+                tests: {{lastCompletedBuildTestReport.failCount}}</div>
+            <div ng-show="lastCompletedBuild">
+                Build: <a href="{{lastCompletedBuild.url}}" target="_blank">#{{lastCompletedBuild.number}}</a> - <span class="timeago" ng-show="lastBuild"> {{lastCompletedBuild.timestamp|timeago}}</span>
             </div>
         </div>
 

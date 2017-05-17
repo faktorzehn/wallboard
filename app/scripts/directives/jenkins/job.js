@@ -34,6 +34,8 @@ angular.module('wallboardApp')
             scope.lastSuccessfulBuild = null;
             scope.lastSuccessfulBuildTestReport = null;
 
+            scope.lastCompletedBuild = null;
+
             scope.now = (new Date()).getTime();
             scope.jobHealth = 100;
             scope.failedBuilds = 0;
@@ -49,9 +51,15 @@ angular.module('wallboardApp')
                 });
             }
 
-            function loadLastBuildTestReport() {
-                jenkins.getTestReport(scope.job, jenkins.lastBuild, fieldsReport).get(function (testReport) {
-                    scope.lastBuildTestReport = testReport;
+            function loadLastCompletedBuild() {
+                jenkins.getBuild(scope.job, jenkins.lastCompletedBuild, fieldsBuild).get(function (build) {
+                    scope.lastCompletedBuild = build;
+                });
+            }
+
+            function loadLastCompletedBuildTestReport() {
+                jenkins.getTestReport(scope.job, jenkins.lastCompletedBuild, fieldsReport).get(function (testReport) {
+                    scope.lastCompletedBuildTestReport = testReport;
                 });
             }
 
@@ -124,8 +132,9 @@ angular.module('wallboardApp')
             }
 
             function updateAll() {
+                loadLastCompletedBuild();
                 loadLastBuild();
-                loadLastBuildTestReport();
+                loadLastCompletedBuildTestReport();
                 loadLastSuccessfulBuild();
                 loadLastSuccessfulBuildTestReport();
             }

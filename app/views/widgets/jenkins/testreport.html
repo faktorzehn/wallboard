@@ -36,8 +36,8 @@
                     Build: <a href="{{lastSuccessfulBuild.url}}" target="_blank">#{{lastSuccessfulBuild.number}}</a> -
                     <span class="timeago">{{lastSuccessfulBuild.timestamp|timeago}}</span>
                 </div>
-                <div class="last-build-failed" ng-show="lastBuild.result=='FAILURE'">
-                    <a href="{{lastBuild.url}}" target="_blank">LAST BUILD FAILED!</a>
+                <div class="last-build-failed" ng-show="lastCompletedBuild.result=='FAILURE'">
+                    <a href="{{lastCompletedBuild.url}}" target="_blank">LAST BUILD FAILED!</a>
                 </div>
             </div>
         </div>

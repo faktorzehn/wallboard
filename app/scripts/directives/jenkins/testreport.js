@@ -35,20 +35,14 @@ angular.module('wallboardApp')
                     $log.warn("Keine Ergebnisse fuer Build " + scope.job + " gefunden.\n" + JSON.stringify(error));
                 });
 
-                jenkins.getBuild(scope.job, jenkins.lastBuild, fieldsBuild).get(function (build) {
-                    scope.lastBuild = build;
+                jenkins.getBuild(scope.job, jenkins.lastCompletedBuild, fieldsBuild).get(function (build) {
+                    scope.lastCompletedBuild = build;
                 }, function (error) {
                     $log.warn("Keine Ergebnisse fuer Build " + scope.job + " gefunden.\n" + JSON.stringify(error));
                 });
 
                 jenkins.getTestReport(scope.job, jenkins.lastSuccessfulBuild, fieldsReport).get(function (report) {
                     scope.testReportLastSuccessfulBuild = report;
-                }, function (error) {
-                    $log.warn("Keine Ergebnisse fuer Build " + scope.job + " gefunden.\n" + JSON.stringify(error));
-                });
-
-                jenkins.getTestReport(scope.job, jenkins.lastBuild, fieldsReport).get(function (report) {
-                    scope.testReportLastBuild = report;
                 }, function (error) {
                     $log.warn("Keine Ergebnisse fuer Build " + scope.job + " gefunden.\n" + JSON.stringify(error));
                 });

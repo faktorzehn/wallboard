@@ -27,6 +27,8 @@ angular.module('wallboardApp')
         // Service logic
             lastSuccessfulBuild = 'lastSuccessfulBuild',
             lastBuild = 'lastBuild',
+            lastCompletedBuild = 'lastCompletedBuild',
+            lastStableBuild = 'lastStableBuild',
             jsonPath = 'api/json',
             testReport = 'testReport',
 
@@ -52,6 +54,8 @@ angular.module('wallboardApp')
             uri: uri,
             lastSuccessfulBuild: lastSuccessfulBuild,
             lastBuild: lastBuild,
+            lastCompletedBuild: lastCompletedBuild,
+            lastStableBuild: lastStableBuild,
             getTestReport: getTestReport,
             getBuild: getBuild
         };
