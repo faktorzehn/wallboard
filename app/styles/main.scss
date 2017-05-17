@@ -141,7 +141,6 @@ footer {
 .wallboard-row {
     color: $l-text-color;
     line-height: normal;
-    margin-bottom: 1rem;
 }
 
 .wallboard-column .wrapper,
@@ -264,7 +263,7 @@ nav {
     }
 
     h3 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         display: inline-block;
     }
 
@@ -303,7 +302,7 @@ nav {
         background-repeat: no-repeat;
         background-position: center;
         text-align: center;
-        line-height: 4rem;
+        line-height: 3rem;
         &.good-up {
             background-image: url(../images/trend-good-up.png);
         }
@@ -374,13 +373,13 @@ nav {
     }
 
     .totalcount {
-        font-size: 2rem;
+        font-size: 1.5rem;
         display: inline-block;
         min-width: $l-wallboard-min-width-number;
     }
 
     .unit-title {
-        font-size: 1.3rem;
+        font-size: 1rem;
         margin-bottom: 0.3rem;
     }
 
@@ -516,7 +515,6 @@ nav {
  ISSUE TABLE
  *****************************************************************************/
 table.issues {
-    font-size: 1.5em;
     border: 2px solid $l-unit-border-good;
     margin: 0;
 

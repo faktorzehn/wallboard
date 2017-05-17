@@ -24,7 +24,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-2" ng-repeat="(key,data) in severities">
             <div class="type">{{key | limitTo:2}}</div>
-            <div class="count"><a href="{{totalLink(key)}}" target="_blank">{{data|zeroChar}}</a></div>
+            <div class="count" ng-show="data"><a href="{{totalLink(key)}}" target="_blank">{{data|zeroChar}}</a></div>
         </div>
     </div>
 

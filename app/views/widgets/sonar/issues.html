@@ -3,27 +3,25 @@
         <table class="table table-condensed issues {{total | goodBad}}">
 
             <thead>
-            <tr>
-                <th width="40%">{{projectName}}</th>
-                <th width="12%" ng-repeat="(key,data) in severities">{{key | limitTo:2}}</th>
-            </tr>
+                <tr>
+                    <th width="40%">{{projectName}}</th>
+                    <th width="12%" ng-repeat="(key,data) in severities">{{key | limitTo:2}}</th>
+                </tr>
             </thead>
 
             <tbody>
+                <tr class="issueTableRow {{user.issues | issueRate}}" ng-repeat="user in users = (map | withIssue | orderBy: '-issueRate')">
+                    <td class="user">
+                        <a href="{{userLink(user)}}" target="_blank">{{user.name | shortName}}</a>
+                    </td>
+                    <td ng-repeat="(key, data) in severities">
+                        <a href="{{issuesLink(user,key)}}" target="_blank">{{issues(user,key)}}</a>
+                    </td>
+                </tr>
 
-            <tr class="issueTableRow {{user.issues | issueRate}}" ng-repeat="user in users = (map | withIssue | orderBy: '-issueRate')">
-                <td class="user">
-                    <a href="{{userLink(user)}}" target="_blank">{{user.name | shortName}}</a>
-                </td>
-                <td ng-repeat="(key, data) in severities">
-                    <a href="{{issuesLink(user,key)}}" target="_blank">{{issues(user,key)}}</a>
-                </td>
-            </tr>
-
-            <tr class="empty" ng-show="users.length == 0">
-                <td colspan="6" class="severity">Keine zugewiesenen Issues vorhanden</td>
-            </tr>
-
+                <tr class="empty" ng-show="users.length == 0">
+                    <td colspan="6" class="severity">No assigned issues</td>
+                </tr>
             </tbody>
 
         </table>
