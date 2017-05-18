@@ -23,25 +23,27 @@ angular.module('wallboardApp')
 
         const buildHistory = 5;
         const fieldsReport = 'failCount,totalCount,childReports[child[url],result[failCount]]';
-        const fieldsBuild = 'number,url,timestamp,duration,estimatedDuration,fullDisplayName,building,builtOn,result';
+        const fieldsLastCompletedBuild = 'number,url,timestamp,fullDisplayName,result';
+        const fieldsLastSuccessfulBuild = 'number,url,timestamp,fullDisplayName,result';
+        const fieldsLastBuild = 'timestamp,duration,estimatedDuration,building';
 
-        function link(scope, element, attrs) {
+        function link(scope, element) {
 
             scope.lastBuild = null;
             scope.lastBuildProgress = -1;
-            scope.lastBuildTestReport = null;
 
             scope.lastSuccessfulBuild = null;
             scope.lastSuccessfulBuildTestReport = null;
 
             scope.lastCompletedBuild = null;
+            scope.lastCompletedBuildTestReport = null;
 
             scope.now = (new Date()).getTime();
             scope.jobHealth = 100;
             scope.failedBuilds = 0;
 
             function loadLastBuild() {
-                jenkins.getBuild(scope.job, jenkins.lastBuild, fieldsBuild).get(function (build) {
+                jenkins.getBuild(scope.job, jenkins.lastBuild, fieldsLastBuild).get(function (build) {
                     scope.lastBuild = build;
 
                     /* calculate progress */
@@ -52,7 +54,7 @@ angular.module('wallboardApp')
             }
 
             function loadLastCompletedBuild() {
-                jenkins.getBuild(scope.job, jenkins.lastCompletedBuild, fieldsBuild).get(function (build) {
+                jenkins.getBuild(scope.job, jenkins.lastCompletedBuild, fieldsLastCompletedBuild).get(function (build) {
                     scope.lastCompletedBuild = build;
                 });
             }
@@ -64,14 +66,14 @@ angular.module('wallboardApp')
             }
 
             function loadLastSuccessfulBuild() {
-                jenkins.getBuild(scope.job, jenkins.lastSuccessfulBuild, fieldsBuild).get(function (build) {
+                jenkins.getBuild(scope.job, jenkins.lastSuccessfulBuild, fieldsLastSuccessfulBuild).get(function (build) {
 
                     var oldlastSuccessfulBuild = scope.lastSuccessfulBuild;
                     scope.lastSuccessfulBuild = build;
 
                     if (!oldlastSuccessfulBuild || !scope.lastSuccessfulBuild || scope.lastSuccessfulBuild.number !== oldlastSuccessfulBuild.number) {
                         scope.failedBuilds = 0;
-                        refreshNumberOfFaildBuilds(scope.lastSuccessfulBuild);
+                        refreshNumberOfFailedBuilds(scope.lastSuccessfulBuild);
 
                     }
                     calculateBuildHealth();
@@ -79,14 +81,14 @@ angular.module('wallboardApp')
                 });
             }
 
-            function refreshNumberOfFaildBuilds(currentBuild) {
+            function refreshNumberOfFailedBuilds(currentBuild) {
                 if (currentBuild.result === 'FAILURE') {
                     scope.failedBuilds++;
                     calculateBuildHealth();
                 }
                 if (currentBuild.number > scope.lastSuccessfulBuild.number - buildHistory) {
-                    jenkins.getBuild(scope.job, currentBuild.number - 1, fieldsBuild).get(function (lastCheckBuild) {
-                        refreshNumberOfFaildBuilds(lastCheckBuild);
+                    jenkins.getBuild(scope.job, currentBuild.number - 1, fieldsLastCompletedBuild).get(function (lastCheckBuild) {
+                        refreshNumberOfFailedBuilds(lastCheckBuild);
                     });
                 }
             }

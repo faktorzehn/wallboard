@@ -54,6 +54,10 @@ $l-unit-border-good: rgb(0, 255, 0);
 $l-unit-bg-good: rgba(0, 180, 0, 0.7);
 $l-unit-good: rgba(0, 255, 0, 1);
 
+$l-unit-border-aborted: rgb(200, 200, 200);
+$l-unit-bg-aborted: rgba(100, 100, 100, 0.7);
+$l-unit-aborted: rgba(150, 150, 150, 1);
+
 $l-unit-border-onecolor: black;
 $l-unit-bg-onecolor: gray;
 
@@ -372,6 +376,11 @@ nav {
         background-color: $l-unit-bg-failure;
     }
 
+    &.aborted {
+        border-color: $l-unit-border-aborted;
+        background-color: $l-unit-bg-aborted;
+    }
+
     .totalcount {
         font-size: 1.5rem;
         display: inline-block;
@@ -495,6 +504,10 @@ nav {
         &.failure {
             border-color: $l-unit-border-failure;
             background-color: $l-unit-bg-failure;
+        }
+        &.aborted {
+            border-color: $l-unit-border-aborted;
+            background-color: $l-unit-bg-aborted;
         }
     }
     .build,

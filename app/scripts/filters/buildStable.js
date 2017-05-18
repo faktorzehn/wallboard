@@ -6,13 +6,14 @@ angular.module('wallboardApp')
             if (input === 'UNSTABLE') {
                 return 'warn';
             }
-
-            if (input === 'FAILURE') {
+            else if (input === 'FAILURE') {
                 return 'bad';
             }
-
-            if (input === 'SUCCESS') {
+            else if (input === 'SUCCESS') {
                 return 'neutral';
+            }
+            else if (input === 'ABORTED') {
+                return 'aborted';
             }
 
             return 'failure';
