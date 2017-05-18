@@ -42,6 +42,10 @@ angular.module('wallboardApp')
             scope.jobHealth = 100;
             scope.failedBuilds = 0;
 
+            /**
+             * Load information on last build. this can also be a currently running build.
+             * Therefore we calculate the progress for this build.
+             */
             function loadLastBuild() {
                 jenkins.getBuild(scope.job, jenkins.lastBuild, fieldsLastBuild).get(function (build) {
                     scope.lastBuild = build;
@@ -53,18 +57,28 @@ angular.module('wallboardApp')
                 });
             }
 
+            /**
+             * Load information on the last completed build.
+             */
             function loadLastCompletedBuild() {
                 jenkins.getBuild(scope.job, jenkins.lastCompletedBuild, fieldsLastCompletedBuild).get(function (build) {
                     scope.lastCompletedBuild = build;
                 });
             }
 
+            /**
+             * Load test report for the last completed build.
+             */
             function loadLastCompletedBuildTestReport() {
                 jenkins.getTestReport(scope.job, jenkins.lastCompletedBuild, fieldsReport).get(function (testReport) {
                     scope.lastCompletedBuildTestReport = testReport;
                 });
             }
 
+            /**
+             * Load information on the last successful build. This means that no
+             * build errors occurred an if there are any test results there are no test failures.
+             */
             function loadLastSuccessfulBuild() {
                 jenkins.getBuild(scope.job, jenkins.lastSuccessfulBuild, fieldsLastSuccessfulBuild).get(function (build) {
 
@@ -93,6 +107,9 @@ angular.module('wallboardApp')
                 }
             }
 
+            /**
+             * Load the test report for the last successful build.
+             */
             function loadLastSuccessfulBuildTestReport() {
                 jenkins.getTestReport(scope.job, jenkins.lastSuccessfulBuild, fieldsReport).get(function (testReport) {
                     scope.lastSuccessfulBuildTestReport = testReport;
@@ -112,18 +129,18 @@ angular.module('wallboardApp')
                 var buildHealth = 100;
 
                 /* job has no successful build so far */
-                if(!scope.lastSuccessfulBuild) {
+                if (!scope.lastSuccessfulBuild) {
                     scope.jobHealth = 0;
                     return;
                 }
 
                 /* calculate the percent of successful builds within the last x builds */
-                if(scope.failedBuilds > 0) {
+                if (scope.failedBuilds > 0) {
                     buildHealth -= (scope.failedBuilds * (1 / buildHistory) * 100);
                 }
 
                 /* only for jobs with testreport */
-                if(scope.lastSuccessfulBuildTestReport) {
+                if (scope.lastSuccessfulBuildTestReport) {
                     /* calculate the percent of successful tests of the last successful build */
                     if (scope.lastSuccessfulBuildTestReport.totalCount > 0) {
                         testHealth -= (scope.lastSuccessfulBuildTestReport.failCount / scope.lastSuccessfulBuildTestReport.totalCount * 100);
@@ -144,7 +161,7 @@ angular.module('wallboardApp')
             updateAll();
 
             // set default refresh value to 10 seconds
-            if(angular.isUndefined(scope.refresh)) {
+            if (angular.isUndefined(scope.refresh)) {
                 scope.refresh = 10;
             }
 

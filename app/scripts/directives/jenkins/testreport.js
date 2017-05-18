@@ -26,7 +26,7 @@ angular.module('wallboardApp')
             function load() {
 
                 // define fields to minimize size of response json
-                var fieldsBuild = 'number,url,timestamp,duration,estimatedDuration,fullDisplayName,building,builtOn,result,culprits[fullName]',
+                var fieldsBuild = 'number,url,timestamp,duration,estimatedDuration,fullDisplayName,building,result,culprits[fullName]',
                     fieldsReport = 'failCount,childReports[child[url],result[failCount]]';
 
                 jenkins.getBuild(scope.job, jenkins.lastSuccessfulBuild, fieldsBuild).get(function (build) {
