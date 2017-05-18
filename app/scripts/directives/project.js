@@ -31,7 +31,7 @@ angular.module('wallboardApp')
 
             function updateBuilds() {
                 angular.forEach(scope.buildsArray, function(build) {
-                    jenkins.getBuild(build.job, jenkins.lastBuild, fieldsBuild).get(function (response) {
+                    jenkins.getBuild(build.job, jenkins.lastCompletedBuild, fieldsBuild).get(function (response) {
                         build.result = response;
                         build.url = response.url;
 
@@ -44,7 +44,7 @@ angular.module('wallboardApp')
                             $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
                         }
                     });
-                    jenkins.getTestReport(build.job, jenkins.lastBuild, fieldsReport).get(function (response) {
+                    jenkins.getTestReport(build.job, jenkins.lastCompletedBuild, fieldsReport).get(function (response) {
                         build.failedTests = response.failCount;
                     }, function(error) {
                         if(error) {
