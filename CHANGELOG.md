@@ -2,7 +2,20 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 
-## [unreleased] 
+## [unreleased]
+### Fixed
+- jenkins.job: added job state ABORTED
+
+## [1.1.8] - 2017-05-18
+### Fixed
+- jenkins job widget for running jobs
+- minor fixes in sonar.newissues and sonar.issues widgets
+
+## [1.1.7] - 2017-05-11
+### Added
+- new widget for project information. Actually it is a combination of jenkins and sonarqube informations and can me configured
+
+## [1.1.6] - 2017-05-10
 ### Removed
 - sonar.metric: unit and reverse properties are removed because they are now loaded from Sonar directly
 - sonar.metric: Analyse Build Url was removed and replaced by a direct link to the appropriate domain
