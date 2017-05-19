@@ -56,7 +56,15 @@ angular.module('wallboardApp')
 
             function updateMetrics() {
                 angular.forEach(scope.metricsArray, function(metric) {
-                    var Sonar = sonar.getMetrics(metric.metric, metric.project);
+
+                    // load global sonar project
+                    var project = scope.sonarproject;
+                    // load metric specific project
+                    if(metric.project) {
+                        project = metric.project;
+                    }
+
+                    var Sonar = sonar.getMetrics(metric.metric, project);
                     Sonar.get(function (response) {
                         var measure = response.component.measures[0];
 
@@ -76,7 +84,7 @@ angular.module('wallboardApp')
                         if(response.metrics[0].domain) {
                             metric.url += '/domain/' + response.metrics[0].domain;
                         }
-                        metric.url += '?id=' + escape(metric.project);
+                        metric.url += '?id=' + escape(project);
                     }, function (error) {
                         if (error) {
                             $log.error("Fehler beim Anmelden an SonarQube!\n" + JSON.stringify(error));
@@ -86,7 +94,15 @@ angular.module('wallboardApp')
             }
 
             function updateQualitygate() {
-                var Sonar = sonar.getQualityGate(scope.qualitygate.project);
+
+                // load global sonar project
+                var project = scope.sonarproject;
+                // load metric specific project
+                if(scope.qualitygate.project) {
+                    project = scope.qualitygate.project;
+                }
+
+                var Sonar = sonar.getQualityGate(project);
 
                 Sonar.get(function (response) {
                     if (response.component) {
@@ -94,7 +110,7 @@ angular.module('wallboardApp')
                         scope.qualitygate.level = data.level;
                         scope.qualitygate.conditions = data.conditions;
                     } else {
-                        $log.warn("Keine Ergebnisse fuer Quality Gate fuer Projekt " + scope.project + " bekommen!");
+                        $log.warn("Keine Ergebnisse fuer Quality Gate fuer Projekt " + project + " bekommen!");
                     }
                 }, function (error) {
                     if (error) {
@@ -135,7 +151,7 @@ angular.module('wallboardApp')
         return {
             restrict: 'E',
             templateUrl: 'views/widgets/project.html',
-            scope: {name: '@', builds: '=', metrics: '=', qualitygate: '='},
+            scope: {name: '@', builds: '=', metrics: '=', qualitygate: '=', sonarproject: '@'},
             link: link
         };
     });

@@ -82,7 +82,7 @@ angular.module('wallboardAppDev')
             });
 
         // sonar coverage
-        $httpBackend.whenGET(/sonar\/api\/measures\/component\?additionalFields=metrics,periods&componentKey=(.*)&metricKeys=coverage/, undefined, ['project'])
+        $httpBackend.whenGET(/sonar\/api\/measures\/component\?additionalFields=metrics,periods&componentKey=com:project1&metricKeys=coverage/, undefined, ['project'])
             .respond(function (method, url, data) {
                 var response = {
                     "component": {
