@@ -264,7 +264,7 @@ angular.module('wallboardAppDev')
             });
 
         // sonar issues for user john doe
-        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assignees=doe&facets=severities&hideRules=true&projectKeys=(.*)&resolved=false/, undefined, ['user', 'project'])
+        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assignees=doe&facets=severities&hideRules=true&projectKeys=com:project1&resolved=false/, undefined, undefined)
             .respond(function (method, url, data) {
                 var response = {
                     "total": 100,
@@ -291,8 +291,23 @@ angular.module('wallboardAppDev')
                 return [200, response, {}];
             });
 
+        // sonar issues for user john doe
+        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assignees=doe&facets=severities&hideRules=true&projectKeys=com:project2&resolved=false/, undefined, undefined)
+            .respond(function (method, url, data) {
+                var response = {
+                    "total": 0,
+                    "facets": [
+                        {
+                            "property": "severities",
+                            "values": []
+                        }
+                    ]
+                };
+                return [200, response, {}];
+            });
+
         // sonar issues for other users
-        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assignees=(.*)&facets=severities&hideRules=true&projectKeys=(.*)&resolved=false/, undefined, ['user', 'project'])
+        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assignees=(.*)&facets=severities&hideRules=true&projectKeys=com:project1&resolved=false/, undefined, ['user'])
             .respond(function (method, url, data) {
                 var response = {
                     "total": 100,
@@ -319,8 +334,23 @@ angular.module('wallboardAppDev')
                 return [200, response, {}];
             });
 
+        // sonar issues for other users
+        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assignees=(.*)&facets=severities&hideRules=true&projectKeys=com:project2&resolved=false/, undefined, ['user'])
+            .respond(function (method, url, data) {
+                var response = {
+                    "total": 0,
+                    "facets": [
+                        {
+                            "property": "severities",
+                            "values": []
+                        }
+                    ]
+                };
+                return [200, response, {}];
+            });
+
         //sonar new issues last 7 days
-        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assigned=false&createdAfter=(.*)&facets=severities&hideRules=true&projectKeys=(.*)/, undefined, ['date', 'project'])
+        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assigned=false&createdAfter=(.*)&facets=severities&hideRules=true&projectKeys=com:project1/, undefined, ['date'])
             .respond(function (method, url, data) {
                 var response = {
                     "total": 1000,
@@ -368,6 +398,43 @@ angular.module('wallboardAppDev')
                             "component": "com:project1:src/main/java/TestSearch.java"
                         }
                     ]
+                };
+                return [200, response, {}];
+            });
+
+        //sonar new issues last 7 days
+        $httpBackend.whenGET(/sonar\/api\/issues\/search\?assigned=false&createdAfter=(.*)&facets=severities&hideRules=true&projectKeys=com:project2/, undefined, ['date'])
+            .respond(function (method, url, data) {
+                var response = {
+                    "total": 0,
+                    "facets": [
+                        {
+                            "property": "severities",
+                            "values": [
+                                {
+                                    "val": "INFO",
+                                    "count": 0
+                                },
+                                {
+                                    "val": "MINOR",
+                                    "count": 0
+                                },
+                                {
+                                    "val": "MAJOR",
+                                    "count": 0
+                                },
+                                {
+                                    "val": "CRITICAL",
+                                    "count": 0
+                                },
+                                {
+                                    "val": "BLOCKER",
+                                    "count": 0
+                                }
+                            ]
+                        }
+                    ],
+                    "issues": []
                 };
                 return [200, response, {}];
             });

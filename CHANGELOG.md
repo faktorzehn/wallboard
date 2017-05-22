@@ -6,7 +6,7 @@ This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 ### Fixed
 - jenkins.job: added job state ABORTED
 ### Changed
-- projects: new property sonarproject to configure one global project for metrics and qualitygate for this project
+- sonar.issues and sonar.newissues: neutral color for empty widgets
 
 ## [1.1.8] - 2017-05-18
 ### Fixed

@@ -11,7 +11,8 @@ angular.module('wallboardApp')
                 return 'bad';
             } else if (input < 0) {
                 return 'good';
-            } else
+            } else {
                 return 'neutral';
+            }
         };
     });
