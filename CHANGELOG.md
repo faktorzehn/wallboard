@@ -7,6 +7,7 @@ This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 - jenkins.job: added job state ABORTED
 ### Changed
 - sonar.issues and sonar.newissues: neutral color for empty widgets
+- version up
 
 ## [1.1.8] - 2017-05-18
 ### Fixed
