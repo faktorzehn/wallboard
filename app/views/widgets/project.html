@@ -4,10 +4,13 @@
 
     <div ng-if="builds" class="builds">
         <h4>Builds & Tests</h4>
-        <div ng-repeat="build in buildsArray" class="build {{build.result.result|buildStable}}">
+        <div ng-repeat="build in buildsArray" class="build {{build.result.result|buildStable}}"
+             ng-mouseover="showCulprits = true" ng-mouseleave="showCulprits = false" ng-init="showCulprits=false">
             <div style="width: 80%; float: left;"><a href="{{build.url}}" target="_blank">{{build.name}}</a></div>
-            <div ng-if="build.failedTests" style="width: 20%; float: right; text-align: center;">{{build.failedTests}}</div>
+            <div ng-if="build.failedTests"
+                 style="width: 20%; float: right; text-align: center;">{{build.failedTests}}</div>
             <div class="clear"></div>
+            <div ng-show="showCulprits"><span ng-repeat="c in build.result.culprits">{{c.fullName}}<span ng-show="!$last">, </span></span></div>
         </div>
     </div>
 
@@ -15,7 +18,8 @@
         <h4>Metrics</h4>
         <div ng-repeat="metric in metrics" class="metric {{metric.trendDir|goodBad}}">
             <div style="width: 80%; float: left;"><a href="{{metric.url}}" target="_blank">{{metric.name}}</a></div>
-            <div style="width: 20%; float: right; text-align: center;">{{metric.value|round:2}}{{metric.unit|metricUnit}}</div>
+            <div
+                style="width: 20%; float: right; text-align: center;">{{metric.value|round:2}}{{metric.unit|metricUnit}}</div>
             <div class="clear"></div>
         </div>
     </div>

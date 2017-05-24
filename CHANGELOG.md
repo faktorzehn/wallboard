@@ -8,6 +8,7 @@ This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 ### Changed
 - sonar.issues and sonar.newissues: neutral color for empty widgets
 - version up
+- projects: show culprits on mouseover
 
 ## [1.1.8] - 2017-05-18
 ### Fixed
