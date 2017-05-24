@@ -22,7 +22,7 @@ angular.module('wallboardApp')
     .directive('project', function ($interval, jenkins, sonar, $log) {
 
         const fieldsReport = 'failCount';
-        const fieldsBuild = 'url,result,culprits';
+        const fieldsBuild = 'url,result,culprits[fullName]';
 
         function link(scope, element, attrs) {
 
