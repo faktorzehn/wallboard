@@ -4,13 +4,13 @@
 
     <div ng-if="builds" class="builds">
         <h4>Builds & Tests</h4>
-        <div ng-repeat="build in buildsArray" class="build {{build.result.result|buildStable}}"
+        <div ng-repeat="build in buildsArray" class="build {{build.result|buildStable}}"
              ng-mouseover="showCulprits = true" ng-mouseleave="showCulprits = false" ng-init="showCulprits=false">
             <div style="width: 80%; float: left;"><a href="{{build.url}}" target="_blank">{{build.name}}</a></div>
             <div ng-if="build.failedTests"
                  style="width: 20%; float: right; text-align: center;">{{build.failedTests}}</div>
             <div class="clear"></div>
-            <div ng-show="showCulprits"><span ng-repeat="c in build.result.culprits">{{c.fullName}}<span
+            <div ng-show="showCulprits"><span ng-repeat="c in build.culprits">{{c.fullName}}<span
                 ng-show="!$last">, </span></span></div>
         </div>
     </div>

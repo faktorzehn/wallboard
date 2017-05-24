@@ -22,7 +22,7 @@ angular.module('wallboardApp')
     .directive('project', function ($interval, jenkins, sonar, $log) {
 
         const fieldsReport = 'failCount';
-        const fieldsBuild = 'url,result';
+        const fieldsBuild = 'url,result,culprits';
 
         function link(scope, element, attrs) {
 
@@ -32,8 +32,9 @@ angular.module('wallboardApp')
             function updateBuilds() {
                 angular.forEach(scope.buildsArray, function (build) {
                     jenkins.getBuild(build.job, jenkins.lastCompletedBuild, fieldsBuild).get(function (response) {
-                        build.result = response;
+                        build.result = response.result;
                         build.url = response.url;
+                        build.culprits = response.culprits;
 
                         if (!build.name) {
                             build.name = build.job;
