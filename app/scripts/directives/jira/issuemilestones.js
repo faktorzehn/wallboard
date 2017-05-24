@@ -41,7 +41,7 @@ angular.module('wallboardApp')
 
                                 // we show only milestones that are not yet finished (have no actual date) and
                                 // where the planned date is lower than a future date (i.e. 60 days from today)
-                                if(milestone.cell[scope.actualindex].length == 0 && planned.isBefore(maxPlannedDate)) {
+                                if (milestone.cell[scope.actualindex].length == 0 && planned.isBefore(maxPlannedDate)) {
                                     scope.list.push({
                                         epicName: issue.fields.summary,
                                         milestoneName: milestone.cell[scope.epickeycolumnindex],
@@ -68,7 +68,7 @@ angular.module('wallboardApp')
             loadData();
 
             // set default refresh value to 20 minutes
-            if(angular.isUndefined(scope.refresh)) {
+            if (angular.isUndefined(scope.refresh)) {
                 scope.refresh = 1200;
             }
 

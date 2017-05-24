@@ -27,7 +27,7 @@ angular.module('wallboardApp')
                 scope.list = [];
 
                 jira.getIssues(scope.filter, 0, '').get(function (issueResponse) {
-                    angular.forEach(issueResponse.issues, function(issue) {
+                    angular.forEach(issueResponse.issues, function (issue) {
 
                         var nameVal = "";
                         if (scope.displayname) {
@@ -64,7 +64,7 @@ angular.module('wallboardApp')
             loadData();
 
             // set default refresh value to 20 minutes
-            if(angular.isUndefined(scope.refresh)) {
+            if (angular.isUndefined(scope.refresh)) {
                 scope.refresh = 1200;
             }
 

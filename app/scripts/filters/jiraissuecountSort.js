@@ -5,7 +5,7 @@ angular.module('wallboardApp')
         return function (input, minvalue) {
 
             if (input != undefined) {
-                var output = new Array();
+                var output = [];
 
                 for (var i = 0; i < input.length; i++) {
                     if (input[i].value >= minvalue) {

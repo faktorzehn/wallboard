@@ -3,7 +3,8 @@
     <div class="row">
         <div class="col-md-8">
             <h2 class="unit-title">{{name}}</h2>
-            <div class="totalcount"><a href="{{analyseBuildUrl}}" target="_blank">{{metricResult}}<span class="unit">{{unit|metricUnit}}</a></span></div>
+            <div class="totalcount"><a href="{{analyseBuildUrl}}" target="_blank">{{metricResult}}<span
+                class="unit">{{unit|metricUnit}}</a></span></div>
         </div>
         <div class="col-md-4">
             <div class="unit-trend {{trendDir|trendUpDown:reverse}}">{{trendVal|round:2}}{{unit|metricUnit}}</div>

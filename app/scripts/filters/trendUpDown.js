@@ -8,13 +8,13 @@ angular.module('wallboardApp')
                 return 'failure';
             }
             if (trend > 0) {
-                if(reverse) {
+                if (reverse) {
                     return 'bad-down';
                 } else {
                     return 'bad-up';
                 }
             } else if (trend < 0) {
-                if(reverse) {
+                if (reverse) {
                     return 'good-up';
                 } else {
                     return 'good-down';

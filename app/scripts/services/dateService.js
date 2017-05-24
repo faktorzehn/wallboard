@@ -52,7 +52,7 @@ angular.module('wallboardApp')
             } else {
                 return TAGE[weekday];
             }
-        }
+        };
 
         // Public API here
         return {

@@ -40,7 +40,7 @@ angular.module('wallboardApp')
                 });
             },
 
-            getQualityGate = function(project) {
+            getQualityGate = function (project) {
                 var url = uri + '/api/measures/component',
                     params = {
                         componentKey: project,
@@ -64,7 +64,7 @@ angular.module('wallboardApp')
                         createdAfter: createdbefore,
                         facets: 'severities',
                         hideRules: true
-                };
+                    };
 
                 return $resource(url, params, {
                     get: {
@@ -83,7 +83,7 @@ angular.module('wallboardApp')
                         assignees: assignee,
                         facets: 'severities',
                         hideRules: true
-                };
+                    };
 
                 return $resource(url, params, {
                     get: {

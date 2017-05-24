@@ -19,7 +19,7 @@
 'use strict';
 
 angular.module('wallboardAppDev')
-    .run(function($httpBackend) {
+    .run(function ($httpBackend) {
 
         // call real service to read config.json
         $httpBackend.whenGET('conf/config.json').passThrough();

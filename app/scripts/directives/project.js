@@ -30,24 +30,24 @@ angular.module('wallboardApp')
             scope.metricsArray = scope.metrics;
 
             function updateBuilds() {
-                angular.forEach(scope.buildsArray, function(build) {
+                angular.forEach(scope.buildsArray, function (build) {
                     jenkins.getBuild(build.job, jenkins.lastCompletedBuild, fieldsBuild).get(function (response) {
                         build.result = response;
                         build.url = response.url;
 
-                        if(!build.name) {
+                        if (!build.name) {
                             build.name = build.job;
                         }
 
-                    }, function(error) {
-                        if(error) {
+                    }, function (error) {
+                        if (error) {
                             $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
                         }
                     });
                     jenkins.getTestReport(build.job, jenkins.lastCompletedBuild, fieldsReport).get(function (response) {
                         build.failedTests = response.failCount;
-                    }, function(error) {
-                        if(error) {
+                    }, function (error) {
+                        if (error) {
                             $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
                         }
                     });
@@ -55,12 +55,12 @@ angular.module('wallboardApp')
             }
 
             function updateMetrics() {
-                angular.forEach(scope.metricsArray, function(metric) {
+                angular.forEach(scope.metricsArray, function (metric) {
 
                     // load global sonar project
                     var project = scope.sonarproject;
                     // load metric specific project
-                    if(metric.project) {
+                    if (metric.project) {
                         project = metric.project;
                     }
 
@@ -68,7 +68,7 @@ angular.module('wallboardApp')
                     Sonar.get(function (response) {
                         var measure = response.component.measures[0];
 
-                        if(!metric.name) {
+                        if (!metric.name) {
                             metric.name = response.metrics[0].name;
                         }
 
@@ -81,7 +81,7 @@ angular.module('wallboardApp')
                         }
 
                         metric.url = sonar.uri + '/component_measures';
-                        if(response.metrics[0].domain) {
+                        if (response.metrics[0].domain) {
                             metric.url += '/domain/' + response.metrics[0].domain;
                         }
                         metric.url += '?id=' + escape(project);
@@ -98,7 +98,7 @@ angular.module('wallboardApp')
                 // load global sonar project
                 var project = scope.sonarproject;
                 // load metric specific project
-                if(scope.qualitygate.project) {
+                if (scope.qualitygate.project) {
                     project = scope.qualitygate.project;
                 }
 
@@ -120,13 +120,13 @@ angular.module('wallboardApp')
             }
 
             function updateAll() {
-                if(scope.builds) {
+                if (scope.builds) {
                     updateBuilds();
                 }
-                if(scope.metrics) {
+                if (scope.metrics) {
                     updateMetrics();
                 }
-                if(scope.qualitygate) {
+                if (scope.qualitygate) {
                     updateQualitygate();
                 }
             }
@@ -134,7 +134,7 @@ angular.module('wallboardApp')
             updateAll();
 
             // set default refresh value to 10 seconds
-            if(angular.isUndefined(scope.refresh)) {
+            if (angular.isUndefined(scope.refresh)) {
                 scope.refresh = 10;
             }
 

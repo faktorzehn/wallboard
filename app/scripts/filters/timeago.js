@@ -18,8 +18,7 @@
 
 'use strict';
 
-angular.module('wallboardApp').
-filter('timeago', function () {
+angular.module('wallboardApp').filter('timeago', function () {
     return function (date) {
         return moment(date).fromNow();
     }

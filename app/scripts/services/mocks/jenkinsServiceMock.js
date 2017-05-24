@@ -19,17 +19,17 @@
 'use strict';
 
 angular.module('wallboardAppDev')
-    .run(function($httpBackend) {
+    .run(function ($httpBackend) {
 
         // jenkins job trunk
         $httpBackend.whenGET(/jenkins\/job\/Compile_Trunk\/lastCompletedBuild(\/testReport)?\/api\/json.*/, undefined, ['testReport'])
-            .respond(function(method, url, data, headers, params) {
+            .respond(function (method, url, data, headers, params) {
                 var buildInfo = {
                     "timestamp": (new Date()).getTime() - 10,
-                    "estimatedDuration" : 50,
-                    "building" : false,
+                    "estimatedDuration": 50,
+                    "building": false,
                     "number": 156778,
-                    "url" : "https://build.project.com/jenkins/job/test.project/51/",
+                    "url": "https://build.project.com/jenkins/job/test.project/51/",
                     "result": "UNSTABLE"
                 };
                 var testReport = {
@@ -37,7 +37,7 @@ angular.module('wallboardAppDev')
                     "totalCount": 12
                 };
 
-                if(!angular.isUndefined(params.testReport)) {
+                if (!angular.isUndefined(params.testReport)) {
                     return [200, testReport, {}];
                 }
 
@@ -46,24 +46,24 @@ angular.module('wallboardAppDev')
 
         // jenkins job trunk-running
         $httpBackend.whenGET(/jenkins\/job\/Compile_Trunk\/lastBuild(\/testReport)?\/api\/json.*/, undefined, ['testReport'])
-            .respond(function(method, url, data, headers, params) {
+            .respond(function (method, url, data, headers, params) {
                 var buildInfo = {
                     "failCount": 0,
                     "totalCount": 100,
                     "timestamp": 1488999334089,
-                    "estimatedDuration" : 1960652,
-                    "building" : true,
+                    "estimatedDuration": 1960652,
+                    "building": true,
                     "number": 31,
                     "result": null,
-                    "fullDisplayName" : "test.project #51",
-                    "url" : "https://build.project.com/jenkins/job/test.project/51/"
+                    "fullDisplayName": "test.project #51",
+                    "url": "https://build.project.com/jenkins/job/test.project/51/"
                 };
                 var testReport = {
                     "failCount": 0,
                     "totalCount": 100
                 };
 
-                if(!angular.isUndefined(params.testReport)) {
+                if (!angular.isUndefined(params.testReport)) {
                     return [200, testReport, {}];
                 }
 
@@ -72,13 +72,13 @@ angular.module('wallboardAppDev')
 
         // jenkins job trunk
         $httpBackend.whenGET(/jenkins\/job\/Compile_Trunk\/lastSuccessfulBuild(\/testReport)?\/api\/json.*/, undefined, ['testReport'])
-            .respond(function(method, url, data, headers, params) {
+            .respond(function (method, url, data, headers, params) {
                 var buildInfo = {
                     "timestamp": (new Date()).getTime() - 10,
-                    "estimatedDuration" : 50,
-                    "building" : false,
+                    "estimatedDuration": 50,
+                    "building": false,
                     "number": 4678,
-                    "url" : "https://build.project.com/jenkins/job/test.project/51/",
+                    "url": "https://build.project.com/jenkins/job/test.project/51/",
                     "result": "UNSTABLE",
                     "culprits": [
                         {
@@ -112,7 +112,7 @@ angular.module('wallboardAppDev')
                     ]
                 };
 
-                if(!angular.isUndefined(params.testReport)) {
+                if (!angular.isUndefined(params.testReport)) {
                     return [200, testReport, {}];
                 }
 
@@ -121,13 +121,13 @@ angular.module('wallboardAppDev')
 
         // jenkins job branch
         $httpBackend.whenGET(/jenkins\/job\/Compile_Branch\/last(.*)Build(\/testReport)?\/api\/json.*/, undefined, ['job', 'testReport'])
-            .respond(function(method, url, data, headers, params) {
+            .respond(function (method, url, data, headers, params) {
                 var buildInfo = {
                     "timestamp": 1477349332089,
-                    "estimatedDuration" : 1960652,
-                    "building" : false,
+                    "estimatedDuration": 1960652,
+                    "building": false,
                     "number": 432,
-                    "url" : "https://build.project.com/jenkins/job/test.project/51/",
+                    "url": "https://build.project.com/jenkins/job/test.project/51/",
                     "result": "SUCCESS",
                     "culprits": [
                         {
@@ -143,7 +143,7 @@ angular.module('wallboardAppDev')
                     "totalCount": 100
                 };
 
-                if(!angular.isUndefined(params.testReport)) {
+                if (!angular.isUndefined(params.testReport)) {
                     return [200, testReport, {}];
                 }
 
@@ -152,15 +152,15 @@ angular.module('wallboardAppDev')
 
         // jenkins job branch-2 failed
         $httpBackend.whenGET(/jenkins\/job\/Compile_Branch-2\/last(.*)Build(\/testReport)?\/api\/json.*/, undefined, ['job', 'testReport'])
-            .respond(function(method, url, data, headers, params) {
+            .respond(function (method, url, data, headers, params) {
                 var buildInfo = {
                     "timestamp": 1477349332089,
-                    "estimatedDuration" : 1960652,
-                    "building" : false,
+                    "estimatedDuration": 1960652,
+                    "building": false,
                     "number": 51,
                     "result": "FAILURE",
-                    "fullDisplayName" : "test.project #51",
-                    "url" : "https://build.project.com/jenkins/job/test.project/51/",
+                    "fullDisplayName": "test.project #51",
+                    "url": "https://build.project.com/jenkins/job/test.project/51/",
                     "culprits": [
                         {
                             "fullName": "John Doe"
@@ -175,7 +175,7 @@ angular.module('wallboardAppDev')
                     "totalCount": 100
                 };
 
-                if(!angular.isUndefined(params.testReport)) {
+                if (!angular.isUndefined(params.testReport)) {
                     return [200, testReport, {}];
                 }
 
@@ -184,15 +184,15 @@ angular.module('wallboardAppDev')
 
         // jenkins job branch-3 aborted
         $httpBackend.whenGET(/jenkins\/job\/Compile_Branch-aborted\/(.*)\/api\/json.*/, undefined, [])
-            .respond(function(method, url, data) {
+            .respond(function (method, url, data) {
                 var build = {
                     "timestamp": 1477349332089,
-                    "estimatedDuration" : 1960652,
-                    "building" : false,
+                    "estimatedDuration": 1960652,
+                    "building": false,
                     "number": 51,
                     "result": "ABORTED",
-                    "fullDisplayName" : "test.project #51",
-                    "url" : "https://build.project.com/jenkins/job/test.project/51/",
+                    "fullDisplayName": "test.project #51",
+                    "url": "https://build.project.com/jenkins/job/test.project/51/",
                     "culprits": [
                         {
                             "fullName": "John Doe"

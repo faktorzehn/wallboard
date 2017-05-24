@@ -4,7 +4,7 @@ angular.module('wallboardApp')
     .filter('levelColor', function () {
         return function (input) {
 
-            switch(input) {
+            switch (input) {
                 case 'OK':
                     return 'green';
                 case 'WARN':

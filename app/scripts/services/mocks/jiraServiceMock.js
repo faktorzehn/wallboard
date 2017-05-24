@@ -19,10 +19,10 @@
 'use strict';
 
 angular.module('wallboardAppDev')
-    .run(function($httpBackend) {
+    .run(function ($httpBackend) {
 
         $httpBackend.whenGET(/jira\/rest\/api\/latest\/search\?fields=(.*)&jql=filter%3D15781&startAt=0/, undefined, ['fields'])
-            .respond(function(method, url, data) {
+            .respond(function (method, url, data) {
                 var response = {
                     "total": 20,
                     "issues": [
@@ -90,7 +90,7 @@ angular.module('wallboardAppDev')
 
         // jira progress
         $httpBackend.whenGET(/jira\/rest\/api\/latest\/search\?fields=(.*)&jql=filter%3D15781\+AND\+resolution!%3DUnresolved&startAt=0/, undefined, ['fields'])
-            .respond(function(method, url, data) {
+            .respond(function (method, url, data) {
                 var response = {
                     "total": 10
                 };
@@ -99,7 +99,7 @@ angular.module('wallboardAppDev')
 
         // issues for milestones
         $httpBackend.whenGET(/jira\/rest\/api\/latest\/search\?fields=(.*)&jql=filter%3D15781\+AND\+issue\+in\+grid\(.*\)&startAt=0/, undefined, ['fields'])
-            .respond(function(method, url, data) {
+            .respond(function (method, url, data) {
                 var response = {
                     "total": 10,
                     "issues": [
@@ -116,7 +116,7 @@ angular.module('wallboardAppDev')
 
         // milestones
         $httpBackend.whenGET(/jira\/rest\/idalko-igrid\/latest\/datagrid\/data\?(.*)/)
-            .respond(function(method, url, data) {
+            .respond(function (method, url, data) {
                 var response = {
                     "rows": [
                         {

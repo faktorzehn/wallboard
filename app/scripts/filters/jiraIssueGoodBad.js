@@ -26,8 +26,8 @@ angular.module('wallboardApp')
                 return "failure";
             }
 
-            if(threshold) {
-                return (input > threshold) ? "bad": "good";
+            if (threshold) {
+                return (input > threshold) ? "bad" : "good";
             } else {
                 return "onecolor";
             }

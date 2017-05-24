@@ -39,7 +39,7 @@ angular.module('wallboardApp')
                 return scope.map[user.name].issues[severity];
             };
 
-            scope.userLink = function(user) {
+            scope.userLink = function (user) {
                 return sonar.uri + '/issues/search#resolved=false|assignees=' + user.login + '|projectKeys=' + escape(scope.project);
             };
 
@@ -57,7 +57,7 @@ angular.module('wallboardApp')
                         scope.map[user.name].total = issueResponse.total;
 
                         /* map severities facet */
-                        angular.forEach(issueResponse.facets[0].values, function(value) {
+                        angular.forEach(issueResponse.facets[0].values, function (value) {
                             scope.map[user.name].issues[value.val] = value.count;
                             scope.map[user.name].issueRate += scope.severities[value.val] * value.count;
                         });
@@ -78,12 +78,12 @@ angular.module('wallboardApp')
                     angular.forEach(userResponse.users, function (user) {
 
                         //skip inactive users
-                        if(!user.active) {
+                        if (!user.active) {
                             return;
                         }
 
                         // skip excluded users
-                        if(angular.isDefined(scope.exclude) &&
+                        if (angular.isDefined(scope.exclude) &&
                             scope.exclude.indexOf(user.login) >= 0) {
                             return;
                         }
@@ -122,7 +122,7 @@ angular.module('wallboardApp')
             getIssuesForAll();
 
             // set default refresh value to 20 minutes
-            if(angular.isUndefined(scope.refresh)) {
+            if (angular.isUndefined(scope.refresh)) {
                 scope.refresh = 1200;
             }
 

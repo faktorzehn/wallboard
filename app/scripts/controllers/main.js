@@ -30,13 +30,13 @@ angular.module('wallboardApp')
         $scope.showMenu = true;
         $scope.branding = true;
 
-        if(angular.isDefined($scope.config.branding)) {
+        if (angular.isDefined($scope.config.branding)) {
             $scope.branding = $scope.config.branding;
         }
 
         function selectNextProject() {
             var index = 0;
-            if($scope.selectedProject != $scope.projects.length - 1) {
+            if ($scope.selectedProject != $scope.projects.length - 1) {
                 index = $scope.selectedProject + 1;
             }
             $location.path('/project/' + index);
@@ -44,7 +44,7 @@ angular.module('wallboardApp')
 
         function selectPreviousProject() {
             var index = $scope.projects.length - 1;
-            if($scope.selectedProject != 0) {
+            if ($scope.selectedProject != 0) {
                 index = $scope.selectedProject - 1;
             }
             $location.path('/project/' + index);
@@ -53,13 +53,13 @@ angular.module('wallboardApp')
         var stop = undefined;
 
         // set default refresh value to 30 seconds
-        if(angular.isUndefined($scope.config.refresh)) {
+        if (angular.isUndefined($scope.config.refresh)) {
             $scope.config.refresh = 30;
         }
 
         function startAutorefresh() {
-            stop = $interval(function() {
-                if($scope.autorefresh) {
+            stop = $interval(function () {
+                if ($scope.autorefresh) {
                     selectNextProject();
                 }
             }, $scope.config.refresh * 1000);
@@ -72,18 +72,18 @@ angular.module('wallboardApp')
             }
         }
 
-        var handler = function(e){
-            if(e.keyCode === 39) { //right arrow
+        var handler = function (e) {
+            if (e.keyCode === 39) { //right arrow
                 selectNextProject();
-            } else if(e.keyCode === 37) { // left arrow
+            } else if (e.keyCode === 37) { // left arrow
                 selectPreviousProject();
-            } else if(e.keyCode === 82) { // r
+            } else if (e.keyCode === 82) { // r
                 $scope.autorefresh = !$scope.autorefresh;
             }
         };
 
         // switch to specific project
-        if($routeParams.projectId != null) {
+        if ($routeParams.projectId != null) {
             $scope.selectedProject = Number($routeParams.projectId);
             $scope.autorefresh = false;
         } else {
@@ -92,15 +92,15 @@ angular.module('wallboardApp')
 
         // interval for user inactivity
         var interval = 1;
-        $interval(function() {
-            if(interval == 5){
+        $interval(function () {
+            if (interval == 5) {
                 $scope.showMenu = false;
                 interval = 1;
             }
             interval++;
         }, 1000);
 
-        $scope.userActivity = function(e) {
+        $scope.userActivity = function (e) {
             $scope.showMenu = true;
             interval = 1;
         };
@@ -108,13 +108,13 @@ angular.module('wallboardApp')
         var $doc = angular.element(document);
         $doc.on('keydown', handler);
 
-        $scope.$on('$destroy', function() {
+        $scope.$on('$destroy', function () {
             stopAutorefresh();
             $doc.off('keydown', handler);
         });
 
         // start auto refresh
-        if($scope.autorefresh) {
+        if ($scope.autorefresh) {
             startAutorefresh();
         }
 

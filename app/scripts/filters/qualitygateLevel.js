@@ -7,7 +7,7 @@ angular.module('wallboardApp')
                 return 'neutral';
             } else if (input === 'WARN') {
                 return 'warn';
-            } else if(input === 'ERROR') {
+            } else if (input === 'ERROR') {
                 return 'bad';
             } else {
                 return 'failure';

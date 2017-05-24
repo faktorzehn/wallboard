@@ -46,7 +46,7 @@ angular.module('wallboardApp')
             loadData();
 
             // set default refresh value to 20 minutes
-            if(angular.isUndefined(scope.refresh)) {
+            if (angular.isUndefined(scope.refresh)) {
                 scope.refresh = 1200;
             }
 

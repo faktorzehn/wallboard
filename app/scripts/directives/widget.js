@@ -30,7 +30,7 @@ angular.module('wallboardApp')
             angular.forEach(scope.config, function (value, key) {
 
                 if (key.indexOf('$$') != 0) {
-                    if(angular.isArray(value) || angular.isObject(value)) {
+                    if (angular.isArray(value) || angular.isObject(value)) {
                         newDirective.attr(key, angular.toJson(value));
                     } else {
                         newDirective.attr(key, value);

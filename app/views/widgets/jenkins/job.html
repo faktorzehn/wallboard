@@ -14,7 +14,8 @@
             <div ng-show="lastCompletedBuildTestReport.failCount > 0" class="wallboard-unit-job-tests">Failed
                 tests: {{lastCompletedBuildTestReport.failCount}} / {{lastCompletedBuildTestReport.totalCount}}</div>
             <div ng-show="lastCompletedBuild">
-                Build: <a href="{{lastCompletedBuild.url}}" target="_blank">#{{lastCompletedBuild.number}}</a> - <span class="timeago" ng-show="lastBuild"> {{lastCompletedBuild.timestamp|timeago}}</span>
+                Build: <a href="{{lastCompletedBuild.url}}" target="_blank">#{{lastCompletedBuild.number}}</a> - <span
+                class="timeago" ng-show="lastBuild"> {{lastCompletedBuild.timestamp|timeago}}</span>
             </div>
         </div>
 

@@ -42,7 +42,11 @@ angular.module('wallboardApp')
                         }
 
                         if (!set) {
-                            scope.data.push({'name': issue.fields.assignee.displayName, 'value': 1, 'linkField': issue.fields.assignee.name});
+                            scope.data.push({
+                                'name': issue.fields.assignee.displayName,
+                                'value': 1,
+                                'linkField': issue.fields.assignee.name
+                            });
                         }
 
                         scope.jiraLink = wconfig.getServices().jira.uri + '/issues/?jql=filter=' + scope.filter + ' AND assignee=';
@@ -120,7 +124,7 @@ angular.module('wallboardApp')
             loadData();
 
             // set default refresh value to 20 minutes
-            if(angular.isUndefined(scope.refresh)) {
+            if (angular.isUndefined(scope.refresh)) {
                 scope.refresh = 1200;
             }
 

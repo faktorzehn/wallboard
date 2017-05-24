@@ -57,7 +57,7 @@ angular.module('wallboardApp')
 
             function buildAnalyseUrl() {
                 scope.analyseBuildUrl = wconfig.getServices().sonar.uri + '/component_measures';
-                if(scope.domain) {
+                if (scope.domain) {
                     scope.analyseBuildUrl += '/domain/' + scope.domain;
                 }
                 scope.analyseBuildUrl += '?id=' + escape(scope.project);

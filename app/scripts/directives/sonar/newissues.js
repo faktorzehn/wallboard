@@ -38,7 +38,7 @@ angular.module('wallboardApp')
             // calculate before date with the help of MomentJs
             var before = moment().subtract(parseInt(scope.createdbefore), 'days').format('YYYY-MM-DD');
 
-            scope.totalLink = function(severity) {
+            scope.totalLink = function (severity) {
                 return sonar.uri + '/issues/search#resolved=false|createdAfter=' + before +
                     '|projectKeys=' + escape(scope.project) + '|assigned=false|severities='
                     + severity;
@@ -62,7 +62,7 @@ angular.module('wallboardApp')
                     scope.totalIssues = newIssueResponse.total;
                     scope.issues = newIssueResponse.issues;
 
-                    angular.forEach(newIssueResponse.facets[0].values, function(value) {
+                    angular.forEach(newIssueResponse.facets[0].values, function (value) {
                         scope.severities[value.val] = value.count;
                     });
 
@@ -80,7 +80,7 @@ angular.module('wallboardApp')
             getIssuesForAll();
 
             // set default refresh value to 20 minutes
-            if(angular.isUndefined(scope.refresh)) {
+            if (angular.isUndefined(scope.refresh)) {
                 scope.refresh = 1200;
             }
 

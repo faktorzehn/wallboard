@@ -24,7 +24,7 @@ angular.module('wallboardApp')
         var uri = wconfig.getServices().jenkins.uri,
             token = wconfig.getServices().jenkins.token,
 
-        // Service logic
+            // Service logic
             lastSuccessfulBuild = 'lastSuccessfulBuild',
             lastBuild = 'lastBuild',
             lastCompletedBuild = 'lastCompletedBuild',

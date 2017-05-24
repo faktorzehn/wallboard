@@ -34,7 +34,7 @@ angular.module('wallboardApp')
 
             var frac = fraction;
 
-            if(fraction === undefined) {
+            if (fraction === undefined) {
                 frac = 2;
             }
 
