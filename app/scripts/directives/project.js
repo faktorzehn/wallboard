@@ -22,7 +22,7 @@ angular.module('wallboardApp')
     .directive('project', function ($interval, jenkins, sonar, $log) {
 
         const fieldsReport = 'failCount';
-        const fieldsBuild = 'url,result,culprits[fullName]';
+        const fieldsBuild = 'url,result,culprits[fullName],building,timestamp,duration,estimatedDuration';
 
         function link(scope, element, attrs) {
 
@@ -31,6 +31,8 @@ angular.module('wallboardApp')
 
             function updateBuilds() {
                 angular.forEach(scope.buildsArray, function (build) {
+
+                    // load info from last completed build
                     jenkins.getBuild(build.job, jenkins.lastCompletedBuild, fieldsBuild).get(function (response) {
                         build.result = response.result;
                         build.url = response.url;
@@ -45,6 +47,23 @@ angular.module('wallboardApp')
                             $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
                         }
                     });
+
+                    // load progress from last build
+                    jenkins.getBuild(build.job, jenkins.lastBuild, fieldsBuild).get(function (response) {
+                        build.building = response.building;
+
+                        /* calculate progress */
+                        var now = (new Date()).getTime();
+                        var t = (now - response.timestamp) / response.estimatedDuration * 100;
+                        build.progress = t > 100 ? 100 : t;
+
+                    }, function (error) {
+                        if (error) {
+                            $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
+                        }
+                    });
+
+                    // load test info from last completed build
                     jenkins.getTestReport(build.job, jenkins.lastCompletedBuild, fieldsReport).get(function (response) {
                         build.failedTests = response.failCount;
                     }, function (error) {

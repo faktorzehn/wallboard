@@ -51,8 +51,8 @@ angular.module('wallboardApp')
                     scope.lastBuild = build;
 
                     /* calculate progress */
-                    scope.now = (new Date()).getTime();
-                    var t = (scope.now - scope.lastBuild.timestamp) / scope.lastBuild.estimatedDuration * 100;
+                    var now = (new Date()).getTime();
+                    var t = (now - scope.lastBuild.timestamp) / scope.lastBuild.estimatedDuration * 100;
                     scope.lastBuildProgress = t > 100 ? 100 : t;
                 });
             }

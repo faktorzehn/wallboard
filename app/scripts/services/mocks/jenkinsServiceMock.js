@@ -50,8 +50,8 @@ angular.module('wallboardAppDev')
                 var buildInfo = {
                     "failCount": 0,
                     "totalCount": 100,
-                    "timestamp": 1488999334089,
-                    "estimatedDuration": 1960652,
+                    "timestamp": (new Date()).getTime() - 10,
+                    "estimatedDuration": 50,
                     "building": true,
                     "number": 31,
                     "result": null,
