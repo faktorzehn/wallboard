@@ -2,7 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 
-## [unreleased]
+## [1.1.10]
+### Added
+- projects: added progressbar for builds
+
+## [1.1.9]
 ### Fixed
 - jenkins.job: added job state ABORTED
 ### Changed
