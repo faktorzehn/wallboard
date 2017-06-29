@@ -395,7 +395,7 @@ angular.module('wallboardAppDev')
                         {
                             "key": "070a8e18-9e11-46b8-8ef8-cf8507fb368b",
                             "severity": "BLOCKER",
-                            "component": "com:project1:src/main/java/TestSearch.java"
+                            "component": "com:project1:continous:src/main/java/TestSearch.java"
                         }
                     ]
                 };

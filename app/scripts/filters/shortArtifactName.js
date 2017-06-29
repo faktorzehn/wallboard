@@ -22,6 +22,6 @@ angular.module('wallboardApp')
     .filter('shortArtifactName', function () {
         return function (input) {
             var split = input.split(":");
-            return split[1] + "/..." + split[2].substr(split[2].lastIndexOf("/"));
+            return split[1] + "/..." + split[split.length - 1].substr(split[split.length - 1].lastIndexOf("/"));
         }
     });
