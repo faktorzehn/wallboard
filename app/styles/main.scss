@@ -222,14 +222,17 @@ nav {
 }
 
 .change-size {
+    border-left: 1px solid #AAAAAA;
+    padding: 0 0.5em;
+    margin: 15px 1em;
     font-size: 85%;
     a.selected {
         font-weight: bold;
         text-decoration: underline;
     }
     li > a {
-        padding-left: 5px;
-        padding-right: 5px;
+        margin-left: 0.5em;
+        padding: 0;
     }
 }
 
