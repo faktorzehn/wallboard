@@ -171,7 +171,7 @@ angular.module('wallboardApp')
         return {
             restrict: 'E',
             templateUrl: 'views/widgets/project.html',
-            scope: {name: '@', builds: '=', metrics: '=', qualitygate: '=', sonarproject: '@'},
+            scope: {name: '@', builds: '=', metrics: '=', qualitygate: '=', sonarproject: '@', customclass: '@'},
             link: link
         };
     });

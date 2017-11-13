@@ -4,7 +4,7 @@
 
     <div ng-if="builds" class="builds">
         <h4>Builds & Tests</h4>
-        <div ng-repeat="build in buildsArray" class="build {{build.result|buildStable}}"
+        <div ng-repeat="build in buildsArray" class="build {{build.result|buildStable}} {{build.customclass}}"
              ng-mouseover="showCulprits = true" ng-mouseleave="showCulprits = false" ng-init="showCulprits=false">
             <div style="width: 75%; display: inline-block;"><a href="{{build.url}}" target="_blank">{{build.name}}</a></div>
             <div ng-if="build.failedTests"
