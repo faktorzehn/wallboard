@@ -2,7 +2,9 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 
-## [unreleased]
+## [1.1.11]
+### Added
+- projects: custom class for styling
 ### Fixed
 - sonar.newissues: fixed calculation of short artifact name
 
