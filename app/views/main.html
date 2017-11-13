@@ -1,56 +1,63 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-show="showMenu">
-    <div class="container-fluid">
+<div class="wallboard__wrapper" ng-class="size">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-show="showMenu">
+        <div class="container-fluid">
 
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="uib-collapse"
-                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <h1 class="navbar-brand">{{config.title}}</h1>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li ng-repeat="project in projects" ng-class="selectedProject == $index ? 'active' : ''">
-                    <a ng-href="#/project/{{$index}}">{{project.name}}</a>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left">
-                <switch name="enabled" ng-model="autorefresh" class="green" uib-tooltip="Auto Refresh"
-                        tooltip-placement="bottom"></switch>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li ng-repeat="service in services">
-                    <a href="{{service.uri}}" target="_blank">{{service.name}}</a>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-
-<div class="container-fluid" ng-class="showMenu? 'showMenu' : ''" ng-mousemove="userActivity()">
-    <!-- rows -->
-    <div ng-repeat="row in projects[selectedProject].rows" class="row wallboard-row row-{{$index}}">
-        <!-- columns -->
-        <div ng-repeat="column in row.columns" class="wallboard-column col-md-{{column.width}} column-{{$index}}">
-            <div class="wrapper">
-                <h2 ng-if="column.title" class="title">{{column.title}}</h2>
-                <p ng-if="column.description" class="description">{{column.description}}</p>
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="uib-collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <h1 class="navbar-brand">{{config.title}}</h1>
             </div>
-            <widget ng-repeat="widget in column.widgets"
-                    config="widget">
-            </widget>
-        </div><!-- /.columns -->
-    </div><!-- /.rows -->
-</div>
 
-<footer ng-if="branding">
-    <span class="version">Version: __VERSION__</span> - <span>Featured by <a href="http://www.faktorzehn.at"
-                                                                             target="_blank">ConVista Faktor Zehn GmbH</a> - <a
-    href="https://www.gnu.org/licenses/gpl-3.0.txt" target="_blank">GPLv3</a></span>
-</footer>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li ng-repeat="project in projects" ng-class="selectedProject == $index ? 'active' : ''">
+                        <a ng-href="#/project/{{$index}}">{{project.name}}</a>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <switch name="enabled" ng-model="autorefresh" class="green" uib-tooltip="Auto Refresh"
+                            tooltip-placement="bottom"></switch>
+                </form>
+                <ul class="nav navbar-nav change-size">
+                    <li><a ng-click="setSize('small')" ng-class="size == 'small' ? 'selected' : ''">S</a></li>
+                    <li><a ng-click="setSize('normal')" ng-class="size == 'normal' ? 'selected' : ''">M</a></li>
+                    <li><a ng-click="setSize('large')" ng-class="size == 'large' ? 'selected' : ''">L</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-repeat="service in services">
+                        <a href="{{service.uri}}" target="_blank">{{service.name}}</a>
+                    </li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="container-fluid" ng-class="showMenu? 'showMenu' : ''" ng-mousemove="userActivity()">
+        <!-- rows -->
+        <div ng-repeat="row in projects[selectedProject].rows" class="row wallboard-row row-{{$index}}">
+            <!-- columns -->
+            <div ng-repeat="column in row.columns" class="wallboard-column col-md-{{column.width}} column-{{$index}}">
+                <div class="wrapper">
+                    <h2 ng-if="column.title" class="title">{{column.title}}</h2>
+                    <p ng-if="column.description" class="description">{{column.description}}</p>
+                </div>
+                <widget ng-repeat="widget in column.widgets"
+                        config="widget">
+                </widget>
+            </div><!-- /.columns -->
+        </div><!-- /.rows -->
+    </div>
+
+    <footer ng-if="branding">
+        <span class="version">Version: __VERSION__</span> - <span>Featured by <a href="http://www.faktorzehn.at"
+                                                                                 target="_blank">ConVista Faktor Zehn GmbH</a> - <a
+        href="https://www.gnu.org/licenses/gpl-3.0.txt" target="_blank">GPLv3</a></span>
+    </footer>
+    </div>

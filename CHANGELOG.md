@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 
+## [unreleased]
+### Added
+- size switcher in header: change to Small, Medium, Large
+
 ## [1.1.11]
 ### Added
 - projects: custom class for styling

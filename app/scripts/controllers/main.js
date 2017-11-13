@@ -30,6 +30,17 @@ angular.module('wallboardApp')
         $scope.showMenu = true;
         $scope.branding = true;
 
+        if(window.localStorage.getItem('size') === null) {
+            window.localStorage.setItem('size', 'normal');
+        }
+
+        $scope.size = window.localStorage.getItem('size');
+
+        $scope.setSize = function(size) {
+            $scope.size = size;
+            window.localStorage.setItem('size', size);
+        };
+
         if (angular.isDefined($scope.config.branding)) {
             $scope.branding = $scope.config.branding;
         }
