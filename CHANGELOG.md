@@ -5,6 +5,7 @@ This project adheres to [ConVista Faktor Zehn GmbH](http://www.faktorzehn.at/).
 ## [unreleased]
 ### Added
 - size switcher in header: change to Small, Medium, Large
+- projects: show information on staged build (see Jenkins Pipeline Stage View Plugin)
 
 ## [1.1.11]
 ### Added

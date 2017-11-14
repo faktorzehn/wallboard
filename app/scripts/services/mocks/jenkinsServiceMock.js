@@ -205,4 +205,55 @@ angular.module('wallboardAppDev')
                 return [200, build, {}];
             });
 
+        // https://github.com/jenkinsci/pipeline-stage-view-plugin/blob/master/rest-api/README.md
+        $httpBackend.whenGET(/jenkins\/job\/Compile_Trunk\/wfapi\/runs/, undefined, [])
+            .respond(function (method, url, data) {
+                var runs = [
+                    {
+                        "id": "76",
+                        "name": "#76",
+                        "status": "FAILURE",
+                        "stages": [
+                            {
+                                "id": "9",
+                                "name": "Declarative: Checkout SCM",
+                                "status": "SUCCESS"
+                            },
+                            {
+                                "id": "14",
+                                "name": "Declarative: Tool Install",
+                                "status": "UNSTABLE"
+                            },
+                            {
+                                "id": "22",
+                                "name": "compile-test",
+                                "status": "SUCCESS"
+                            }
+                        ]
+                    },
+                    {
+                        "id": "75",
+                        "name": "#75",
+                        "status": "SUCCESS",
+                        "stages": [
+                            {
+                                "id": "9",
+                                "name": "Declarative: Checkout SCM",
+                                "status": "SUCCESS"
+                            },
+                            {
+                                "id": "14",
+                                "name": "Declarative: Tool Install",
+                                "status": "SUCCESS"
+                            },
+                            {
+                                "id": "22",
+                                "name": "compile-test",
+                                "status": "SUCCESS"
+                            }
+                        ]
+                    }];
+                return [200, runs, {}];
+            });
+
     });

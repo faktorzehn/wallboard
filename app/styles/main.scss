@@ -502,6 +502,7 @@ nav {
     }
     .build,
     .metric,
+    .stage,
     .qualitygate .condition {
         padding: 5px 20px;
         &.good {
@@ -535,12 +536,22 @@ nav {
     }
     .build,
     .metric,
+    .stage,
     .qualitygate {
         &.failure {
             border-style: solid;
             border-width: 2px;
         }
     }
+    .stages {
+        padding: 0.5em 0;
+        .stage {
+            &:before {
+                content: "\21E2"
+            }
+        }
+    }
+
     // hide good qualitygates
     .qualitygate .condition.green {
         display: none;

@@ -32,21 +32,25 @@ angular.module('wallboardApp')
             jsonPath = 'api/json',
             testReport = 'testReport',
 
-            createResource = function (url) {
+            createResource = function (url, isArray) {
                 return $resource(url, {}, {
                     get: {
                         method: 'GET',
-                        isArray: false,
+                        isArray: isArray,
                         headers: {Authorization: 'Basic ' + token}
                     }
                 });
             },
             getBuild = function (job, build, fields) {
-                return createResource(uri + '/job/' + job + '/' + build + '/' + jsonPath + '?tree=' + fields);
+                return createResource(uri + '/job/' + job + '/' + build + '/' + jsonPath + '?tree=' + fields, false);
             },
 
             getTestReport = function (job, build, fields) {
-                return createResource(uri + '/job/' + job + '/' + build + '/' + testReport + '/' + jsonPath + '?tree=' + fields);
+                return createResource(uri + '/job/' + job + '/' + build + '/' + testReport + '/' + jsonPath + '?tree=' + fields, false);
+            },
+
+            getRuns = function(job) {
+                return createResource(uri + '/job/' + job + '/wfapi/runs', true);
             };
 
         // Public API here
@@ -57,7 +61,8 @@ angular.module('wallboardApp')
             lastCompletedBuild: lastCompletedBuild,
             lastStableBuild: lastStableBuild,
             getTestReport: getTestReport,
-            getBuild: getBuild
-        };
+            getBuild: getBuild,
+            getRuns: getRuns
+        }
     });
 

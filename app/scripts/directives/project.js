@@ -71,6 +71,17 @@ angular.module('wallboardApp')
                             $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
                         }
                     });
+
+                    if(build.staged) {
+                        jenkins.getRuns(build.job).get(function (response) {
+                            build.stages = response[0].stages;
+                        }, function (error) {
+                            if (error) {
+                                $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
+                            }
+                        });
+                    }
+
                 });
             }
 
@@ -142,6 +153,9 @@ angular.module('wallboardApp')
             function updateAll() {
                 if (scope.builds) {
                     updateBuilds();
+                }
+                if (scope.stagedbuilds) {
+                    updateStagedBuilds();
                 }
                 if (scope.metrics) {
                     updateMetrics();
