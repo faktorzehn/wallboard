@@ -44,12 +44,15 @@ angular.module('wallboardApp')
             getBuild = function (job, build, fields) {
                 return createResource(uri + '/job/' + job + '/' + build + '/' + jsonPath + '?tree=' + fields, false);
             },
+            getMultiBuild = function (job) {
+                return createResource(uri + '/job/' + job + '/' + jsonPath, false);
+            },
 
             getTestReport = function (job, build, fields) {
                 return createResource(uri + '/job/' + job + '/' + build + '/' + testReport + '/' + jsonPath + '?tree=' + fields, false);
             },
 
-            getRuns = function(job) {
+            getRuns = function (job) {
                 return createResource(uri + '/job/' + job + '/wfapi/runs', true);
             };
 
@@ -62,6 +65,7 @@ angular.module('wallboardApp')
             lastStableBuild: lastStableBuild,
             getTestReport: getTestReport,
             getBuild: getBuild,
+            getMultiBuild: getMultiBuild,
             getRuns: getRuns
         }
     });

@@ -150,6 +150,88 @@ angular.module('wallboardAppDev')
                 return [200, buildInfo, {}];
             });
 
+        // jenkins job multibranch
+        $httpBackend.whenGET(/jenkins\/job\/Compile_Multibranch\/api\/json.*/, undefined, [])
+            .respond(function (method, url, data, headers, params) {
+                var buildInfo = {
+                    "url": "https://build.project.com/jenkins/job/test.multibranch",
+                    "jobs": [
+                        {
+                            "name": "master",
+                            "url": "https://build.wrwks.at/jenkins/job/test.multibranch/job/master/"
+                        },
+                        {
+                            "name": "feature%2FJAMP-6478",
+                            "url": "https://build.wrwks.at/jenkins/job/test.multibranch/job/feature%252FJAMP-6478/"
+                        }
+                    ]
+                };
+
+                return [200, buildInfo, {}];
+            });
+
+        // jenkins job multibranch master
+        $httpBackend.whenGET(/jenkins\/job\/Compile_Multibranch\/job\/master\/last(.*)Build(\/testReport)?\/api\/json.*/, undefined, ['job', 'testReport'])
+            .respond(function (method, url, data, headers, params) {
+                var buildInfo = {
+                    "timestamp": 1477349332089,
+                    "estimatedDuration": 1960652,
+                    "building": false,
+                    "number": 432,
+                    "url": "https://build.project.com/jenkins/job/Compile_Multibranch/job/master/8/",
+                    "result": "SUCCESS",
+                    "culprits": [
+                        {
+                            "fullName": "John Doe"
+                        },
+                        {
+                            "fullName": "Jane Doe"
+                        }
+                    ]
+                };
+                var testReport = {
+                    "failCount": 0,
+                    "totalCount": 100
+                };
+
+                if (!angular.isUndefined(params.testReport)) {
+                    return [200, testReport, {}];
+                }
+
+                return [200, buildInfo, {}];
+            });
+
+        // jenkins job multibranch feature/JAMP-6478
+        $httpBackend.whenGET(/jenkins\/job\/Compile_Multibranch\/job\/feature%252FJAMP-6478\/last(.*)Build(\/testReport)?\/api\/json.*/, undefined, ['job', 'testReport'])
+            .respond(function (method, url, data, headers, params) {
+                var buildInfo = {
+                    "timestamp": 1477349332089,
+                    "estimatedDuration": 1960652,
+                    "building": false,
+                    "number": 23,
+                    "url": "https://build.project.com/jenkins/job/Compile_Multibranch/job/feature%2FJAMP-6478/8/",
+                    "result": "UNSTABLE",
+                    "culprits": [
+                        {
+                            "fullName": "John Doe"
+                        },
+                        {
+                            "fullName": "Jane Doe"
+                        }
+                    ]
+                };
+                var testReport = {
+                    "failCount": 10,
+                    "totalCount": 100
+                };
+
+                if (!angular.isUndefined(params.testReport)) {
+                    return [200, testReport, {}];
+                }
+
+                return [200, buildInfo, {}];
+            });
+
         // jenkins job branch-2 failed
         $httpBackend.whenGET(/jenkins\/job\/Compile_Branch-2\/last(.*)Build(\/testReport)?\/api\/json.*/, undefined, ['job', 'testReport'])
             .respond(function (method, url, data, headers, params) {

@@ -28,60 +28,92 @@ angular.module('wallboardApp')
 
             scope.buildsArray = scope.builds;
             scope.metricsArray = scope.metrics;
+            scope.multiBuildsArray = scope.multibuilds;
+
+            // load info from last completed build
+            function loadLastCompletedBuild(build) {
+                jenkins.getBuild(build.job, jenkins.lastCompletedBuild, fieldsBuild).get(function (response) {
+                    build.result = response.result;
+                    build.url = response.url;
+                    build.culprits = response.culprits;
+
+                    if (!build.name) {
+                        build.name = build.job;
+                    }
+
+                }, function (error) {
+                    if (error) {
+                        $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
+                    }
+                });
+            }
+
+            // load progress from last build
+            function loadProgress(build) {
+                jenkins.getBuild(build.job, jenkins.lastBuild, fieldsBuild).get(function (response) {
+                    build.building = response.building;
+
+                    /* calculate progress */
+                    var now = (new Date()).getTime();
+                    var t = (now - response.timestamp) / response.estimatedDuration * 100;
+                    build.progress = t > 100 ? 100 : t;
+
+                }, function (error) {
+                    if (error) {
+                        $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
+                    }
+                });
+            }
+
+            // load test info from last completed build
+            function loadTestInfos(build) {
+                jenkins.getTestReport(build.job, jenkins.lastCompletedBuild, fieldsReport).get(function (response) {
+                    build.failedTests = response.failCount;
+                }, function (error) {
+                    if (error) {
+                        $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
+                    }
+                });
+
+                if (build.staged) {
+                    jenkins.getRuns(build.job).get(function (response) {
+                        build.stages = response[0].stages;
+                    }, function (error) {
+                        if (error) {
+                            $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
+                        }
+                    });
+                }
+            }
 
             function updateBuilds() {
                 angular.forEach(scope.buildsArray, function (build) {
+                    loadLastCompletedBuild(build);
+                    loadProgress(build);
+                    loadTestInfos(build);
+                });
+            }
 
-                    // load info from last completed build
-                    jenkins.getBuild(build.job, jenkins.lastCompletedBuild, fieldsBuild).get(function (response) {
-                        build.result = response.result;
-                        build.url = response.url;
-                        build.culprits = response.culprits;
+            function updateMultiBuilds() {
+                scope.multiBuildsChildArray = [];
+                angular.forEach(scope.multiBuildsArray, function (multibuild) {
+                    jenkins.getMultiBuild(multibuild.job).get(function (response) {
+                        angular.forEach(response.jobs, function (build) {
 
-                        if (!build.name) {
-                            build.name = build.job;
-                        }
+                            // due to a bug in jenkins we need to encode the build name
+                            build.job = multibuild.job + '/job/' + encodeURI(build.name);
 
+                            loadLastCompletedBuild(build);
+                            loadProgress(build);
+                            loadTestInfos(build);
+
+                            scope.multiBuildsChildArray.push(build);
+                        })
                     }, function (error) {
-                        if (error) {
-                            $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
+                        if(error) {
+                            $log.error("Fehler beim laden eines Multibuilds!\n" + JSON.stringify(error));
                         }
                     });
-
-                    // load progress from last build
-                    jenkins.getBuild(build.job, jenkins.lastBuild, fieldsBuild).get(function (response) {
-                        build.building = response.building;
-
-                        /* calculate progress */
-                        var now = (new Date()).getTime();
-                        var t = (now - response.timestamp) / response.estimatedDuration * 100;
-                        build.progress = t > 100 ? 100 : t;
-
-                    }, function (error) {
-                        if (error) {
-                            $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
-                        }
-                    });
-
-                    // load test info from last completed build
-                    jenkins.getTestReport(build.job, jenkins.lastCompletedBuild, fieldsReport).get(function (response) {
-                        build.failedTests = response.failCount;
-                    }, function (error) {
-                        if (error) {
-                            $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
-                        }
-                    });
-
-                    if(build.staged) {
-                        jenkins.getRuns(build.job).get(function (response) {
-                            build.stages = response[0].stages;
-                        }, function (error) {
-                            if (error) {
-                                $log.error("Fehler beim Anmelden an Jenkins!\n" + JSON.stringify(error));
-                            }
-                        });
-                    }
-
                 });
             }
 
@@ -154,8 +186,8 @@ angular.module('wallboardApp')
                 if (scope.builds) {
                     updateBuilds();
                 }
-                if (scope.stagedbuilds) {
-                    updateStagedBuilds();
+                if (scope.multibuilds) {
+                    updateMultiBuilds();
                 }
                 if (scope.metrics) {
                     updateMetrics();
@@ -185,7 +217,7 @@ angular.module('wallboardApp')
         return {
             restrict: 'E',
             templateUrl: 'views/widgets/project.html',
-            scope: {name: '@', builds: '=', metrics: '=', qualitygate: '=', sonarproject: '@', customclass: '@'},
+            scope: {name: '@', builds: '=', multibuilds: '=', metrics: '=', qualitygate: '=', sonarproject: '@', customclass: '@', refresh: '@'},
             link: link
         };
     });
