@@ -1,3 +1,5 @@
+This project is archived. Thank's for the great experience.
+
 # Wallboard
 
 Wallboard is a tool that helps developers to keep track of important metrics on their projects.
